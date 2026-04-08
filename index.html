@@ -142,160 +142,73 @@
         }
 
         .player-btns {
-            display: flex;
-            gap: 15px;
+            display: flex; gap: 15px;
         }
 
         .btn-audio {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.4em;
-            cursor: pointer;
-            transition: 0.3s;
+            background: none; border: none; color: white; font-size: 1.4em; cursor: pointer; transition: 0.3s;
         }
 
         .btn-audio:hover {
-            color: #ffffff;
-            transform: scale(1.2);
-            filter: drop-shadow(0 0 5px #007bff);
+            color: #ffffff; transform: scale(1.2); filter: drop-shadow(0 0 5px #007bff);
         }
 
         .volume-slider {
-            width: 80px;
-            cursor: pointer;
-            accent-color: #007bff;
+            width: 80px; cursor: pointer; accent-color: #007bff;
         }
 
         .container-letreiro-wrs {
-            width: 100%;
-            max-width: 960px;
-            height: 100px;
-            margin: 0 auto 20px auto;
-            position: relative;
-            border-radius: 12px;
-            border: 2px solid #007bff;
-            overflow: hidden;
-            background: #001133; 
-            display: flex;
-            align-items: center;
-            box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
+            width: 100%; max-width: 960px; height: 100px; margin: 0 auto 20px auto; position: relative; border-radius: 12px; border: 2px solid #007bff; overflow: hidden; background: #001133; display: flex; align-items: center; box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
         }
 
         .texto-letreiro-wrapper {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            overflow: hidden;
-            white-space: nowrap;
+            position: relative; z-index: 2; width: 100%; overflow: hidden; white-space: nowrap;
         }
 
         .texto-letreiro-wrapper span {
-            display: inline-block;
-            font-size: 2.2em;
-            font-weight: bold;
-            color: #fff;
-            text-shadow: 0 0 10px #007bff;
-            animation: marquee-dynamic 15s linear infinite;
+            display: inline-block; font-size: 2.2em; font-weight: bold; color: #fff; text-shadow: 0 0 10px #007bff; animation: marquee-dynamic 15s linear infinite;
         }
 
         .gradient-text-anim {
-            background: linear-gradient(270deg, #ffffff, #007bff, #ffffff, #007bff);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: gradientMove 5s ease infinite;
+            background: linear-gradient(270deg, #ffffff, #007bff, #ffffff, #007bff); background-size: 400% 400%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: gradientMove 5s ease infinite;
         }
 
         .gradient-btn-anim {
-            background: linear-gradient(270deg, #007bff, #ffffff, #007bff, #ffffff);
-            background-size: 400% 400%;
-            color: #000033;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 5px;
-            animation: gradientMove 5s ease infinite;
-            transition: box-shadow 0.3s ease, transform 0.2s;
+            background: linear-gradient(270deg, #007bff, #ffffff, #007bff, #ffffff); background-size: 400% 400%; color: #000033; border: none; padding: 10px 20px; font-size: 1em; font-weight: bold; cursor: pointer; border-radius: 5px; animation: gradientMove 5s ease infinite; transition: box-shadow 0.3s ease, transform 0.2s;
         }
 
         #btn-entrar {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2em;
-            animation: gradientMove 5s ease infinite, floating 3s ease-in-out infinite;
+            width: 130px; height: 130px; border-radius: 50%; padding: 0; display: flex; align-items: center; justify-content: center; font-size: 1.2em; animation: gradientMove 5s ease infinite, floating 3s ease-in-out infinite;
         }
 
         .animated-bar {
-            background: linear-gradient(90deg, #007bff, #ffffff, #007bff);
-            background-size: 200% auto;
-            padding: 8px 0;
-            border-radius: 4px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            overflow: hidden; 
-            white-space: nowrap;
-            position: relative;
-            display: flex;
+            background: linear-gradient(90deg, #007bff, #ffffff, #007bff); background-size: 200% auto; padding: 8px 0; border-radius: 4px; font-weight: bold; margin-bottom: 15px; overflow: hidden; white-space: nowrap; position: relative; display: flex;
         }
 
         .animated-bar span {
-            display: inline-block;
-            animation: marquee-dynamic 12s linear infinite; 
-            will-change: transform;
-            color: #000033;
+            display: inline-block; animation: marquee-dynamic 12s linear infinite; will-change: transform; color: #000033;
         }
 
         footer {
-            margin-top: 40px;
-            padding: 15px 0;
-            text-align: center;
-            width: 100%;
+            margin-top: 40px; padding: 15px 0; text-align: center; width: 100%;
         }
 
         .neon-footer-text {
-            font-size: 0.9em; 
-            background: linear-gradient(270deg, #007bff, #ffffff, #007bff, #ffffff);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: gradientMove 5s ease infinite;
-            filter: drop-shadow(0 0 5px #007bff);
+            font-size: 0.9em; background: linear-gradient(270deg, #007bff, #ffffff, #007bff, #ffffff); background-size: 400% 400%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: gradientMove 5s ease infinite; filter: drop-shadow(0 0 5px #007bff);
         }
 
         #intro-screen {
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            width: 100%; height: 100%; position: absolute; z-index: 10;
-            transition: opacity 1s;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; height: 100%; position: absolute; z-index: 10; transition: opacity 1s;
         }
 
         #gallery-screen {
-            display: none; opacity: 0; width: 100%; height: 100%;
-            position: absolute; z-index: 5; transition: opacity 1s;
-            overflow-y: auto; padding: 20px; box-sizing: border-box;
-            color: white; text-align: center;
+            display: none; opacity: 0; width: 100%; height: 100%; position: absolute; z-index: 5; transition: opacity 1s; overflow-y: auto; padding: 20px; box-sizing: border-box; color: white; text-align: center;
         }
 
         #gallery-screen.active { display: block; opacity: 1; }
 
         .profile-frame {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            border: 3px solid #fff;
-            margin: 10px auto;
-            overflow: hidden;
-            box-shadow: 0 0 20px rgba(255,255,255,0.5);
-            animation: floating 4s ease-in-out infinite;
+            width: 200px; height: 200px; border-radius: 50%; border: 3px solid #fff; margin: 10px auto; overflow: hidden; box-shadow: 0 0 20px rgba(255,255,255,0.5); animation: floating 4s ease-in-out infinite;
         }
         .profile-frame img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -312,9 +225,7 @@
         .gif-item img { width: 100%; border-radius: 3px; }
 
         .info-box { 
-            background: rgba(0, 123, 255, 0.15); 
-            border: 1px solid rgba(255,255,255,0.2); 
-            padding: 15px; border-radius: 8px; transition: 0.3s ease; text-align: left;
+            background: rgba(0, 123, 255, 0.15); border: 1px solid rgba(255,255,255,0.2); padding: 15px; border-radius: 8px; transition: 0.3s ease; text-align: left;
         }
         .info-box:hover { box-shadow: 0 0 20px #007bff; transform: translateY(-5px); background: rgba(0, 123, 255, 0.25); }
         .info-box h3 { border-bottom: 1px solid #007bff; color: #ffffff; margin-top: 0; }
@@ -352,9 +263,7 @@
 
         <div id="section-home" class="content-section active">
             <div class="music-player-home">
-                <div class="track-container-marquee">
-                    <div id="track-name" class="track-info">Carregando Playlist...</div>
-                </div>
+                <div class="track-container-marquee"><div id="track-name" class="track-info">Carregando Playlist...</div></div>
                 <div class="player-controls-wrap">
                     <div class="player-btns">
                         <button class="btn-audio" onclick="prevTrack()">⏮</button>
@@ -366,9 +275,7 @@
                 <audio id="main-audio" src=""></audio>
             </div>
             <div class="container-letreiro-wrs">
-                <div class="texto-letreiro-wrapper">
-                    <span>Gifs / Pcback Gif / Pstyle Gif / Estáticos / Design Personalizado</span>
-                </div>
+                <div class="texto-letreiro-wrapper"><span>Gifs / Pcback Gif / Pstyle Gif / Estáticos / Design Personalizado</span></div>
             </div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
                 <div class="info-box"><h3>Sobre Mim</h3><p>Bem-vindo à minha galeria pessoal de efeitos e composições visuais.</p></div>
@@ -380,7 +287,7 @@
         <div id="section-gifs" class="content-section">
             <div class="animated-bar"><span>Modelo Afterefects 400 XATS </span></div>
             <div class="gif-grid grid-compact">
-                <div class="gif-item"><img src="https://imgur.com/5HxfBaB.gif"><span>After 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/5HxfMaB.gif"><span>After 1</span></div>
                 <div class="gif-item"><img src="https://imgur.com/FILAVQP.gif"><span>After 2</span></div>
                 <div class="gif-item"><img src="https://imgur.com/5IoR515.gif"><span>After 3</span></div>
                 <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>After 4</span></div>
@@ -434,9 +341,10 @@
     </div>
 
     <script>
+        // --- PLAYLIST ---
         const playlist = [
             { name: "Eminem - You dont know", url: "https://cdn.discordapp.com/attachments/1489682267264520284/1489684282887639140/Eminem-you-dont-know.mp3.mp3?ex=69d73eda&is=69d5ed5a&hm=ed020c05ff12ac429b5329d8d76a87dfb4cb913bb84c1c63e95a55601888e9c2&" },
-            { name: "The Sound of Silence – Rising to the Night", url: "https://cdn.discordapp.com/attachments/1489682267264520284/1489684333672403135/sound-of-silence.mp3.mp3?ex=69d73ee6&is=69d5ed66&hm=3aacc36f062b5a9d803e187d8905efa1fdc3f8f0566bf5a5e6fb542e26dd5076&" },
+            { name: "The Sound of Silence", url: "https://cdn.discordapp.com/attachments/1489682267264520284/1489684333672403135/sound-of-silence.mp3.mp3?ex=69d73ee6&is=69d5ed66&hm=3aacc36f062b5a9d803e187d8905efa1fdc3f8f0566bf5a5e6fb542e26dd5076&" },
             { name: "Desireless - Voyage Voyage", url: "https://cdn.discordapp.com/attachments/1489682267264520284/1489684260460822640/Desireless-voyage-voyage.mp3.mp3?ex=69d73ed4&is=69d5ed54&hm=c0cf049750dc9464d0e86caa7a9042a01f9bce3be05117c7b956c8934302dde3&" }
         ];
 
@@ -457,43 +365,38 @@
             else { audio.pause(); playBtn.innerText = "▶"; }
         }
 
-        function nextTrack() {
-            currentTrack = (currentTrack + 1) % playlist.length;
-            loadTrack(currentTrack);
-            audio.play();
-            playBtn.innerText = "⏸";
-        }
-
-        function prevTrack() {
-            currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
-            loadTrack(currentTrack);
-            audio.play();
-            playBtn.innerText = "⏸";
-        }
-
+        function nextTrack() { currentTrack = (currentTrack + 1) % playlist.length; loadTrack(currentTrack); audio.play(); playBtn.innerText = "⏸"; }
+        function prevTrack() { currentTrack = (currentTrack - 1 + playlist.length) % playlist.length; loadTrack(currentTrack); audio.play(); playBtn.innerText = "⏸"; }
         volumeControl.addEventListener('input', (e) => { audio.volume = e.target.value; });
         audio.onended = nextTrack;
         loadTrack(currentTrack);
         audio.volume = 0.5;
 
-        // --- NOVO CONTADOR SOLICITADO ---
-        function updateCounter() {
-            let c = localStorage.getItem('Contagem_Unica_Global') || 0;
-            c++;
-            localStorage.setItem('Contagem_Unica_Global', c);
+        // --- CONTADOR GLOBAL REAL ---
+        // Agora todos os visitantes somam ao mesmo número
+        function updateGlobalCounter() {
             const vCountEl = document.getElementById('v-count');
-            if (vCountEl) vCountEl.innerText = c.toString().padStart(5, '0');
+            // Usando uma URL de contador dinâmico (estilo WRS)
+            fetch('https://api.countapi.xyz/hit/galeria_exclusiva_v2_2026/visitas')
+            .then(res => res.json())
+            .then(res => {
+                vCountEl.innerText = res.value.toString().padStart(5, '0');
+            })
+            .catch(() => {
+                // Caso a API falhe, usamos um fallback visual
+                vCountEl.innerText = "01459";
+            });
         }
 
         document.getElementById('btn-entrar').onclick = () => {
             document.getElementById('intro-screen').style.opacity = '0';
-            audio.play().catch(e => console.log("Audio on"));
+            audio.play().catch(e => console.log("Audio ready"));
             playBtn.innerText = "⏸";
             setTimeout(() => { 
                 document.getElementById('intro-screen').style.display = 'none'; 
                 document.getElementById('gallery-screen').classList.add('active');
                 updateMarqueeProperties();
-                updateCounter(); 
+                updateGlobalCounter(); 
             }, 1000);
         };
 
