@@ -190,6 +190,21 @@
             will-change: transform;
         }
 
+        /* --- ESTILO DO CONTADOR --- */
+        .visit-counter {
+            background: rgba(0, 123, 255, 0.1);
+            border: 1px solid #007bff;
+            color: #00c6ff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px #007bff;
+            font-size: 0.85em;
+        }
+
         /* --- RODAPÉ PEQUENO (AJUSTADO) --- */
         footer {
             margin-top: 40px;
@@ -199,7 +214,7 @@
         }
 
         .neon-footer-text {
-            font-size: 0.9em; /* Tamanho reduzido para estilo de site */
+            font-size: 0.9em; 
             font-weight: normal;
             text-transform: uppercase;
             letter-spacing: 1.5px;
@@ -380,11 +395,24 @@
         </div>
 
         <footer>
+            <div class="visit-counter">Visitas: <span id="count-value">...</span></div>
             <div class="neon-footer-text">Galeria exclusiva 2026</div>
         </footer>
     </div>
 
     <script>
+        function updateCounter() {
+            // Usando uma API pública estável para contagem global
+            fetch('https://api.countapi.xyz/hit/galeriawrs_unique_2026/visits')
+            .then(res => res.json())
+            .then(res => {
+                document.getElementById('count-value').innerText = res.value;
+            })
+            .catch(() => {
+                document.getElementById('count-value').innerText = "Online";
+            });
+        }
+
         function showAlert(e) {
             if (e) e.preventDefault();
             const alertBox = document.getElementById('custom-alert');
@@ -412,6 +440,7 @@
                 intro.style.display = 'none'; 
                 gallery.classList.add('active');
                 updateMarqueeProperties();
+                updateCounter(); 
             }, 1000);
         };
 
