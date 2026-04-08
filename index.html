@@ -127,7 +127,7 @@
             animation: gradientMove 5s ease infinite, floating 3s ease-in-out infinite;
         }
 
-        /* --- ESTILO DO NOVO LETREIRO (Fios e Fumaça) --- */
+        /* --- ESTILO DO LETREIRO (FUNDO AZUL ESCURO) --- */
         .container-letreiro-wrs {
             width: 100%;
             max-width: 960px;
@@ -135,21 +135,12 @@
             margin: 0 auto 20px auto;
             position: relative;
             border-radius: 12px;
-            border: 1px solid rgba(0, 123, 255, 0.5);
+            border: 2px solid #007bff;
             overflow: hidden;
-            background: #000;
+            background: #001133; /* Azul Escuro */
             display: flex;
             align-items: center;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-        }
-
-        .img-fundo-letreiro {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            object-fit: cover;
-            opacity: 0.7;
-            z-index: 1;
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
         }
 
         .texto-letreiro-wrapper {
@@ -160,7 +151,6 @@
             white-space: nowrap;
         }
 
-        /* Reaproveitando a animação existente span */
         .texto-letreiro-wrapper span {
             display: inline-block;
             font-size: 2.2em;
@@ -268,9 +258,8 @@
         <div id="section-home" class="content-section active">
             
             <div class="container-letreiro-wrs">
-                <img src="https://i.imgur.com/SFnk7A6.gif" class="img-fundo-letreiro">
                 <div class="texto-letreiro-wrapper">
-                    <span>Gifs / Pstyle / Pcback / Estáticos / Galeria Exclusiva</span>
+                    <span>Gifs / Pstyle / Pcback / Estáticos / Design Personalizado</span>
                 </div>
             </div>
 
@@ -288,7 +277,7 @@
                 <div class="gif-item"><img src="https://imgur.com/FILAVQP.gif"><span>After 2</span></div>
             </div>
         </div>
-        
+
         <div id="section-pcback" class="content-section">
             <div class="animated-bar"><span>Pcback GIFs 450 XATS </span></div>
             <div class="gif-grid grid-normal">
@@ -359,8 +348,7 @@
         document.getElementById('btn-pstyle-est').onclick = () => show('section-pstyle-est');
 
         function updateMarqueeProperties() {
-            // Atualiza tanto as barras azuis quanto o letreiro de fundo preto
-            const spans = document.querySelectorAll('span[style*="marquee-dynamic"], .animated-bar span, .texto-letreiro-wrapper span');
+            const spans = document.querySelectorAll('.animated-bar span, .texto-letreiro-wrapper span');
             spans.forEach(span => {
                 const parent = span.parentElement;
                 const parentWidth = parent.offsetWidth;
@@ -370,7 +358,6 @@
             });
         }
         window.addEventListener('resize', updateMarqueeProperties);
-        // Pequeno atraso para garantir que o texto foi renderizado antes de calcular largura
         setTimeout(updateMarqueeProperties, 500);
     </script>
 </body>
