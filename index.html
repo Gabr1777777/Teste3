@@ -190,7 +190,7 @@
             will-change: transform;
         }
 
-        /* --- RODAPÉ PEQUENO --- */
+        /* --- RODAPÉ PEQUENO (AJUSTADO) --- */
         footer {
             margin-top: 40px;
             padding: 15px 0;
@@ -211,14 +211,6 @@
             animation: gradientMove 5s ease infinite;
             filter: drop-shadow(0 0 5px #007bff);
             opacity: 0.8;
-        }
-
-        /* --- ESTILO DO CONTADOR FIXADO --- */
-        .counter-wrs-fix {
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: center;
-            filter: drop-shadow(0 0 8px #007bff);
         }
 
         /* --- ESTRUTURA DE TELAS --- */
@@ -388,14 +380,23 @@
         </div>
 
         <footer>
-            <div class="counter-wrs-fix">
-                <img src="https://hitwebcounter.com/counter/counter.php?page=GALERIA_WRS_V3_2026&style=0011&nbdigits=5&type=page&initCount=0" border="0" />
-            </div>
             <div class="neon-footer-text">Galeria exclusiva 2026</div>
+            <div style="margin-top: 15px; font-family: monospace; color: #ff007f; font-size: 0.8rem;">
+                VISITAS: <span id="v-count">00000</span>
+            </div>
         </footer>
     </div>
 
     <script>
+        // FUNÇÃO DO CONTADOR
+        function updateCounter() {
+            let c = localStorage.getItem('Name_v') || 0;
+            c++;
+            localStorage.setItem('Name_v', c);
+            const vCountEl = document.getElementById('v-count');
+            if (vCountEl) vCountEl.innerText = c.toString().padStart(5, '0');
+        }
+
         function showAlert(e) {
             if (e) e.preventDefault();
             const alertBox = document.getElementById('custom-alert');
@@ -423,6 +424,7 @@
                 intro.style.display = 'none'; 
                 gallery.classList.add('active');
                 updateMarqueeProperties();
+                updateCounter(); // CHAMANDO O CONTADOR AO ENTRAR
             }, 1000);
         };
 
