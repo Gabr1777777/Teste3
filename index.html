@@ -48,80 +48,46 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* Fundo gradiente base */
             background: radial-gradient(circle at center, #001f4d 0%, #00001a 100%);
             z-index: -1;
             overflow: hidden;
         }
 
-        /* Novas Camadas de Estrelas Grandres em Movimento */
-        .stars-layer-1, .stars-layer-2, .stars-layer-3 {
+        /* Camadas de Estrelas Grandes e Médias em Movimento */
+        .stars-layer {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 200%; /* Maior que a tela para o movimento */
+            top: -50%;
+            left: -50%;
+            width: 200%;
             height: 200%;
-            background-repeat: repeat;
-            opacity: 0.8;
             pointer-events: none;
+            background-repeat: repeat;
         }
 
-        /* Gerando estrelas grandes e médias usando background-image radial */
-        .stars-layer-1 {
+        .stars-1 {
             background-image: 
-                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 40px 70px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 90px 40px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
-                radial-gradient(4px 4px at 160px 120px, #fff, rgba(0,0,0,0));
-            background-size: 200px 200px; /* Tamanho do padrão repetido */
-            animation: moveStars1 150s linear infinite, twinkle 4s ease-in-out infinite alternate;
+                radial-gradient(3px 3px at 50px 100px, #fff, rgba(0,0,0,0)),
+                radial-gradient(4px 4px at 200px 350px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 400px 150px, #fff, rgba(0,0,0,0));
+            background-size: 500px 500px;
+            animation: moveStars 80s linear infinite;
+            opacity: 0.7;
         }
 
-        .stars-layer-2 {
+        .stars-2 {
             background-image: 
-                radial-gradient(3px 3px at 10px 10px, #fff, rgba(0,0,0,0)),
-                radial-gradient(4px 4px at 100px 150px, #eee, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 200px 50px, #fff, rgba(0,0,0,0)),
-                radial-gradient(5px 5px at 300px 250px, #fff, rgba(0,0,0,0));
-            background-size: 400px 400px;
-            opacity: 0.6;
-            animation: moveStars2 250s linear infinite, twinkle 6s ease-in-out infinite alternate-reverse;
+                radial-gradient(5px 5px at 150px 250px, #fff, rgba(0,0,0,0)),
+                radial-gradient(6px 6px at 450px 50px, #eee, rgba(0,0,0,0));
+            background-size: 700px 700px;
+            animation: moveStars 120s linear infinite reverse;
+            opacity: 0.5;
         }
 
-        .stars-layer-3 {
-             background-image: 
-                radial-gradient(6px 6px at 50px 50px, #fff, rgba(0,0,0,0)),
-                radial-gradient(8px 8px at 250px 350px, #ddd, rgba(0,0,0,0)),
-                radial-gradient(5px 5px at 500px 100px, #fff, rgba(0,0,0,0));
-            background-size: 600px 600px;
-            opacity: 0.4;
-            filter: blur(1px); /* Estrelas muito grandes ficam levemente desfocadas */
-            animation: moveStars3 350s linear infinite;
-        }
-
-        /* Animações de movimento (Paralaxe) */
-        @keyframes moveStars1 {
+        @keyframes moveStars {
             from { transform: translate(0, 0); }
-            to { transform: translate(-50%, -50%); }
-        }
-        @keyframes moveStars2 {
-            from { transform: translate(0, 0); }
-            to { transform: translate(-50%, -10%); }
-        }
-        @keyframes moveStars3 {
-            from { transform: translate(0, 0); }
-            to { transform: translate(-10%, -50%); }
+            to { transform: translate(15%, 10%); }
         }
 
-        /* Animação de Cintilação (Twinkle) */
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 0.4; }
-        }
-
-        /* Estilos originais mantidos abaixo */
         .big-star {
             position: absolute;
             background: white;
@@ -130,7 +96,6 @@
             box-shadow: 0 0 10px white, 0 0 20px white;
             opacity: 0;
             animation: bigStarBlink 4s infinite ease-in-out;
-            z-index: 1; /* Garante que fiquem sobre as camadas de fundo */
         }
 
         @keyframes bigStarBlink {
@@ -144,7 +109,6 @@
             opacity: 0;
             animation: floatGlow 12s infinite linear;
             filter: blur(3px);
-            z-index: 2; /* Sobre as estrelas */
         }
 
         @keyframes floatGlow {
@@ -257,9 +221,8 @@
     <div id="custom-alert">Copyright - Acesso Proibido</div>
 
     <div class="background-animation">
-        <div class="stars-layer-1"></div>
-        <div class="stars-layer-2"></div>
-        <div class="stars-layer-3"></div>
+        <div class="stars-layer stars-1"></div>
+        <div class="stars-layer stars-2"></div>
 
         <div class="big-star" style="width: 6px; height: 6px; top: 10%; left: 15%;"></div>
         <div class="big-star" style="width: 8px; height: 8px; top: 40%; left: 85%; animation-delay: 1s;"></div>
