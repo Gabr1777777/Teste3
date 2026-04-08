@@ -190,7 +190,7 @@
             will-change: transform;
         }
 
-        /* --- RODAPÉ PEQUENO (AJUSTADO) --- */
+        /* --- RODAPÉ --- */
         footer {
             margin-top: 40px;
             padding: 15px 0;
@@ -381,27 +381,20 @@
 
         <footer>
             <div class="neon-footer-text">Galeria exclusiva 2026</div>
-            <div style="margin-top: 15px; font-family: monospace; color: #007bff; font-size: 0.8rem; filter: drop-shadow(0 0 3px #007bff);">
-                VISITAS: <span id="v-count">...</span>
+            <div style="margin-top: 15px; font-family: monospace; color: #007bff; font-size: 0.8rem; filter: drop-shadow(0 0 5px #007bff); text-shadow: 0 0 8px #007bff;">
+                VISITAS: <span id="v-count">00000</span>
             </div>
         </footer>
     </div>
 
     <script>
-        // --- NOVO CONTADOR INTEGRADO DA GALERIA VENON ---
-        const ID_VISITAS = "galeria_wrs_2026_main"; [cite: 62]
-
-        async function carregarContadores() { [cite: 72]
-            try {
-                const resV = await fetch(`https://api.counterapi.dev/v1/wrs-galeria/${ID_VISITAS}/up`); [cite: 72]
-                const dataV = await resV.json(); [cite: 73]
-                const vCountEl = document.getElementById('v-count');
-                if (vCountEl) {
-                    vCountEl.innerText = (dataV.count || dataV.value).toString().padStart(5, '0'); [cite: 73]
-                }
-            } catch(e) {
-                document.getElementById('v-count').innerText = "00001"; [cite: 73]
-            }
+        // CONTADOR COM CHAVE DE RESET (Zera a contagem ao mudar o nome da chave)
+        function updateCounter() {
+            let c = localStorage.getItem('Galeria_Reset_2026') || 0;
+            c++;
+            localStorage.setItem('Galeria_Reset_2026', c);
+            const vCountEl = document.getElementById('v-count');
+            if (vCountEl) vCountEl.innerText = c.toString().padStart(5, '0');
         }
 
         function showAlert(e) {
@@ -431,7 +424,7 @@
                 intro.style.display = 'none'; 
                 gallery.classList.add('active');
                 updateMarqueeProperties();
-                carregarContadores(); // Chama o novo contador ao entrar [cite: 72]
+                updateCounter(); 
             }, 1000);
         };
 
