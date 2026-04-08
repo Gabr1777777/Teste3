@@ -1,151 +1,99 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Galeria de GIFs</title>
+    <title>Galeria WRS - Portal Galáctico</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
     <style>
-        /* --- Reset e Estilos Básicos --- */
-        body, html {
+        /* RESET E BASE */
+        body {
             margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
+            background-color: #000;
+            overflow-x: hidden;
+            overflow-y: hidden;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #000022; 
             user-select: none;
             -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
         }
 
-        /* --- MENSAGEM DE ALERTA --- */
-        #custom-alert {
-            display: none;
+        /* FUNDO DE ESTRELAS */
+        #star-canvas {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 31, 77, 0.95);
-            border: 2px solid #007bff;
-            color: white;
-            padding: 20px 40px;
-            border-radius: 10px;
-            z-index: 9999;
-            box-shadow: 0 0 30px rgba(0, 123, 255, 0.5);
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.2em;
+            top: 0; left: 0;
+            z-index: 0;
             pointer-events: none;
         }
 
-        /* --- FUNDO ANIMADO --- */
-        .background-animation {
+        /* TELAS */
+        #splash-screen {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #001f4d 0%, #00001a 100%);
-            z-index: -1;
-            overflow: hidden;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 1s ease, transform 1s ease;
         }
 
-        .big-star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            filter: blur(1px);
-            box-shadow: 0 0 10px white, 0 0 20px white;
+        #main-content {
+            position: relative;
+            z-index: 10;
+            display: none;
             opacity: 0;
-            animation: bigStarBlink 4s infinite ease-in-out;
+            height: 100vh;
+            overflow-y: auto;
+            transition: opacity 1s ease;
+            padding: 40px 20px;
+            box-sizing: border-box;
         }
 
-        @keyframes bigStarBlink {
-            0%, 100% { opacity: 0; transform: scale(0.5); }
-            50% { opacity: 0.8; transform: scale(1.2); }
-        }
-
-        .floating-light {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0;
-            animation: floatGlow 12s infinite linear;
-            filter: blur(3px);
-        }
-
-        @keyframes floatGlow {
-            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
-            50% { opacity: 0.5; }
-            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
-        }
-
-        /* --- ANIMAÇÕES --- */
-        @keyframes floating {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes marquee-dynamic {
-            0% { transform: translateX(var(--marquee-start)); }
-            100% { transform: translateX(var(--marquee-end)); }
-        }
-
-        .gradient-text-anim {
-            background: linear-gradient(270deg, #ffffff, #007bff, #ffffff, #007bff);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: gradientMove 5s ease infinite;
-        }
-
-        .gradient-btn-anim {
-            background: linear-gradient(270deg, #007bff, #ffffff, #007bff, #ffffff);
-            background-size: 400% 400%;
-            color: #000033;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1em;
-            font-weight: bold;
+        /* BOTÃO ENTRAR */
+        .btn-portal {
+            padding: 20px 50px;
+            font-size: 24px;
+            background: transparent;
+            color: #007bff;
+            border: 2px solid #007bff;
+            border-radius: 50px;
             cursor: pointer;
-            border-radius: 5px;
-            animation: gradientMove 5s ease infinite;
-            transition: box-shadow 0.3s ease, transform 0.2s;
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.3);
         }
 
-        #btn-entrar {
-            width: 130px; height: 130px;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.2em;
-            animation: gradientMove 5s ease infinite, floating 3s ease-in-out infinite;
+        .btn-portal:hover {
+            background: #007bff;
+            color: #fff;
+            box-shadow: 0 0 40px #007bff;
+            transform: scale(1.05);
         }
 
-        /* --- ESTILO DO LETREIRO (FUNDO AZUL ESCURO) --- */
+        /* NOVO LETREIRO AZUL ESCURO (HOME) */
         .container-letreiro-wrs {
             width: 100%;
-            max-width: 960px;
-            height: 100px;
-            margin: 0 auto 20px auto;
+            max-width: 900px;
+            height: 80px;
+            margin: 0 auto 30px auto;
             position: relative;
             border-radius: 12px;
             border: 2px solid #007bff;
             overflow: hidden;
-            background: #001133; /* Azul Escuro */
+            background: #001133; /* Azul Escuro conforme pedido */
             display: flex;
             align-items: center;
             box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
         }
 
         .texto-letreiro-wrapper {
-            position: relative;
-            z-index: 2;
             width: 100%;
             overflow: hidden;
             white-space: nowrap;
@@ -153,212 +101,271 @@
 
         .texto-letreiro-wrapper span {
             display: inline-block;
-            font-size: 2.2em;
+            font-size: 1.8em;
             font-weight: bold;
             color: #fff;
             text-shadow: 0 0 10px #007bff;
-            animation: marquee-dynamic 15s linear infinite;
+            padding-left: 100%;
+            animation: marquee-wrs 15s linear infinite;
         }
 
-        /* --- BARRAS DE CATEGORIA --- */
-        .animated-bar {
-            background: linear-gradient(90deg, #007bff, #00c6ff, #007bff);
-            background-size: 200% auto;
-            padding: 8px 0;
-            border-radius: 4px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            overflow: hidden; 
-            white-space: nowrap;
+        @keyframes marquee-wrs {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-200%); }
+        }
+
+        /* NAVEGAÇÃO */
+        .nav-container {
             display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
         }
 
-        .animated-bar span {
-            display: inline-block;
-            animation: marquee-dynamic 12s linear infinite; 
-            will-change: transform;
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 123, 255, 0.4);
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 500;
         }
 
-        /* --- ESTRUTURA DE TELAS --- */
-        #intro-screen {
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            width: 100%; height: 100%; position: absolute; z-index: 10;
-            transition: opacity 1s;
+        .nav-btn:hover, .nav-btn.active {
+            background: #007bff;
+            border-color: #007bff;
+            box-shadow: 0 0 15px #007bff;
         }
 
-        #gallery-screen {
-            display: none; opacity: 0; width: 100%; height: 100%;
-            position: absolute; z-index: 5; transition: opacity 1s;
-            overflow-y: auto; padding: 20px; box-sizing: border-box;
-            color: white; text-align: center;
+        /* GRID E CARDS */
+        .section { display: none; max-width: 1100px; margin: 0 auto; animation: fadeIn 0.5s ease forwards; }
+        .section.active { display: block; }
+
+        .gif-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
+            padding: 20px 0;
         }
 
-        #gallery-screen.active { display: block; opacity: 1; }
-
-        .profile-frame {
-            width: 200px; height: 200px;
-            border-radius: 50%; border: 3px solid #fff;
-            margin: 10px auto; overflow: hidden;
-            box-shadow: 0 0 20px rgba(255,255,255,0.5);
-            animation: floating 4s ease-in-out infinite;
+        .card {
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: 0.4s;
+            position: relative;
         }
-        .profile-frame img { width: 100%; height: 100%; object-fit: cover; }
 
-        .nav-buttons { margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-        .content-section { display: none; margin-top: 20px; max-width: 1000px; margin-left: auto; margin-right: auto; }
-        .content-section.active { display: block; }
-
-        .gif-grid { display: grid; gap: 15px; margin-bottom: 30px; }
-        .grid-compact { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
-        .grid-normal { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
-
-        .gif-item { background: rgba(255, 255, 255, 0.1); padding: 8px; border-radius: 5px; transition: 0.3s; }
-        .gif-item:hover { box-shadow: 0 0 20px #00c6ff; transform: translateY(-5px); }
-        .gif-item img { width: 100%; border-radius: 3px; }
-
-        .info-box { 
-            background: rgba(0, 123, 255, 0.15); 
-            border: 1px solid rgba(255,255,255,0.2); 
-            padding: 15px; border-radius: 8px; transition: 0.3s ease; text-align: left;
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: #007bff;
+            box-shadow: 0 10px 30px rgba(0, 123, 255, 0.2);
         }
-        .info-box:hover { box-shadow: 0 0 20px #00c6ff; transform: translateY(-5px); background: rgba(0, 123, 255, 0.25); }
-        .info-box h3 { border-bottom: 1px solid #007bff; color: #00c6ff; margin-top: 0; }
+
+        .card img { width: 100%; display: block; }
+
+        .card-info {
+            padding: 15px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+        }
+
+        .price-tag {
+            color: #00c6ff;
+            font-weight: bold;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* BARRAS DE CATEGORIA */
+        .cat-bar {
+            background: linear-gradient(90deg, transparent, #007bff, transparent);
+            padding: 10px;
+            text-align: center;
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* MOUSE DROP EFFECT */
+        .mouse-drop {
+            position: fixed;
+            border: 2px solid #007bff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
     </style>
 </head>
-<body oncontextmenu="return showAlert(event)">
+<body>
 
-    <div id="custom-alert">Copyright - Acesso Proibido</div>
+    <canvas id="star-canvas"></canvas>
 
-    <div class="background-animation">
-        <div class="big-star" style="width: 6px; height: 6px; top: 10%; left: 15%;"></div>
-        <div class="big-star" style="width: 8px; height: 8px; top: 40%; left: 85%; animation-delay: 1s;"></div>
-        <div class="big-star" style="width: 10px; height: 10px; top: 80%; left: 50%; animation-delay: 0.5s;"></div>
-        <div class="floating-light" style="width: 50px; height: 50px; left: 10%; background: #007bff;"></div>
-        <div class="floating-light" style="width: 60px; height: 60px; left: 45%; background: #00c6ff; animation-delay: 8s;"></div>
+    <div id="splash-screen">
+        <h1 style="color: #fff; font-size: 3em; margin-bottom: 30px; letter-spacing: 5px;">GALERIA WRS</h1>
+        <button class="btn-portal" onclick="entrarGaleria()">Entrar no Portal</button>
     </div>
 
-    <div id="intro-screen">
-        <h1 class="gradient-text-anim" style="font-size: 4em;">Galeria de Gifs</h1>
-        <button class="gradient-btn-anim" id="btn-entrar">Entrar</button>
-    </div>
-
-    <div id="gallery-screen">
-        <div class="profile-frame"><img src="https://imgur.com/7rKeKT8.png"></div>
-        <h2 class="gradient-text-anim" style="font-size: 2.5em;">GALERIA</h2>
-
-        <div class="nav-buttons">
-            <button class="gradient-btn-anim" id="btn-home">Home</button>
-            <button class="gradient-btn-anim" id="btn-gifs">Gifs</button>
-            <button class="gradient-btn-anim" id="btn-pcback">pcback gif</button>
-            <button class="gradient-btn-anim" id="btn-pstyle">Pstyle Gif</button>
-            <button class="gradient-btn-anim" id="btn-pcback-est">Pcback Estático</button>
-            <button class="gradient-btn-anim" id="btn-pstyle-est">Pstyle Estático</button>
+    <div id="main-content">
+        
+        <div style="text-align: center; margin-bottom: 40px;">
+            <img src="https://imgur.com/7rKeKT8.png" style="width: 150px; border-radius: 50%; border: 3px solid #007bff; box-shadow: 0 0 20px #007bff;">
         </div>
 
-        <div id="section-home" class="content-section active">
-            
+        <div class="nav-container">
+            <button class="nav-btn active" onclick="showSection('home', this)">HOME</button>
+            <button class="nav-btn" onclick="showSection('gifs', this)">GIFS</button>
+            <button class="nav-btn" onclick="showSection('pcback', this)">PCBACK GIF</button>
+            <button class="nav-btn" onclick="showSection('pstyle', this)">PSTYLE GIF</button>
+            <button class="nav-btn" onclick="showSection('pcback-est', this)">PCBACK ESTÁTICO</button>
+            <button class="nav-btn" onclick="showSection('pstyle-est', this)">PSTYLE ESTÁTICO</button>
+        </div>
+
+        <div id="home" class="section active">
             <div class="container-letreiro-wrs">
                 <div class="texto-letreiro-wrapper">
                     <span>Gifs / Pstyle / Pcback / Estáticos / Design Personalizado</span>
                 </div>
             </div>
-
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                <div class="info-box"><h3>Sobre Mim</h3><p>Bem-vindo à minha galeria pessoal de efeitos e composições visuais.</p></div>
-                <div class="info-box"><h3>Dicas</h3><p>Use os GIFs como backgrounds ou elementos de transição em seus projetos.</p></div>
-                <div class="info-box"><h3>Sell ID</h3><p>Para encomendas ou uso comercial, entre em contato via Discord ou direct.</p></div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; color: #ccc;">
+                <div style="background: rgba(0,123,255,0.05); padding: 25px; border-radius: 10px; border: 1px solid #007bff33;">
+                    <h3 style="color: #007bff;"><i class="fas fa-rocket"></i> Galeria Exclusiva</h3>
+                    <p>Qualidade premium para o seu perfil. Todos os itens são otimizados para menor peso e maior nitidez.</p>
+                </div>
+                <div style="background: rgba(0,123,255,0.05); padding: 25px; border-radius: 10px; border: 1px solid #007bff33;">
+                    <h3 style="color: #007bff;"><i class="fas fa-shopping-cart"></i> Como Comprar</h3>
+                    <p>Para adquirir qualquer item ou solicitar um projeto exclusivo, entre em contato via chat.</p>
+                </div>
             </div>
         </div>
 
-        <div id="section-gifs" class="content-section">
-            <div class="animated-bar"><span>Modelo Afterefects 400 XATS </span></div>
-            <div class="gif-grid grid-compact">
-                <div class="gif-item"><img src="https://imgur.com/5HxfNaB.gif"><span>After 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/FILAVQP.gif"><span>After 2</span></div>
+        <div id="gifs" class="section">
+            <div class="cat-bar">Modelo After Effects</div>
+            <div class="gif-grid">
+                <div class="card"><img src="https://imgur.com/5HxfNaB.gif"><div class="card-info">After Effect 1<span class="price-tag">400 XATS</span></div></div>
+                <div class="card"><img src="https://imgur.com/FILAVQP.gif"><div class="card-info">After Effect 2<span class="price-tag">400 XATS</span></div></div>
             </div>
         </div>
 
-        <div id="section-pcback" class="content-section">
-            <div class="animated-bar"><span>Pcback GIFs 450 XATS </span></div>
-            <div class="gif-grid grid-normal">
-                <div class="gif-item"><img src="https://i.imgur.com/SFnk7A6.gif"><span>Pcback 1</span></div>
+        <div id="pcback" class="section">
+            <div class="cat-bar">Pcback GIFs</div>
+            <div class="gif-grid">
+                <div class="card"><img src="https://i.imgur.com/SFnk7A6.gif"><div class="card-info">Pcback GIF Premium<span class="price-tag">450 XATS</span></div></div>
             </div>
         </div>
 
-        <div id="section-pstyle" class="content-section">
-            <div class="animated-bar"><span>Pstyle GIFs 350 XATS</span></div>
-            <div class="gif-grid grid-normal">
-                <div class="gif-item"><img src="https://imgur.com/rUIzfWU.gif"><span>Pstyle 1</span></div>
+        <div id="pstyle" class="section">
+            <div class="cat-bar">Pstyle GIFs</div>
+            <div class="gif-grid">
+                <div class="card"><img src="https://imgur.com/rUIzfWU.gif"><div class="card-info">Pstyle GIF Art<span class="price-tag">350 XATS</span></div></div>
             </div>
         </div>
 
-        <div id="section-pcback-est" class="content-section">
-            <div class="animated-bar"><span>Pcback Estático 300 XATS </span></div>
-            <div class="gif-grid grid-normal">
-                <div class="gif-item"><img src="https://imgur.com/OyX4Jwt.png"><span>Pcback 1</span></div>
+        <div id="pcback-est" class="section">
+            <div class="cat-bar">Pcback Estáticos</div>
+            <div class="gif-grid">
+                <div class="card"><img src="https://imgur.com/OyX4Jwt.png"><div class="card-info">Pcback Estático 1<span class="price-tag">300 XATS</span></div></div>
             </div>
         </div>
 
-        <div id="section-pstyle-est" class="content-section">
-            <div class="animated-bar"><span>Pstyle Estático 250 XATS </span></div>
-            <div class="gif-grid grid-normal">
-                <div class="gif-item"><img src="https://imgur.com/zlcL7Dh.png"><span>Pstyle 1</span></div>
+        <div id="pstyle-est" class="section">
+            <div class="cat-bar">Pstyle Estáticos</div>
+            <div class="gif-grid">
+                <div class="card"><img src="https://imgur.com/zlcL7Dh.png"><div class="card-info">Pstyle Estático 1<span class="price-tag">250 XATS</span></div></div>
             </div>
         </div>
+
     </div>
 
     <script>
-        function showAlert(e) {
-            if (e) e.preventDefault();
-            const alertBox = document.getElementById('custom-alert');
-            alertBox.style.display = 'block';
-            setTimeout(() => { alertBox.style.display = 'none'; }, 2000);
-            return false;
+        // ESTRELAS DE FUNDO
+        const canvas = document.getElementById('star-canvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
 
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 65)) showAlert(e);
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) showAlert(e);
-        });
+        window.onresize = resize;
+        resize();
 
-        const intro = document.getElementById('intro-screen');
-        const gallery = document.getElementById('gallery-screen');
-        const sections = document.querySelectorAll('.content-section');
-
-        document.getElementById('btn-entrar').onclick = () => {
-            intro.style.opacity = '0';
-            setTimeout(() => { 
-                intro.style.display = 'none'; 
-                gallery.classList.add('active');
-                updateMarqueeProperties();
-            }, 1000);
-        };
-
-        function show(id) {
-            sections.forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            updateMarqueeProperties();
-        }
-
-        document.getElementById('btn-home').onclick = () => show('section-home');
-        document.getElementById('btn-gifs').onclick = () => show('section-gifs');
-        document.getElementById('btn-pcback').onclick = () => show('section-pcback');
-        document.getElementById('btn-pstyle').onclick = () => show('section-pstyle');
-        document.getElementById('btn-pcback-est').onclick = () => show('section-pcback-est');
-        document.getElementById('btn-pstyle-est').onclick = () => show('section-pstyle-est');
-
-        function updateMarqueeProperties() {
-            const spans = document.querySelectorAll('.animated-bar span, .texto-letreiro-wrapper span');
-            spans.forEach(span => {
-                const parent = span.parentElement;
-                const parentWidth = parent.offsetWidth;
-                const textWidth = span.offsetWidth;
-                span.style.setProperty('--marquee-start', parentWidth + 'px');
-                span.style.setProperty('--marquee-end', '-' + textWidth + 'px');
+        for(let i=0; i<200; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2,
+                speed: Math.random() * 0.5
             });
         }
-        window.addEventListener('resize', updateMarqueeProperties);
-        setTimeout(updateMarqueeProperties, 500);
+
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#fff';
+            stars.forEach(s => {
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size, 0, Math.PI*2);
+                ctx.fill();
+                s.y += s.speed;
+                if(s.y > canvas.height) s.y = 0;
+            });
+            requestAnimationFrame(drawStars);
+        }
+        drawStars();
+
+        // CONTROLES DE TELA
+        function entrarGaleria() {
+            document.getElementById('splash-screen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('splash-screen').style.display = 'none';
+                const main = document.getElementById('main-content');
+                main.style.display = 'block';
+                setTimeout(() => main.style.opacity = '1', 50);
+                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#007bff', '#ffffff'] });
+            }, 1000);
+        }
+
+        function showSection(id, btn) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        // EFEITO DE CLIQUE
+        document.addEventListener('mousedown', e => {
+            const drop = document.createElement('div');
+            drop.className = 'mouse-drop';
+            drop.style.left = e.clientX + 'px';
+            drop.style.top = e.clientY + 'px';
+            document.body.appendChild(drop);
+            drop.animate([
+                { width: '0px', height: '0px', opacity: 0.8 },
+                { width: '80px', height: '80px', opacity: 0 }
+            ], { duration: 600, easing: 'ease-out' });
+            setTimeout(() => drop.remove(), 600);
+        });
+
+        // BLOQUEIOS DE SEGURANÇA
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
+                e.preventDefault();
+                return false;
+            }
+        });
     </script>
 </body>
 </html>
