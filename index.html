@@ -193,6 +193,7 @@
         .profile-frame img { width: 100%; height: 100%; object-fit: cover; }
 
         .nav-buttons { margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+
         .content-section { display: none; margin-top: 20px; max-width: 1000px; margin-left: auto; margin-right: auto; }
         .content-section.active { display: block; }
 
@@ -239,6 +240,10 @@
         <div class="nav-buttons">
             <button class="gradient-btn-anim" onclick="show('section-home')">Home</button>
             <button class="gradient-btn-anim" onclick="show('section-gifs')">Gifs</button>
+            <button class="gradient-btn-anim" onclick="show('section-pcback')">Pcback Gif</button>
+            <button class="gradient-btn-anim" onclick="show('section-pstyle')">Pstyle Gif</button>
+            <button class="gradient-btn-anim" onclick="show('section-pcback-est')">Pcback Estático</button>
+            <button class="gradient-btn-anim" onclick="show('section-pstyle-est')">Pstyle Estático</button>
         </div>
 
         <div id="section-home" class="content-section active">
@@ -262,6 +267,12 @@
                 <div class="info-box"><h3>Sell ID</h3><p>Para encomendas ou uso comercial, entre em contato via Discord ou direct.</p></div>
             </div>
         </div>
+
+        <div id="section-gifs" class="content-section">...</div>
+        <div id="section-pcback" class="content-section">...</div>
+        <div id="section-pstyle" class="content-section">...</div>
+        <div id="section-pcback-est" class="content-section">...</div>
+        <div id="section-pstyle-est" class="content-section">...</div>
 
         <footer>
             <div class="neon-footer-text">Galeria exclusiva 2026</div>
@@ -316,18 +327,14 @@
         document.getElementById('btn-entrar').onclick = () => {
             document.getElementById('intro-screen').style.display = 'none'; 
             document.getElementById('gallery-screen').classList.add('active');
-            
-            // Tocar música ao entrar
-            audio.play().then(() => {
-                playPauseBtn.innerText = "||";
-            }).catch(error => console.log("Erro ao tocar: ", error));
-            
+            audio.play().then(() => { playPauseBtn.innerText = "||"; }).catch(e => console.log(e));
             carregarContadores();
         };
 
         function show(id) {
             document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+            const target = document.getElementById(id);
+            if(target) target.classList.add('active');
         }
 
         async function carregarContadores() {
