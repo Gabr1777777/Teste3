@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Galeria de GIFs</title>
+    <title>Galeria de Gifs - Fundo Animado</title>
     <style>
         /* --- Reset e Estilos Básicos --- */
         body, html {
@@ -11,72 +11,96 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            overflow: hidden; /* Evita barras de rolagem globais */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #00001a; /* Fundo base ultra escuro */
+            background-color: #00001a; /* Cor base ultra escura */
+            color: white;
         }
 
-        /* --- NOVO FUNDO ANIMADO VISUALMENTE LEGAL --- */
+        /* --- NOVO FUNDO ANIMADO COMUM (PARA AMBAS AS PÁGINAS) --- */
         .background-animation {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* Gradiente radial profundo */
+            /* Profundo radial profundo de azul escuro para quase preto */
             background: radial-gradient(circle at center, #001f4d 0%, #000005 100%);
             z-index: -2;
             overflow: hidden;
         }
 
-        /* Camada de Nebulosa sutil */
+        /* Camada 1: Nebulosa e Estrelas Fixas (via Gradiente) */
         .background-animation::before {
             content: '';
             position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background-image: 
-                radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                /* Estrelas minúsculas fixas */
+                radial-gradient(1px 1px at 20px 30px, #fff 1px, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 40px 70px, #fff 1px, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 150px 200px, rgba(255,255,255,0.8) 1px, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 200px 300px, rgba(255,255,255,0.6) 1px, rgba(0,0,0,0)),
+                /* Efeito de nebulosa profunda sutil */
                 radial-gradient(rgba(0, 123, 255, 0.1) 0%, rgba(0,0,0,0) 70%);
-            background-size: 200px 200px, 300px 300px, 100% 100%;
-            background-position: 0 0, 0 0, center;
-            opacity: 0.4;
-            animation: nebulosaMove 60s linear infinite;
+            background-size: 200px 200px, 300px 300px, 400px 400px, 500px 500px, 100% 100%;
+            background-position: 0 0, 0 0, 0 0, 0 0, center;
+            opacity: 0.6;
+            animation: nebulosaMove 60s linear infinite; /* Movimento muito lento */
         }
 
         @keyframes nebulosaMove {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            100% { transform: translate(-5%, -5%) rotate(5deg); }
+            0% { transform: scale(1) translate(0, 0); }
+            50% { transform: scale(1.05) translate(-1%, -1%); }
+            100% { transform: scale(1) translate(0, 0); }
         }
 
-        /* Estrelas e Luzes Neon */
-        .lights {
+        /* Estrelas piscantes/movimentando e Luzes flutuantes */
+        .stars-and-lights {
             position: absolute;
             width: 100%;
             height: 100%;
             z-index: -1;
         }
 
-        /* Estrelas fixas e piscantes */
-        .star {
+        /* Estrela piscante (parada, mas pisca) */
+        .star-blink {
             position: absolute;
             background-color: white;
             border-radius: 50%;
+            opacity: 0;
             animation: flicker infinite;
         }
 
         @keyframes flicker {
-            0%, 100% { opacity: 0.3; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.1); }
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
         }
 
-        /* Luzes flutuantes (antigas "light") com efeito neon */
+        /* Estrela em movimento (flutua e pisca) */
+        .star-move {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0;
+            filter: blur(0.5px);
+            animation: floatMove infinite linear;
+        }
+
+        @keyframes floatMove {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        /* Luz Flutuante com Brilho (Neon) */
         .floating-light {
             position: absolute;
             border-radius: 50%;
             opacity: 0;
             animation: floatAndGlow infinite linear;
-            filter: blur(2px); /* Efeito de brilho */
+            filter: blur(2px);
         }
 
         @keyframes floatAndGlow {
@@ -86,152 +110,211 @@
             100% { transform: translateY(-10vh) scale(1.2); opacity: 0; box-shadow: 0 0 20px currentColor; }
         }
 
-        /* --- Geração Dinâmica de Estrelas e Luzes --- */
-        /* (Seria ideal com JS para aleatoriedade, mas vamos usar muitos seletores CSS) */
-        /* Estrelas */
-        .star:nth-child(1) { width: 1px; height: 1px; top: 10%; left: 15%; animation-duration: 2s; }
-        .star:nth-child(2) { width: 2px; height: 2px; top: 25%; left: 80%; animation-duration: 3s; animation-delay: 1s;}
-        .star:nth-child(3) { width: 1px; height: 1px; top: 40%; left: 5%; animation-duration: 1.5s; }
-        .star:nth-child(4) { width: 1.5px; height: 1.5px; top: 60%; left: 90%; animation-duration: 4s; animation-delay: 2s;}
-        .star:nth-child(5) { width: 1px; height: 1px; top: 75%; left: 30%; animation-duration: 2.5s; }
-        .star:nth-child(6) { width: 2px; height: 2px; top: 85%; left: 60%; animation-duration: 3.5s; animation-delay: 0.5s;}
-        .star:nth-child(7) { width: 1px; height: 1px; top: 5%; left: 50%; animation-duration: 2.2s; }
-        .star:nth-child(8) { width: 1px; height: 1px; top: 95%; left: 10%; animation-duration: 2.8s; }
+        /* Geração Dinâmica de Estrelas e Luzes */
+        /* Estrelas piscantes fixas */
+        .star-blink:nth-child(1) { width: 1.5px; height: 1.5px; top: 10%; left: 15%; animation-duration: 2s; }
+        .star-blink:nth-child(2) { width: 2.5px; height: 2.5px; top: 25%; left: 80%; animation-duration: 3s; animation-delay: 1s;}
+        .star-blink:nth-child(3) { width: 1.5px; height: 1.5px; top: 40%; left: 5%; animation-duration: 1.5s; }
+        .star-blink:nth-child(4) { width: 2px; height: 2px; top: 60%; left: 90%; animation-duration: 4s; animation-delay: 2s;}
+        .star-blink:nth-child(5) { width: 1.5px; height: 1.5px; top: 75%; left: 30%; animation-duration: 2.5s; }
+        .star-blink:nth-child(6) { width: 2.5px; height: 2.5px; top: 85%; left: 60%; animation-duration: 3.5s; animation-delay: 0.5s;}
+        
+        /* Estrelas em movimento */
+        .star-move:nth-child(7) { width: 2px; height: 2px; left: 10%; animation-duration: 15s; }
+        .star-move:nth-child(8) { width: 1.5px; height: 1.5px; left: 30%; animation-duration: 10s; animation-delay: 2s; }
+        .star-move:nth-child(9) { width: 2.5px; height: 2.5px; left: 50%; animation-duration: 18s; animation-delay: 5s; }
+        .star-move:nth-child(10) { width: 1.8px; height: 1.8px; left: 70%; animation-duration: 12s; animation-delay: 1s; }
+        .star-move:nth-child(11) { width: 2.2px; height: 2.2px; left: 90%; animation-duration: 20s; animation-delay: 8s; }
 
-        /* Luzes Flutuantes Neon (azuis e brancas) */
-        .floating-light:nth-child(9) { width: 15px; height: 15px; left: 10%; color: #007bff; background-color: #007bff; animation-duration: 15s; }
-        .floating-light:nth-child(10) { width: 8px; height: 8px; left: 30%; color: #ffffff; background-color: #ffffff; animation-duration: 10s; animation-delay: 2s; }
-        .floating-light:nth-child(11) { width: 20px; height: 20px; left: 50%; color: #00c6ff; background-color: #00c6ff; animation-duration: 18s; animation-delay: 5s; }
-        .floating-light:nth-child(12) { width: 12px; height: 12px; left: 70%; color: #ffffff; background-color: #ffffff; animation-duration: 12s; animation-delay: 1s; }
-        .floating-light:nth-child(13) { width: 18px; height: 18px; left: 90%; color: #007bff; background-color: #007bff; animation-duration: 20s; animation-delay: 8s; }
+        /* Luzes Flutuantes Neon (Azuis) */
+        .floating-light:nth-child(12) { width: 20px; height: 20px; left: 15%; color: #007bff; background-color: #007bff; animation-duration: 25s; }
+        .floating-light:nth-child(13) { width: 15px; height: 15px; left: 45%; color: #ffffff; background-color: #ffffff; animation-duration: 20s; animation-delay: 4s; }
+        .floating-light:nth-child(14) { width: 25px; height: 25px; left: 75%; color: #00c6ff; background-color: #00c6ff; animation-duration: 30s; animation-delay: 10s; }
 
-
-        /* --- Efeitos Gradiente --- */
-        .gradient-text-anim {
-            background: linear-gradient(270deg, #ffffff, #007bff, #ffffff, #007bff);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: gradientAnimation 5s ease infinite;
+        /* --- TELA 1: INTRODUÇÃO (INTRO-SCREEN) --- */
+        #intro-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: 10;
+            transition: opacity 1s, visibility 1s;
         }
 
-        .gradient-btn-anim {
-            background: linear-gradient(270deg, #007bff, #ffffff, #007bff, #ffffff);
-            background-size: 400% 400%;
+        #intro-screen h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            font-weight: bold;
+            background: linear-gradient(to right, white, #007bff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        #intro-screen h1 span {
+            color: #007bff;
+            -webkit-text-fill-color: #007bff;
+        }
+
+        #intro-screen #btn-entrar {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: bold;
             color: #000033;
+            background: linear-gradient(135deg, #007bff, #b3d9ff);
             border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        #intro-screen #btn-entrar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        /* --- TELA 2: GALERIA (GALLERY-SCREEN) --- */
+        #gallery-screen {
+            display: none; /* Escondido inicialmente */
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: 5;
+            transition: opacity 1s;
+            overflow-y: auto; /* Permite rolagem dentro da galeria */
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        #gallery-screen.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Moldura Aumentada */
+        .profile-frame {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            margin: 10px auto;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+        }
+
+        .profile-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #gallery-screen h2 {
+            font-size: 2.5em;
+            margin-top: 10px;
+            color: #00c6ff;
+            text-shadow: 0 0 10px rgba(0, 198, 255, 0.5);
+            font-weight: bold;
+        }
+
+        /* Botões de Navegação */
+        .nav-buttons {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
             padding: 10px 20px;
             font-size: 1em;
             font-weight: bold;
-            cursor: pointer;
+            color: #000033;
+            background: linear-gradient(135deg, #007bff, #b3d9ff);
+            border: none;
             border-radius: 5px;
-            animation: gradientAnimation 5s ease infinite;
-            text-decoration: none;
-            transition: box-shadow 0.3s ease; /* Transição suave para o efeito neon */
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        @keyframes gradientAnimation {
-            0%{background-position:0% 50%}
-            50%{background-position:100% 50%}
-            100%{background-position:0% 50%}
+        .nav-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
         }
 
-        /* --- Efeito Neon no Hover dos Botões --- */
-        .gradient-btn-anim:hover {
-            box-shadow: 0 0 10px #007bff, 0 0 20px #007bff, 0 0 30px #007bff, 0 0 40px #007bff;
+        /* Conteúdo das Seções */
+        .content-section {
+            display: none; /* Escondido por padrão */
+            margin-top: 20px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
         }
 
-        /* --- Estrutura de Telas --- */
-        #intro-screen {
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            width: 100%; height: 100%; position: absolute; z-index: 10;
-            transition: opacity 1s;
+        .content-section.active {
+            display: block;
         }
 
-        #gallery-screen {
-            display: none; opacity: 0; width: 100%; height: 100%;
-            position: absolute; z-index: 5; transition: opacity 1s;
-            overflow-y: auto; padding: 20px; box-sizing: border-box;
-            color: white; text-align: center;
+        /* Caixas de Informação na Home (3 colunas) */
+        .home-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
         }
 
-        #gallery-screen.active { display: block; opacity: 1; }
-
-        /* --- Galeria Estilo WRS --- */
-        /* Moldura Aumentada */
-        .profile-frame {
-            width: 150px; /* Tamanho original aumentado */
-            height: 150px; /* Tamanho original aumentado */
-            border-radius: 50%; border: 3px solid #fff;
-            margin: 10px auto; overflow: hidden;
-        }
-        .profile-frame img { width: 100%; height: 100%; object-fit: cover; }
-
-        .nav-buttons { margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-
-        .content-section { display: none; margin-top: 20px; max-width: 1000px; margin-left: auto; margin-right: auto; }
-        .content-section.active { display: block; }
-
-        .animated-bar {
-            background: linear-gradient(90deg, #007bff, #00c6ff, #007bff);
-            background-size: 200% auto; padding: 8px; border-radius: 4px;
-            font-weight: bold; margin-bottom: 15px; animation: barAnimation 3s linear infinite;
-        }
-        @keyframes barAnimation { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
-
-        /* Grade para GIFs (Padrão e Compacta) */
-        .gif-grid { display: grid; gap: 15px; margin-bottom: 30px; }
-        
-        /* Estilo Lista Compacta (Apenas para o botão Gifs) */
-        .grid-compact { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
-        
-        /* Estilo Normal (Para Pcback e Pstyle) */
-        .grid-normal { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
-
-        .gif-item { background: rgba(255, 255, 255, 0.1); padding: 8px; border-radius: 5px; transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave */ }
-        .gif-item img { width: 100%; border-radius: 3px; }
-        .gif-item span { font-size: 0.8em; display: block; margin-top: 5px; }
-
-        /* --- Efeito Neon no Hover dos GIFs --- */
-        .gif-item:hover {
-            transform: translateY(-5px); /* Pequeno levante */
-            box-shadow: 0 0 10px #00c6ff, 0 0 20px #00c6ff, 0 0 30px #00c6ff;
+        .info-box {
+            background: rgba(0, 31, 77, 0.3); /* Profundo sutilmente azul */
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
         }
 
-        /* Seção Home (Sobre mim, etc) */
-        .home-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; text-align: left; }
-        .info-box { background: rgba(0, 123, 255, 0.1); border: 1px solid rgba(255,255,255,0.2); padding: 15px; border-radius: 8px; }
-        .info-box h3 { border-bottom: 1px solid #007bff; padding-bottom: 5px; margin-top: 0; color: #00c6ff; }
+        .info-box h3 {
+            border-bottom: 1px solid #007bff;
+            padding-bottom: 5px;
+            margin-top: 0;
+            color: #00c6ff;
+        }
 
     </style>
 </head>
 <body>
 
     <div class="background-animation">
-        <div class="lights">
-            <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
-            <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
-            <div class="floating-light"></div><div class="floating-light"></div>
+        <div class="stars-and-lights">
+            <div class="star-blink"></div><div class="star-blink"></div><div class="star-blink"></div><div class="star-blink"></div>
+            <div class="star-blink"></div><div class="star-blink"></div>
+            <div class="star-move"></div><div class="star-move"></div><div class="star-move"></div><div class="star-move"></div>
+            <div class="star-move"></div>
             <div class="floating-light"></div><div class="floating-light"></div>
             <div class="floating-light"></div>
         </div>
     </div>
 
     <div id="intro-screen">
-        <h1 class="gradient-text-anim" style="font-size: 4em;">Galeria de Gifs</h1>
-        <button class="gradient-btn-anim" id="btn-entrar" style="padding: 15px 40px;">Entrar</button>
+        <h1>Galeria de <span>Gifs</span></h1>
+        <button id="btn-entrar">Entrar</button>
     </div>
 
     <div id="gallery-screen">
-        <div class="profile-frame"><img src="https://imgur.com/7rKeKT8.png"></div>
-        <h2 class="gradient-text-anim" style="font-size: 2.5em;">GALERIA</h2>
+        <div class="profile-frame">
+            <img src="https://imgur.com/7rKeKT8.png" alt="Foto de Perfil">
+        </div>
+
+        <h2>GALERIA</h2>
 
         <div class="nav-buttons">
-            <button class="gradient-btn-anim" id="btn-home">Home</button>
-            <button class="gradient-btn-anim" id="btn-gifs">Gifs</button>
-            <button class="gradient-btn-anim" id="btn-pcback">pcback gif</button>
-            <button class="gradient-btn-anim" id="btn-pstyle">Pstyle Gif</button>
+            <button class="nav-btn" id="btn-home">Home</button>
+            <button class="nav-btn" id="btn-gifs">Gifs</button>
+            <button class="nav-btn" id="btn-pcback">pcback gif</button>
+            <button class="nav-btn" id="btn-pstyle">Pstyle Gif</button>
         </div>
 
         <div id="section-home" class="content-section active">
@@ -252,66 +335,47 @@
         </div>
 
         <div id="section-gifs" class="content-section">
-            <div class="animated-bar">Modelo Afterefects</div>
-            <div class="gif-grid grid-compact">
-                <div class="gif-item"><img src="https://imgur.com/5HxfNaB.gif"><span>After 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/FILAVQP.gif"><span>After 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/5IoR515.gif"><span>After 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>After 4</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZuaO9n5.gif"><span>After 5</span></div>
-            </div>
-            <div class="animated-bar">Modelo Blufftitler</div>
-            <div class="gif-grid grid-compact">
-                <div class="gif-item"><img src="https://imgur.com/65bzz5V.gif"><span>Bluff 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZetkVFF.gif"><span>Bluff 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/JqzxOwt.gif"><span>Bluff 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/NK9Z8rU.gif"><span>Bluff 4</span></div>
-                <div class="gif-item"><img src="https://imgur.com/RNIlFI3.gif"><span>Bluff 5</span></div>
-            </div>
+            <p>(Conteúdo Gifs - Adicionar listas/grades de GIFs aqui)</p>
         </div>
-
         <div id="section-pcback" class="content-section">
-            <div class="animated-bar">Pcback GIFs</div>
-            <div class="gif-grid grid-normal">
-                <div class="gif-item"><img src="https://i.imgur.com/SFnk7A6.gif"><span>Pcback 1</span></div>
-                <div class="gif-item"><img src="https://i.imgur.com/KKY2zqU.gif"><span>Pcback 2</span></div>
-                <div class="gif-item"><img src="https://i.imgur.com/fmhynyY.gif"><span>Pcback 3</span></div>
-            </div>
+            <p>(Conteúdo Pcback - Adicionar GIFs aqui)</p>
+        </div>
+        <div id="section-pstyle" class="content-section">
+            <p>(Conteúdo Pstyle - Adicionar GIFs aqui)</p>
         </div>
 
-        <div id="section-pstyle" class="content-section">
-            <div class="animated-bar">Pstyle GIFs</div>
-            <div class="gif-grid grid-normal">
-                <div class="gif-item"><img src="https://imgur.com/rUIzfWU.gif"><span>Pstyle 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/dGfJDfh.gif"><span>Pstyle 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZXBA6F1.gif"><span>Pstyle 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/dImC226.gif"><span>Pstyle 4</span></div>
-            </div>
-        </div>
     </div>
 
     <script>
-        const intro = document.getElementById('intro-screen');
-        const gallery = document.getElementById('gallery-screen');
-        const sections = document.querySelectorAll('.content-section');
+        // Transição de Entrada
+        const btnEntrar = document.getElementById('btn-entrar');
+        const introScreen = document.getElementById('intro-screen');
+        const galleryScreen = document.getElementById('gallery-screen');
 
-        document.getElementById('btn-entrar').onclick = () => {
-            intro.style.opacity = '0';
+        btnEntrar.onclick = () => {
+            // Esconde a intro com fade-out
+            introScreen.style.opacity = '0';
             setTimeout(() => { 
-                intro.style.display = 'none'; 
-                gallery.classList.add('active'); 
+                introScreen.style.visibility = 'hidden'; 
+                // Mostra a galeria com fade-in
+                galleryScreen.classList.add('active'); 
+                document.body.style.overflow = 'hidden'; // Garante que não haja scroll global
             }, 1000);
         };
 
-        function show(id) {
+        // Navegação da Galeria
+        const sections = document.querySelectorAll('.content-section');
+        const navBtns = document.querySelectorAll('.nav-btn');
+
+        function showSection(id) {
             sections.forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
         }
 
-        document.getElementById('btn-home').onclick = () => show('section-home');
-        document.getElementById('btn-gifs').onclick = () => show('section-gifs');
-        document.getElementById('btn-pcback').onclick = () => show('section-pcback');
-        document.getElementById('btn-pstyle').onclick = () => show('section-pstyle');
+        document.getElementById('btn-home').onclick = () => showSection('section-home');
+        document.getElementById('btn-gifs').onclick = () => showSection('section-gifs');
+        document.getElementById('btn-pcback').onclick = () => showSection('section-pcback');
+        document.getElementById('btn-pstyle').onclick = () => showSection('section-pstyle');
     </script>
 </body>
 </html>
