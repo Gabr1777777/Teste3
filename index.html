@@ -287,7 +287,7 @@
         <div class="nav-buttons">
             <button class="gradient-btn-anim" id="btn-home">Home</button>
             <button class="gradient-btn-anim" id="btn-gifs">Gifs</button>
-            <button class="gradient-btn-anim" id="btn-Pcback">Pcback gif</button>
+            <button class="gradient-btn-anim" id="btn-pcback">Pcback gif</button>
             <button class="gradient-btn-anim" id="btn-pstyle">Pstyle Gif</button>
             <button class="gradient-btn-anim" id="btn-pcback-est">Pcback Estático</button>
             <button class="gradient-btn-anim" id="btn-pstyle-est">Pstyle Estático</button>
@@ -417,7 +417,8 @@
 
         function show(id) {
             sections.forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+            const target = document.getElementById(id);
+            if(target) target.classList.add('active');
             updateMarqueeProperties();
         }
 
