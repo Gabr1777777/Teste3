@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Galeria de GIFs</title>
+    <title>Minha Galeria de GIFs - Restaurada</title>
     <style>
         /* --- Reset e Estilos Básicos --- */
         body, html {
@@ -11,15 +11,18 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            overflow: hidden; /* Mantém a rolagem apenas dentro da galeria */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #000022; 
+            background-color: #000022; /* Fundo base para evitar flash branco */
+            
+            /* Segurança: Bloqueio de seleção de texto via CSS */
             user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
         }
 
+        /* --- MENSAGEM DE ALERTA CUSTOMIZADA --- */
         #custom-alert {
             display: none;
             position: fixed;
@@ -46,8 +49,9 @@
             left: 0;
             width: 100%;
             height: 100%;
+            /* Fundo radial profundo fixo */
             background: radial-gradient(circle at center, #001f4d 0%, #00001a 100%);
-            z-index: -1;
+            z-index: -1; /* Fica atrás de todo o conteúdo */
             overflow: hidden;
         }
 
@@ -59,13 +63,14 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle at 50% 50%, rgba(0, 123, 255, 0.15), transparent 50%);
-            animation: nebulaMove 20s infinite alternate ease-in-out;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 123, 255, 0.2), transparent 60%);
+            animation: nebulaMove 30s infinite alternate ease-in-out;
+            filter: blur(20px);
         }
 
         @keyframes nebulaMove {
-            from { transform: translate(-10%, -10%); }
-            to { transform: translate(10%, 10%); }
+            from { transform: translate(-15%, -15%) rotate(0deg); }
+            to { transform: translate(15%, 15%) rotate(5deg); }
         }
 
         /* Estrelas Grandes Piscando */
@@ -77,7 +82,7 @@
             box-shadow: 0 0 10px white, 0 0 20px white;
             opacity: 0;
             animation: bigStarBlink 4s infinite ease-in-out;
-            z-index: 1;
+            z-index: 1; /* Acima da névoa, mas atrás do conteúdo */
         }
 
         @keyframes bigStarBlink {
@@ -85,23 +90,23 @@
             50% { opacity: 0.8; transform: scale(1.2); }
         }
 
-        /* Feixes de Luzes flutuantes neon */
+        /* Feixes de Luzes flutuantes neon sutil */
         .floating-light {
             position: absolute;
             border-radius: 50%;
             opacity: 0;
-            animation: floatGlow 12s infinite linear;
-            filter: blur(15px); /* Mais blur para parecer luz suave */
+            animation: floatGlow 15s infinite linear;
+            filter: blur(30px); /* Muito blur para parecer luz suave de fundo */
             z-index: 0;
         }
 
         @keyframes floatGlow {
             0% { transform: translateY(110vh) scale(1); opacity: 0; }
-            50% { opacity: 0.4; }
-            100% { transform: translateY(-20vh) scale(1.5); opacity: 0; }
+            50% { opacity: 0.3; } /* Sutil para não ofuscar o conteúdo */
+            100% { transform: translateY(-20vh) scale(1.8); opacity: 0; }
         }
 
-        /* --- ANIMAÇÕES GRADIENTE E NEON --- */
+        /* --- ANIMAÇÕES GRADIENTE E NEON (CONTEÚDO) --- */
         .gradient-text-anim {
             background: linear-gradient(270deg, #ffffff, #007bff, #ffffff, #007bff);
             background-size: 400% 400%;
@@ -123,6 +128,8 @@
             border-radius: 5px;
             animation: gradientMove 5s ease infinite;
             transition: box-shadow 0.3s ease, transform 0.2s;
+            position: relative; /* Garante que fique acima do fundo */
+            z-index: 10;
         }
 
         .gradient-btn-anim:hover {
@@ -144,6 +151,8 @@
             font-weight: bold;
             margin-bottom: 15px;
             animation: barMove 3s linear infinite;
+            color: white;
+            text-align: center;
         }
 
         @keyframes barMove {
@@ -153,20 +162,40 @@
 
         /* --- ESTRUTURA DE TELAS --- */
         #intro-screen {
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            width: 100%; height: 100%; position: absolute; z-index: 10;
-            transition: opacity 1s;
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center;
+            width: 100%; 
+            height: 100%; 
+            position: absolute; 
+            top: 0; left: 0;
+            z-index: 20; /* Camada mais alta para a entrada */
+            transition: opacity 1s ease-out, visibility 1s;
         }
 
         #gallery-screen {
-            display: none; opacity: 0; width: 100%; height: 100%;
-            position: absolute; z-index: 5; transition: opacity 1s;
-            overflow-y: auto; padding: 20px; box-sizing: border-box;
-            color: white; text-align: center;
+            display: none; /* Escondido inicialmente */
+            opacity: 0; 
+            width: 100%; 
+            height: 100%;
+            position: absolute; 
+            top: 0; left: 0;
+            z-index: 5; /* Camada intermediária */
+            transition: opacity 1s ease-in;
+            overflow-y: auto; /* Permite rolagem apenas aqui */
+            padding: 20px; 
+            box-sizing: border-box;
+            color: white; 
+            text-align: center;
         }
 
-        #gallery-screen.active { display: block; opacity: 1; }
+        #gallery-screen.active {
+            display: block; 
+            opacity: 1;
+        }
 
+        /* Estilos da Galeria WRS */
         .profile-frame {
             width: 200px;
             height: 200px;
@@ -183,18 +212,22 @@
         .content-section { display: none; margin-top: 20px; max-width: 1000px; margin-left: auto; margin-right: auto; }
         .content-section.active { display: block; }
 
+        /* Grades de GIFs */
         .gif-grid { display: grid; gap: 15px; margin-bottom: 30px; }
         .grid-compact { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
         .grid-normal { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
 
-        .gif-item { background: rgba(255, 255, 255, 0.1); padding: 8px; border-radius: 5px; transition: 0.3s; }
+        .gif-item { background: rgba(255, 255, 255, 0.1); padding: 8px; border-radius: 5px; transition: 0.3s; text-align: center; }
         .gif-item:hover { box-shadow: 0 0 20px #00c6ff; transform: translateY(-5px); }
-        .gif-item img { width: 100%; border-radius: 3px; }
+        .gif-item img { width: 100%; border-radius: 3px; display: block; margin-bottom: 5px;}
+        .gif-item span { font-size: 0.8em; color: #ccc; }
 
+        /* Seção Home (Info Boxes) */
+        .home-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; text-align: left; }
         .info-box { 
             background: rgba(0, 123, 255, 0.15); 
             border: 1px solid rgba(255,255,255,0.2); 
-            padding: 15px; border-radius: 8px; transition: 0.3s ease; text-align: left;
+            padding: 15px; border-radius: 8px; transition: 0.3s ease; 
         }
         .info-box:hover { box-shadow: 0 0 20px #00c6ff; transform: translateY(-5px); background: rgba(0, 123, 255, 0.25); }
         .info-box h3 { border-bottom: 1px solid #007bff; color: #00c6ff; margin-top: 0; }
@@ -210,9 +243,9 @@
         <div class="big-star" style="width: 10px; height: 10px; top: 75%; left: 45%; animation-delay: 0.5s;"></div>
         <div class="big-star" style="width: 7px; height: 7px; top: 20%; left: 60%; animation-delay: 2s;"></div>
         
-        <div class="floating-light" style="width: 150px; height: 150px; left: 15%; background: radial-gradient(circle, #007bff, transparent 70%); animation-duration: 15s;"></div>
-        <div class="floating-light" style="width: 200px; height: 200px; left: 60%; background: radial-gradient(circle, #00c6ff, transparent 70%); animation-delay: 4s; animation-duration: 18s;"></div>
-        <div class="floating-light" style="width: 120px; height: 120px; left: 40%; background: radial-gradient(circle, #ffffff, transparent 70%); animation-delay: 7s; animation-duration: 12s;"></div>
+        <div class="floating-light" style="width: 250px; height: 250px; left: 10%; background: radial-gradient(circle, #007bff, transparent 70%); animation-duration: 20s;"></div>
+        <div class="floating-light" style="width: 300px; height: 300px; left: 55%; background: radial-gradient(circle, #00c6ff, transparent 70%); animation-delay: 5s; animation-duration: 25s;"></div>
+        <div class="floating-light" style="width: 200px; height: 200px; left: 35%; background: radial-gradient(circle, #ffffff, transparent 70%); animation-delay: 10s; animation-duration: 15s;"></div>
     </div>
 
     <div id="intro-screen">
@@ -221,7 +254,9 @@
     </div>
 
     <div id="gallery-screen">
-        <div class="profile-frame"><img src="https://imgur.com/7rKeKT8.png"></div>
+        <div class="profile-frame">
+            <img src="https://imgur.com/7rKeKT8.png" alt="Foto de Perfil">
+        </div>
         <h2 class="gradient-text-anim" style="font-size: 2.5em;">GALERIA</h2>
 
         <div class="nav-buttons">
@@ -232,7 +267,7 @@
         </div>
 
         <div id="section-home" class="content-section active">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <div class="home-info">
                 <div class="info-box"><h3>Sobre Mim</h3><p>Bem-vindo à minha galeria pessoal de efeitos e composições visuais.</p></div>
                 <div class="info-box"><h3>Dicas</h3><p>Use os GIFs como backgrounds ou elementos de transição em seus projetos.</p></div>
                 <div class="info-box"><h3>Sell ID</h3><p>Para encomendas ou uso comercial, entre em contato via Discord ou direct.</p></div>
@@ -244,11 +279,42 @@
             <div class="gif-grid grid-compact">
                 <div class="gif-item"><img src="https://imgur.com/5HxfNaB.gif"><span>After 1</span></div>
                 <div class="gif-item"><img src="https://imgur.com/FILAVQP.gif"><span>After 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/5IoR515.gif"><span>After 3</span></div>
+                <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>After 4</span></div>
+                <div class="gif-item"><img src="https://imgur.com/ZuaO9n5.gif"><span>After 5</span></div>
+            </div>
+            <div class="animated-bar">Modelo Blufftitler</div>
+            <div class="gif-grid grid-compact">
+                <div class="gif-item"><img src="https://imgur.com/65bzz5V.gif"><span>Bluff 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/ZetkVFF.gif"><span>Bluff 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/JqzxOwt.gif"><span>Bluff 3</span></div>
+                <div class="gif-item"><img src="https://imgur.com/NK9Z8rU.gif"><span>Bluff 4</span></div>
+                <div class="gif-item"><img src="https://imgur.com/RNIlFI3.gif"><span>Bluff 5</span></div>
+            </div>
+        </div>
+
+        <div id="section-pcback" class="content-section">
+            <div class="animated-bar">Pcback GIFs</div>
+            <div class="gif-grid grid-normal">
+                <div class="gif-item"><img src="https://i.imgur.com/SFnk7A6.gif"><span>Pcback 1</span></div>
+                <div class="gif-item"><img src="https://i.imgur.com/KKY2zqU.gif"><span>Pcback 2</span></div>
+                <div class="gif-item"><img src="https://i.imgur.com/fmhynyY.gif"><span>Pcback 3</span></div>
+            </div>
+        </div>
+
+        <div id="section-pstyle" class="content-section">
+            <div class="animated-bar">Pstyle GIFs</div>
+            <div class="gif-grid grid-normal">
+                <div class="gif-item"><img src="https://imgur.com/rUIzfWU.gif"><span>Pstyle 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/dGfJDfh.gif"><span>Pstyle 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/ZXBA6F1.gif"><span>Pstyle 3</span></div>
+                <div class="gif-item"><img src="https://imgur.com/dImC226.gif"><span>Pstyle 4</span></div>
             </div>
         </div>
     </div>
 
     <script>
+        // --- Segurança (Bloqueios) ---
         function showAlert(e) {
             if (e) e.preventDefault();
             const alertBox = document.getElementById('custom-alert');
@@ -258,28 +324,44 @@
         }
 
         document.addEventListener('keydown', function(e) {
+            // Bloqueia Ctrl+U, Ctrl+S, Ctrl+A
             if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 65)) showAlert(e);
+            // Bloqueia F12, Ctrl+Shift+I
             if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) showAlert(e);
         });
 
+        // --- Navegação e Transições (Corrigido) ---
         const intro = document.getElementById('intro-screen');
         const gallery = document.getElementById('gallery-screen');
         const sections = document.querySelectorAll('.content-section');
+        const navBtns = document.querySelectorAll('.nav-buttons .gradient-btn-anim');
 
+        // Botão Entrar
         document.getElementById('btn-entrar').onclick = () => {
+            // Fade out da intro
             intro.style.opacity = '0';
-            setTimeout(() => { intro.style.display = 'none'; gallery.classList.add('active'); }, 1000);
+            setTimeout(() => { 
+                intro.style.display = 'none'; // Esconde de vez
+                intro.style.visibility = 'hidden';
+                
+                // Fade in da galeria
+                gallery.classList.add('active'); 
+                gallery.scrollTop = 0; // Garante que comece no topo
+            }, 1000); // Tempo da transição CSS
         };
 
-        function show(id) {
+        // Função para mostrar seção específica
+        function showSection(id) {
             sections.forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
+            gallery.scrollTop = 0; // Volta ao topo da galeria ao trocar de seção
         }
 
-        document.getElementById('btn-home').onclick = () => show('section-home');
-        document.getElementById('btn-gifs').onclick = () => show('section-gifs');
-        document.getElementById('btn-pcback').onclick = () => show('section-pcback');
-        document.getElementById('btn-pstyle').onclick = () => show('section-pstyle');
+        // Eventos dos botões de navegação
+        document.getElementById('btn-home').onclick = () => showSection('section-home');
+        document.getElementById('btn-gifs').onclick = () => showSection('section-gifs');
+        document.getElementById('btn-pcback').onclick = () => showSection('section-pcback');
+        document.getElementById('btn-pstyle').onclick = () => showSection('section-pstyle');
     </script>
 </body>
 </html>
