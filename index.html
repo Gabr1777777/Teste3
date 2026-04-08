@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minha Galeria de GIFs</title>
     <style>
-        /* --- Reset e Estilos Básicos --- */
+        /* --- Reset e Estilos Básicos (ORIGINAIS MANTIDOS) --- */
         body, html {
             margin: 0;
             padding: 0;
@@ -20,7 +20,7 @@
             -ms-user-select: none;
         }
 
-        /* --- MENSAGEM DE ALERTA --- */
+        /* --- MENSAGEM DE ALERTA (ORIGINAL) --- */
         #custom-alert {
             display: none;
             position: fixed;
@@ -40,7 +40,7 @@
             pointer-events: none;
         }
 
-        /* --- FUNDO COM ESTRELAS GRANDES EM MOVIMENTO --- */
+        /* --- FUNDO BASE (AZUL ESCURO ORIGINAL) --- */
         .background-animation {
             position: fixed;
             top: 0;
@@ -52,74 +52,54 @@
             overflow: hidden;
         }
 
-        /* Camadas de Estrelas */
-        .stars-container {
+        /* --- NOVO EFEITO: CHUVA DE ESTRELAS FLUTUANTES (ESTILO REFERÊNCIA) --- */
+        #stars-particle-container {
             position: absolute;
             width: 100%;
             height: 100%;
             top: 0;
             left: 0;
+            overflow: hidden;
+            z-index: 0; /* Atrás do conteúdo, na frente do gradiente base */
         }
 
-        .stars-layer {
+        .star-particle {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background-repeat: repeat;
-            pointer-events: none;
-        }
-
-        /* Estrelas Brancas Grandes e Visíveis */
-        .stars-1 {
-            background-image: 
-                radial-gradient(4px 4px at 100px 150px, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 300px 400px, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(5px 5px at 500px 100px, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(4px 4px at 700px 600px, #ffffff, rgba(0,0,0,0));
-            background-size: 800px 800px;
-            animation: moveStars 40s linear infinite; /* Velocidade aumentada */
-            opacity: 0.8;
-        }
-
-        .stars-2 {
-            background-image: 
-                radial-gradient(5px 5px at 150px 250px, #00c6ff, rgba(0,0,0,0)),
-                radial-gradient(4px 4px at 450px 550px, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(6px 6px at 650px 200px, #007bff, rgba(0,0,0,0));
-            background-size: 900px 900px;
-            animation: moveStars 60s linear infinite reverse;
-            opacity: 0.6;
-        }
-
-        @keyframes moveStars {
-            from { transform: translate(0, 0); }
-            to { transform: translate(20%, 20%); }
-        }
-
-        /* Mantendo seus outros efeitos originais */
-        .big-star {
-            position: absolute;
-            background: white;
+            background-color: #fff;
             border-radius: 50%;
-            filter: blur(1px);
-            box-shadow: 0 0 10px white, 0 0 20px white;
+            /* Brilho da estrela (Glow) */
+            box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #007bff;
+            /* Animação: Subir e piscar */
+            animation: riseAndTwinkle linear infinite;
             opacity: 0;
-            animation: bigStarBlink 4s infinite ease-in-out;
+            bottom: -50px; /* Começa logo abaixo da tela */
         }
 
-        @keyframes bigStarBlink {
-            0%, 100% { opacity: 0; transform: scale(0.5); }
-            50% { opacity: 0.8; transform: scale(1.2); }
+        @keyframes riseAndTwinkle {
+            0% {
+                transform: translateY(0) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8; /* Aparece rápido */
+            }
+            80% {
+                opacity: 0.8; /* Mantém visível */
+            }
+            100% {
+                transform: translateY(-110vh) scale(1.2); /* Sobe além do topo */
+                opacity: 0; /* Desaparece no topo */
+            }
         }
 
+        /* Mantendo suas luzes flutuantes originais */
         .floating-light {
             position: absolute;
             border-radius: 50%;
             opacity: 0;
             animation: floatGlow 12s infinite linear;
             filter: blur(3px);
+            z-index: 1;
         }
 
         @keyframes floatGlow {
@@ -128,7 +108,7 @@
             100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
 
-        /* --- ESTILOS DE TEXTO E BOTÕES (IGUAIS AO ORIGINAL) --- */
+        /* --- ESTILOS DE CONTEÚDO (ORIGINAIS MANTIDOS) --- */
         .gradient-text-anim {
             background: linear-gradient(270deg, #ffffff, #007bff, #ffffff, #007bff);
             background-size: 400% 400%;
@@ -150,6 +130,8 @@
             border-radius: 5px;
             animation: gradientMove 5s ease infinite;
             transition: box-shadow 0.3s ease, transform 0.2s;
+            position: relative;
+            z-index: 20; /* Garante que o botão fique clicável sobre as partículas */
         }
 
         .gradient-btn-anim:hover {
@@ -196,11 +178,12 @@
         .profile-frame {
             width: 200px; height: 200px; border-radius: 50%; border: 3px solid #fff;
             margin: 10px auto; overflow: hidden; box-shadow: 0 0 20px rgba(255,255,255,0.5);
+            position: relative; z-index: 10;
         }
         .profile-frame img { width: 100%; height: 100%; object-fit: cover; }
 
-        .nav-buttons { margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-        .content-section { display: none; margin-top: 20px; max-width: 1000px; margin-left: auto; margin-right: auto; }
+        .nav-buttons { margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; position: relative; z-index: 10;}
+        .content-section { display: none; margin-top: 20px; max-width: 1000px; margin-left: auto; margin-right: auto; position: relative; z-index: 10;}
         .content-section.active { display: block; }
 
         .gif-grid { display: grid; gap: 15px; margin-bottom: 30px; }
@@ -224,12 +207,8 @@
     <div id="custom-alert">Copyright - Acesso Proibido</div>
 
     <div class="background-animation">
-        <div class="stars-layer stars-1"></div>
-        <div class="stars-layer stars-2"></div>
+        <div id="stars-particle-container"></div>
 
-        <div class="big-star" style="width: 6px; height: 6px; top: 10%; left: 15%;"></div>
-        <div class="big-star" style="width: 8px; height: 8px; top: 40%; left: 85%; animation-delay: 1s;"></div>
-        <div class="big-star" style="width: 10px; height: 10px; top: 80%; left: 50%; animation-delay: 0.5s;"></div>
         <div class="floating-light" style="width: 50px; height: 50px; left: 10%; background: #007bff; animation-delay: 0s;"></div>
         <div class="floating-light" style="width: 60px; height: 60px; left: 45%; background: #00c6ff; animation-delay: 8s;"></div>
     </div>
@@ -298,6 +277,7 @@
     </div>
 
     <script>
+        // --- FUNÇÕES DE SEGURANÇA (ORIGINAIS) ---
         function showAlert(e) {
             if (e) e.preventDefault();
             const alertBox = document.getElementById('custom-alert');
@@ -311,15 +291,59 @@
             if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) showAlert(e);
         });
 
+        // --- SISTEMA DE PARTÍCULAS DE ESTRELAS (NOVO) ---
+        function createStarParticle() {
+            const container = document.getElementById('stars-particle-container');
+            if (!container) return;
+
+            const star = document.createElement('div');
+            star.classList.add('star-particle');
+
+            // Configurações Aleatórias (Tamanho, Posição, Duração)
+            const size = Math.random() * 6 + 2; // Tamanho entre 2px e 8px
+            const posX = Math.random() * 100; // Posição horizontal aleatória (0-100%)
+            const duration = Math.random() * 10 + 5; // Duração entre 5s e 15s
+            const delay = Math.random() * 5; // Atraso inicial para não saírem todas juntas
+
+            // Aplicar estilos
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.left = `${posX}%`;
+            star.style.animationDuration = `${duration}s`;
+            star.style.animationDelay = `-${delay}s`; // Negativo para já começar em movimento
+
+            container.appendChild(star);
+
+            // Remover a partícula após a animação para não pesar o navegador
+            setTimeout(() => {
+                star.remove();
+            }, duration * 1000);
+        }
+
+        // --- TRANSIÇÃO DE TELAS E INÍCIO DO EFEITO ---
         const intro = document.getElementById('intro-screen');
         const gallery = document.getElementById('gallery-screen');
         const sections = document.querySelectorAll('.content-section');
+        let particleInterval; // Variável para controlar o gerador
 
         document.getElementById('btn-entrar').onclick = () => {
             intro.style.opacity = '0';
-            setTimeout(() => { intro.style.display = 'none'; gallery.classList.add('active'); }, 1000);
+            
+            // INICIAR O EFEITO DE ESTRELAS EXATAMENTE NO CLIQUE
+            // Cria 50 estrelas instantaneamente para preencher a tela
+            for(let i = 0; i < 50; i++) {
+                createStarParticle();
+            }
+            // Continua criando novas estrelas continuamente (estilo chuva)
+            particleInterval = setInterval(createStarParticle, 200); // Nova estrela a cada 200ms
+
+            setTimeout(() => { 
+                intro.style.display = 'none'; 
+                gallery.classList.add('active'); 
+            }, 1000);
         };
 
+        // --- NAVEGAÇÃO (ORIGINAL) ---
         function show(id) {
             sections.forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
