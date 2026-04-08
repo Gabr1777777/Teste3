@@ -28,7 +28,6 @@
             overflow: hidden;
         }
 
-        /* Estrelas Grandes Piscando */
         .big-star {
             position: absolute;
             background: white;
@@ -44,7 +43,6 @@
             50% { opacity: 0.8; transform: scale(1.2); }
         }
 
-        /* Luzes flutuantes neon */
         .floating-light {
             position: absolute;
             border-radius: 50%;
@@ -59,7 +57,7 @@
             100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
 
-        /* --- ANIMAÇÕES GRADIENTE (RECUPERADAS) --- */
+        /* --- ANIMAÇÕES GRADIENTE --- */
         .gradient-text-anim {
             background: linear-gradient(270deg, #ffffff, #007bff, #ffffff, #007bff);
             background-size: 400% 400%;
@@ -81,7 +79,7 @@
             border-radius: 5px;
             animation: gradientMove 5s ease infinite;
             text-decoration: none;
-            transition: box-shadow 0.3s ease;
+            transition: box-shadow 0.3s ease, transform 0.2s;
         }
 
         .gradient-btn-anim:hover {
@@ -95,7 +93,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Barras Animadas */
         .animated-bar {
             background: linear-gradient(90deg, #007bff, #00c6ff, #007bff);
             background-size: 200% auto;
@@ -147,8 +144,23 @@
         .gif-item:hover { box-shadow: 0 0 20px #00c6ff; transform: translateY(-5px); }
         .gif-item img { width: 100%; border-radius: 3px; }
 
+        /* Seção Home */
         .home-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; text-align: left; }
-        .info-box { background: rgba(0, 123, 255, 0.15); border: 1px solid rgba(255,255,255,0.2); padding: 15px; border-radius: 8px; }
+        
+        /* Efeito de passar o mouse nas caixas Home igual aos GIFs */
+        .info-box { 
+            background: rgba(0, 123, 255, 0.15); 
+            border: 1px solid rgba(255,255,255,0.2); 
+            padding: 15px; 
+            border-radius: 8px; 
+            transition: 0.3s ease; 
+        }
+        .info-box:hover { 
+            box-shadow: 0 0 20px #00c6ff; 
+            transform: translateY(-5px);
+            background: rgba(0, 123, 255, 0.25);
+        }
+        
         .info-box h3 { border-bottom: 1px solid #007bff; color: #00c6ff; margin-top: 0; }
     </style>
 </head>
