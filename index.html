@@ -98,6 +98,71 @@
             100% { transform: translateX(var(--marquee-end)); }
         }
 
+        /* --- PLAYER DE MÚSICA (ACIMA DO LETREIRO) --- */
+        .music-player-home {
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto 10px auto;
+            background: rgba(0, 17, 51, 0.8);
+            border-radius: 12px;
+            padding: 10px 20px;
+            border: 2px solid transparent;
+            background-image: linear-gradient(rgba(0, 17, 51, 0.9), rgba(0, 17, 51, 0.9)), 
+                              linear-gradient(270deg, #007bff, #ffffff, #00c6ff, #ffffff);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            background-size: 400% 400%;
+            animation: gradientMove 5s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .track-info {
+            color: #00c6ff;
+            font-weight: bold;
+            text-shadow: 0 0 5px #007bff;
+            font-size: 0.9em;
+            max-width: 250px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .player-controls-wrap {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .player-btns {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-audio {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.4em;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-audio:hover {
+            color: #00c6ff;
+            transform: scale(1.2);
+        }
+
+        .volume-slider {
+            width: 80px;
+            cursor: pointer;
+            accent-color: #007bff;
+        }
+
         /* --- ESTILO DO LETREIRO --- */
         .container-letreiro-wrs {
             width: 100%;
@@ -166,11 +231,6 @@
             animation: gradientMove 5s ease infinite, floating 3s ease-in-out infinite;
         }
 
-        .gradient-btn-anim:hover {
-            box-shadow: 0 0 20px #007bff, 0 0 40px #007bff;
-            transform: scale(1.05);
-        }
-
         .animated-bar {
             background: linear-gradient(90deg, #007bff, #00c6ff, #007bff);
             background-size: 200% auto;
@@ -190,7 +250,6 @@
             will-change: transform;
         }
 
-        /* --- RODAPÉ PEQUENO (AJUSTADO) --- */
         footer {
             margin-top: 40px;
             padding: 15px 0;
@@ -200,9 +259,6 @@
 
         .neon-footer-text {
             font-size: 0.9em; 
-            font-weight: normal;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
             background: linear-gradient(270deg, #007bff, #ffffff, #00c6ff, #ffffff);
             background-size: 400% 400%;
             -webkit-background-clip: text;
@@ -210,7 +266,6 @@
             color: transparent;
             animation: gradientMove 5s ease infinite;
             filter: drop-shadow(0 0 5px #007bff);
-            opacity: 0.8;
         }
 
         /* --- ESTRUTURA DE TELAS --- */
@@ -242,25 +297,12 @@
         .profile-frame img { width: 100%; height: 100%; object-fit: cover; }
 
         .nav-buttons { margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-
         .content-section { display: none; margin-top: 20px; max-width: 1000px; margin-left: auto; margin-right: auto; }
         .content-section.active { display: block; }
-
         .gif-grid { display: grid; gap: 15px; margin-bottom: 30px; }
         .grid-compact { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
-        .grid-normal { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
-
         .gif-item { background: rgba(255, 255, 255, 0.1); padding: 8px; border-radius: 5px; transition: 0.3s; }
-        .gif-item:hover { box-shadow: 0 0 20px #00c6ff; transform: translateY(-5px); }
         .gif-item img { width: 100%; border-radius: 3px; }
-
-        .info-box { 
-            background: rgba(0, 123, 255, 0.15); 
-            border: 1px solid rgba(255,255,255,0.2); 
-            padding: 15px; border-radius: 8px; transition: 0.3s ease; text-align: left;
-        }
-        .info-box:hover { box-shadow: 0 0 20px #00c6ff; transform: translateY(-5px); background: rgba(0, 123, 255, 0.25); }
-        .info-box h3 { border-bottom: 1px solid #007bff; color: #00c6ff; margin-top: 0; }
     </style>
 </head>
 <body oncontextmenu="return showAlert(event)">
@@ -269,10 +311,8 @@
 
     <div class="background-animation">
         <div class="big-star" style="width: 6px; height: 6px; top: 10%; left: 15%;"></div>
-        <div class="big-star" style="width: 8px; height: 8px; top: 40%; left: 85%; animation-delay: 1s;"></div>
-        <div class="big-star" style="width: 10px; height: 10px; top: 80%; left: 50%; animation-delay: 0.5s;"></div>
-        <div class="floating-light" style="width: 50px; height: 50px; left: 10%; background: #007bff; animation-delay: 0s;"></div>
-        <div class="floating-light" style="width: 60px; height: 60px; left: 45%; background: #00c6ff; animation-delay: 8s;"></div>
+        <div class="big-star" style="width: 8px; height: 8px; top: 40%; left: 85%;"></div>
+        <div class="big-star" style="width: 10px; height: 10px; top: 80%; left: 50%;"></div>
     </div>
 
     <div id="intro-screen">
@@ -288,168 +328,125 @@
             <button class="gradient-btn-anim" id="btn-home">Home</button>
             <button class="gradient-btn-anim" id="btn-gifs">Gifs</button>
             <button class="gradient-btn-anim" id="btn-pcback">Pcback Gif</button>
-            <button class="gradient-btn-anim" id="btn-pstyle">Pstyle Gif</button>
-            <button class="gradient-btn-anim" id="btn-pcback-est">Pcback Estático</button>
-            <button class="gradient-btn-anim" id="btn-pstyle-est">Pstyle Estático</button>
         </div>
 
         <div id="section-home" class="content-section active">
+            <div class="music-player-home">
+                <div id="track-name" class="track-info">Playlist</div>
+                <div class="player-controls-wrap">
+                    <div class="player-btns">
+                        <button class="btn-audio" onclick="prevTrack()">⏮</button>
+                        <button id="play-pause" class="btn-audio" onclick="togglePlay()">▶</button>
+                        <button class="btn-audio" onclick="nextTrack()">⏭</button>
+                    </div>
+                    <input type="range" id="volume-control" class="volume-slider" min="0" max="1" step="0.1" value="0.5">
+                </div>
+                <audio id="main-audio" src=""></audio>
+            </div>
+
             <div class="container-letreiro-wrs">
                 <div class="texto-letreiro-wrapper">
                     <span>Gifs / Pcback Gif / Pstyle Gif / Estáticos / Design Personalizado</span>
                 </div>
             </div>
-
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                <div class="info-box"><h3>Sobre Mim</h3><p>Bem-vindo à minha galeria pessoal de efeitos e composições visuais.</p></div>
-                <div class="info-box"><h3>Dicas</h3><p>Use os GIFs como backgrounds ou elements de transição em seus projetos.</p></div>
-                <div class="info-box"><h3>Sell ID</h3><p>Para encomendas ou uso comercial, entre em contato via Discord ou direct.</p></div>
-            </div>
-        </div>
-
-        <div id="section-gifs" class="content-section">
-            <div class="animated-bar"><span>Modelo Afterefects 400 XATS </span></div>
-            <div class="gif-grid grid-compact">
-                <div class="gif-item"><img src="https://imgur.com/5HxfNaB.gif"><span>After 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/FILAVQP.gif"><span>After 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/5IoR515.gif"><span>After 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>After 4</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZuaO9n5.gif"><span>After 5</span></div>
-            </div>
-            <div class="animated-bar"><span>Modelo Blufftitler 350 XATS </span></div>
-            <div class="gif-grid grid-compact">
-                <div class="gif-item"><img src="https://imgur.com/65bzz5V.gif"><span>Bluff 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZetkVFF.gif"><span>Bluff 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/JqzxOwt.gif"><span>Bluff 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/NK9Z8rU.gif"><span>Bluff 4</span></div>
-                <div class="gif-item"><img src="https://imgur.com/RNIlFI3.gif"><span>Bluff 5</span></div>
-            </div>
-            <div class="animated-bar"><span>Modelo Canva 300 XATS </span></div>
-            <div class="gif-grid grid-compact">
-                <div class="gif-item"><img src="https://imgur.com/5HxfNaB.gif"><span>Gifs 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/FILAVQP.gif"><span>Gifs 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/5IoR515.gif"><span>Gifs 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>Gifs 4</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZuaO9n5.gif"><span>Gifs 5</span></div>
-            </div>
-            <div class="animated-bar"><span>Modelo Photoscape 250 XATS</span></div>
-            <div class="gif-grid grid-compact">
-                <div class="gif-item"><img src="https://imgur.com/65bzz5V.gif"><span>Scape 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZetkVFF.gif"><span>Scape 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/JqzxOwt.gif"><span>Scape 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/NK9Z8rU.gif"><span>Scape 4</span></div>
-                <div class="gif-item"><img src="https://imgur.com/RNIlFI3.gif"><span>Scape 5</span></div>
-            </div>
-        </div>
-
-        <div id="section-pcback" class="content-section">
-            <div class="animated-bar"><span>Pcback Gifs 450 XATS </span></div>
-            <div class="gif-grid grid-normal">
-                <div class="gif-item"><img src="https://i.imgur.com/SFnk7A6.gif"><span>Pcback 1</span></div>
-                <div class="gif-item"><img src="https://i.imgur.com/KKY2zqU.gif"><span>Pcback 2</span></div>
-                <div class="gif-item"><img src="https://i.imgur.com/fmhynyY.gif"><span>Pcback 3</span></div>
-            </div>
-        </div>
-
-        <div id="section-pstyle" class="content-section">
-            <div class="animated-bar"><span>Pstyle GIFs 350 XATS</span></div>
-            <div class="gif-grid grid-normal">
-                <div class="gif-item"><img src="https://imgur.com/rUIzfWU.gif"><span>Pstyle 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/dGfJDfh.gif"><span>Pstyle 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZXBA6F1.gif"><span>Pstyle 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/dImC226.gif"><span>Pstyle 4</span></div>
-            </div>
-        </div>
-
-        <div id="section-pcback-est" class="content-section">
-            <div class="animated-bar"><span>Pcback Estático 300 XATS </span></div>
-            <div class="gif-grid grid-normal">
-                <div class="gif-item"><img src="https://imgur.com/OyX4Jwt.png"><span>Pcback 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/tcGR4ey.png"><span>Pcback 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/dbSy2Rf.png"><span>Pcback 3</span></div>
-            </div>
-        </div>
-
-        <div id="section-pstyle-est" class="content-section">
-            <div class="animated-bar"><span>Pstyle Estático 250 XATS </span></div>
-            <div class="gif-grid grid-normal">
-                <div class="gif-item"><img src="https://imgur.com/zlcL7Dh.png"><span>Pstyle 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/m2Ew85b.png"><span>Pstyle 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/6PUSQBo.png"><span>Pstyle 3</span></div>
-            </div>
         </div>
 
         <footer>
             <div class="neon-footer-text">Galeria exclusiva 2026</div>
-            <div style="margin-top: 15px; font-family: monospace; color: #007bff; font-size: 0.8rem; filter: drop-shadow(0 0 3px #007bff);">
+            <div style="margin-top: 15px; font-family: monospace; color: #007bff; font-size: 0.8rem;">
                 VISITAS: <span id="v-count">00000</span>
             </div>
         </footer>
     </div>
 
     <script>
-        // CONTADOR COM CHAVE PRÓPRIA
-        function updateCounter() {
-            let c = localStorage.getItem('Galeria_Privada_v') || 0;
-            c++;
-            localStorage.setItem('Galeria_Privada_v', c);
-            const vCountEl = document.getElementById('v-count');
-            if (vCountEl) vCountEl.innerText = c.toString().padStart(5, '0');
+        const playlist = [
+            { name: "Eminem - You dont know", url: "https://cdn.discordapp.com/attachments/1489682267264520284/1489684282887639140/Eminem-you-dont-know.mp3.mp3?ex=69d73eda&is=69d5ed5a&hm=ed020c05ff12ac429b5329d8d76a87dfb4cb913bb84c1c63e95a55601888e9c2&" },
+            { name: "The Sound of Silence – Rising to the Night", url: "https://cdn.discordapp.com/attachments/1489682267264520284/1489684333672403135/sound-of-silence.mp3.mp3?ex=69d73ee6&is=69d5ed66&hm=3aacc36f062b5a9d803e187d8905efa1fdc3f8f0566bf5a5e6fb542e26dd5076&" },
+            { name: "Desireless - Voyage Voyage", url: "https://cdn.discordapp.com/attachments/1489682267264520284/1489684260460822640/Desireless-voyage-voyage.mp3.mp3?ex=69d73ed4&is=69d5ed54&hm=c0cf049750dc9464d0e86caa7a9042a01f9bce3be05117c7b956c8934302dde3&" }
+        ];
+
+        let currentTrack = 0;
+        const audio = document.getElementById('main-audio');
+        const playBtn = document.getElementById('play-pause');
+        const trackLabel = document.getElementById('track-name');
+        const volumeControl = document.getElementById('volume-control');
+
+        function loadTrack(index) {
+            audio.src = playlist[index].url;
+            trackLabel.innerText = playlist[index].name;
         }
 
-        function showAlert(e) {
-            if (e) e.preventDefault();
-            const alertBox = document.getElementById('custom-alert');
-            alertBox.style.display = 'block';
-            setTimeout(() => { alertBox.style.display = 'none'; }, 2000);
-            return false;
+        function togglePlay() {
+            if (audio.paused) {
+                audio.play();
+                playBtn.innerText = "⏸";
+            } else {
+                audio.pause();
+                playBtn.innerText = "▶";
+            }
         }
 
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 65)) {
-                showAlert(e);
-            }
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
-                showAlert(e);
-            }
+        function nextTrack() {
+            currentTrack = (currentTrack + 1) % playlist.length;
+            loadTrack(currentTrack);
+            audio.play();
+            playBtn.innerText = "⏸";
+        }
+
+        function prevTrack() {
+            currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+            loadTrack(currentTrack);
+            audio.play();
+            playBtn.innerText = "⏸";
+        }
+
+        volumeControl.addEventListener('input', (e) => {
+            audio.volume = e.target.value;
         });
 
-        const intro = document.getElementById('intro-screen');
-        const gallery = document.getElementById('gallery-screen');
-        const sections = document.querySelectorAll('.content-section');
+        audio.onended = nextTrack;
+        loadTrack(currentTrack);
+        audio.volume = 0.5;
 
+        // BOTÃO ENTRAR: Inicia o som e muda a tela
         document.getElementById('btn-entrar').onclick = () => {
-            intro.style.opacity = '0';
+            document.getElementById('intro-screen').style.opacity = '0';
+            // Inicia o áudio aqui
+            audio.play().catch(e => console.log("Erro ao tocar áudio automaticamente"));
+            playBtn.innerText = "⏸";
+            
             setTimeout(() => { 
-                intro.style.display = 'none'; 
-                gallery.classList.add('active');
+                document.getElementById('intro-screen').style.display = 'none'; 
+                document.getElementById('gallery-screen').classList.add('active');
                 updateMarqueeProperties();
                 updateCounter(); 
             }, 1000);
         };
 
+        function updateCounter() {
+            let c = localStorage.getItem('Galeria_Privada_v') || 0;
+            c++;
+            localStorage.setItem('Galeria_Privada_v', c);
+            document.getElementById('v-count').innerText = c.toString().padStart(5, '0');
+        }
+
+        function showAlert(e) { if(e) e.preventDefault(); document.getElementById('custom-alert').style.display='block'; setTimeout(()=>{document.getElementById('custom-alert').style.display='none'},2000); return false; }
+
         function show(id) {
-            sections.forEach(s => s.classList.remove('active'));
-            const target = document.getElementById(id);
-            if(target) target.classList.add('active');
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
             updateMarqueeProperties();
         }
 
         document.getElementById('btn-home').onclick = () => show('section-home');
         document.getElementById('btn-gifs').onclick = () => show('section-gifs');
-        document.getElementById('btn-pcback').onclick = () => show('section-pcback');
-        document.getElementById('btn-pstyle').onclick = () => show('section-pstyle');
-        document.getElementById('btn-pcback-est').onclick = () => show('section-pcback-est');
-        document.getElementById('btn-pstyle-est').onclick = () => show('section-pstyle-est');
 
         function updateMarqueeProperties() {
             const spans = document.querySelectorAll('.animated-bar span, .texto-letreiro-wrapper span');
             spans.forEach(span => {
-                const parentBar = span.parentElement;
-                const barWidth = parentBar.offsetWidth;
-                const textWidth = span.offsetWidth;
-                span.style.setProperty('--marquee-start', barWidth + 'px');
-                span.style.setProperty('--marquee-end', '-' + textWidth + 'px');
+                span.style.setProperty('--marquee-start', span.parentElement.offsetWidth + 'px');
+                span.style.setProperty('--marquee-end', '-' + span.offsetWidth + 'px');
             });
         }
         window.addEventListener('resize', updateMarqueeProperties);
