@@ -14,14 +14,13 @@
             overflow: hidden;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #000022; 
-            /* Bloqueio de seleção de texto via CSS */
             user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
         }
 
-        /* --- MENSAGEM DE ALERTA CUSTOMIZADA --- */
+        /* --- MENSAGEM DE ALERTA --- */
         #custom-alert {
             display: none;
             position: fixed;
@@ -38,10 +37,10 @@
             text-align: center;
             font-weight: bold;
             font-size: 1.2em;
-            pointer-events: none; /* Não interfere no clique após sumir */
+            pointer-events: none;
         }
 
-        /* --- FUNDO ANIMADO (AZUL + ESTRELAS + LUZES) --- */
+        /* --- FUNDO COM ESTRELAS GRANDES EM MOVIMENTO --- */
         .background-animation {
             position: fixed;
             top: 0;
@@ -53,41 +52,53 @@
             overflow: hidden;
         }
 
-        /* Camadas de Estrelas Grandes e Médias em Movimento */
+        /* Camadas de Estrelas */
+        .stars-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
         .stars-layer {
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            pointer-events: none;
             background-repeat: repeat;
+            pointer-events: none;
         }
 
+        /* Estrelas Brancas Grandes e Visíveis */
         .stars-1 {
             background-image: 
-                radial-gradient(3px 3px at 50px 100px, #fff, rgba(0,0,0,0)),
-                radial-gradient(4px 4px at 200px 350px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 400px 150px, #fff, rgba(0,0,0,0));
-            background-size: 500px 500px;
-            animation: moveStars 80s linear infinite;
-            opacity: 0.7;
+                radial-gradient(4px 4px at 100px 150px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 300px 400px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(5px 5px at 500px 100px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(4px 4px at 700px 600px, #ffffff, rgba(0,0,0,0));
+            background-size: 800px 800px;
+            animation: moveStars 40s linear infinite; /* Velocidade aumentada */
+            opacity: 0.8;
         }
 
         .stars-2 {
             background-image: 
-                radial-gradient(5px 5px at 150px 250px, #fff, rgba(0,0,0,0)),
-                radial-gradient(6px 6px at 450px 50px, #eee, rgba(0,0,0,0));
-            background-size: 700px 700px;
-            animation: moveStars 120s linear infinite reverse;
-            opacity: 0.5;
+                radial-gradient(5px 5px at 150px 250px, #00c6ff, rgba(0,0,0,0)),
+                radial-gradient(4px 4px at 450px 550px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(6px 6px at 650px 200px, #007bff, rgba(0,0,0,0));
+            background-size: 900px 900px;
+            animation: moveStars 60s linear infinite reverse;
+            opacity: 0.6;
         }
 
         @keyframes moveStars {
             from { transform: translate(0, 0); }
-            to { transform: translate(15%, 10%); }
+            to { transform: translate(20%, 20%); }
         }
 
+        /* Mantendo seus outros efeitos originais */
         .big-star {
             position: absolute;
             background: white;
@@ -117,7 +128,7 @@
             100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
 
-        /* --- ANIMAÇÕES GRADIENTE E NEON --- */
+        /* --- ESTILOS DE TEXTO E BOTÕES (IGUAIS AO ORIGINAL) --- */
         .gradient-text-anim {
             background: linear-gradient(270deg, #ffffff, #007bff, #ffffff, #007bff);
             background-size: 400% 400%;
@@ -167,7 +178,6 @@
             100% { background-position: 200% 50%; }
         }
 
-        /* --- ESTRUTURA DE TELAS --- */
         #intro-screen {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             width: 100%; height: 100%; position: absolute; z-index: 10;
@@ -184,18 +194,12 @@
         #gallery-screen.active { display: block; opacity: 1; }
 
         .profile-frame {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            border: 3px solid #fff;
-            margin: 10px auto;
-            overflow: hidden;
-            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+            width: 200px; height: 200px; border-radius: 50%; border: 3px solid #fff;
+            margin: 10px auto; overflow: hidden; box-shadow: 0 0 20px rgba(255,255,255,0.5);
         }
         .profile-frame img { width: 100%; height: 100%; object-fit: cover; }
 
         .nav-buttons { margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-
         .content-section { display: none; margin-top: 20px; max-width: 1000px; margin-left: auto; margin-right: auto; }
         .content-section.active { display: block; }
 
@@ -212,7 +216,6 @@
             border: 1px solid rgba(255,255,255,0.2); 
             padding: 15px; border-radius: 8px; transition: 0.3s ease; text-align: left;
         }
-        .info-box:hover { box-shadow: 0 0 20px #00c6ff; transform: translateY(-5px); background: rgba(0, 123, 255, 0.25); }
         .info-box h3 { border-bottom: 1px solid #007bff; color: #00c6ff; margin-top: 0; }
     </style>
 </head>
@@ -295,7 +298,6 @@
     </div>
 
     <script>
-        // Função de Alerta
         function showAlert(e) {
             if (e) e.preventDefault();
             const alertBox = document.getElementById('custom-alert');
@@ -304,17 +306,11 @@
             return false;
         }
 
-        // Bloqueio de Teclas (Ctrl+U, F12, Ctrl+Shift+I)
         document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 65)) {
-                showAlert(e);
-            }
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
-                showAlert(e);
-            }
+            if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 65)) showAlert(e);
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) showAlert(e);
         });
 
-        // Transição de Telas
         const intro = document.getElementById('intro-screen');
         const gallery = document.getElementById('gallery-screen');
         const sections = document.querySelectorAll('.content-section');
