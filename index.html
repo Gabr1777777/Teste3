@@ -40,19 +40,20 @@
             pointer-events: none;
         }
 
-        /* --- PLAYER DE MÚSICA --- */
-        .music-player {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            z-index: 100;
-            background: rgba(0, 17, 51, 0.8);
+        /* --- ESTILO DO PLAYER (ACIMA DAS INFOS) --- */
+        .player-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 20px auto;
+            background: rgba(0, 123, 255, 0.1);
             border: 1px solid #007bff;
-            border-radius: 30px;
-            padding: 5px 15px;
+            border-radius: 50px;
+            padding: 10px;
             display: flex;
             align-items: center;
-            box-shadow: 0 0 10px #007bff;
+            justify-content: center;
+            gap: 15px;
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.3);
         }
 
         /* --- FUNDO ANIMADO --- */
@@ -271,25 +272,18 @@
         }
         .info-box:hover { box-shadow: 0 0 20px #00c6ff; transform: translateY(-5px); background: rgba(0, 123, 255, 0.25); }
         .info-box h3 { border-bottom: 1px solid #007bff; color: #00c6ff; margin-top: 0; }
-        
-        /* Estilo Azul do Contador */
+
+        /* Ajuste do Contador Azul Sem Boneco */
         #count-img {
-            filter: hue-rotate(190deg) brightness(1.2) drop-shadow(0 0 5px #007bff);
+            filter: hue-rotate(190deg) brightness(1.5) drop-shadow(0 0 5px #007bff);
             vertical-align: middle;
+            height: 30px;
         }
     </style>
 </head>
 <body oncontextmenu="return showAlert(event)">
 
     <div id="custom-alert">Copyright - Acesso Proibido</div>
-
-    <div class="music-player">
-        <audio id="bg-audio" loop>
-            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-        </audio>
-        <span style="color:#00c6ff; font-size: 12px; margin-right: 10px; font-weight: bold;">MUSIC PLAYER</span>
-        <button onclick="togglePlay()" id="play-btn" style="background:none; border:none; color:white; cursor:pointer; font-size:16px;">▶</button>
-    </div>
 
     <div class="background-animation">
         <div class="big-star" style="width: 6px; height: 6px; top: 10%; left: 15%;"></div>
@@ -324,6 +318,14 @@
                 </div>
             </div>
 
+            <div class="player-container">
+                <audio id="bg-audio" loop>
+                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                </audio>
+                <span style="color:#00c6ff; font-weight:bold; font-size:14px;">MUSIC PLAYER</span>
+                <button onclick="togglePlay()" id="play-btn" style="background:none; border:none; color:white; cursor:pointer; font-size:20px;">▶</button>
+            </div>
+
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
                 <div class="info-box"><h3>Sobre Mim</h3><p>Bem-vindo à minha galeria pessoal de efeitos e composições visuais.</p></div>
                 <div class="info-box"><h3>Dicas</h3><p>Use os GIFs como backgrounds ou elements de transição em seus projetos.</p></div>
@@ -336,27 +338,31 @@
             <div class="gif-grid grid-compact">
                 <div class="gif-item"><img src="https://imgur.com/5HxfNaB.gif"><span>After 1</span></div>
                 <div class="gif-item"><img src="https://imgur.com/FILAVQP.gif"><span>After 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/5IoR515.gif"><span>After 3</span></div>
+                <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>After 4</span></div>
+                <div class="gif-item"><img src="https://imgur.com/ZuaO9n5.gif"><span>After 5</span></div>
             </div>
         </div>
-        
+
         <div id="section-pcback" class="content-section">
             <div class="animated-bar"><span>Pcback Gifs 450 XATS </span></div>
             <div class="gif-grid grid-normal">
                 <div class="gif-item"><img src="https://i.imgur.com/SFnk7A6.gif"><span>Pcback 1</span></div>
                 <div class="gif-item"><img src="https://i.imgur.com/KKY2zqU.gif"><span>Pcback 2</span></div>
+                <div class="gif-item"><img src="https://i.imgur.com/fmhynyY.gif"><span>Pcback 3</span></div>
             </div>
         </div>
 
         <footer>
             <div class="neon-footer-text">Galeria exclusiva 2026</div>
             <div style="margin-top: 15px; font-family: monospace; color: #007bff; font-size: 0.8rem;">
-                VISITAS: <img id="count-img" src="https://count.getloli.com/get/@galeria_wrs_2026?theme=asoul" alt="Visitas">
+                VISITAS: <img id="count-img" src="https://count.getloli.com/get/@galeria_wrs_2026?theme=rule34" alt="Visitas">
             </div>
         </footer>
     </div>
 
     <script>
-        // FUNÇÃO PLAYER
+        // CONTROLE DO PLAYER
         const audio = document.getElementById('bg-audio');
         const playBtn = document.getElementById('play-btn');
         function togglePlay() {
@@ -388,7 +394,7 @@
 
         document.getElementById('btn-entrar').onclick = () => {
             intro.style.opacity = '0';
-            audio.play(); // Toca música ao entrar
+            audio.play();
             playBtn.innerText = "⏸";
             setTimeout(() => { 
                 intro.style.display = 'none'; 
