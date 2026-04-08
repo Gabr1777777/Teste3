@@ -93,6 +93,11 @@
             100% { background-position: 0% 50%; }
         }
 
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
         .gradient-text-anim {
             background: linear-gradient(270deg, #ffffff, #007bff, #ffffff, #007bff);
             background-size: 400% 400%;
@@ -116,7 +121,6 @@
             transition: box-shadow 0.3s ease, transform 0.2s;
         }
 
-        /* ESTILO ESPECÍFICO BOTÃO ENTRAR (REDONDO E FLUTUANTE) */
         #btn-entrar {
             width: 130px;
             height: 130px;
@@ -134,19 +138,23 @@
             transform: scale(1.05);
         }
 
+        /* BARRA COM EFEITO LETREIRO (MARQUEE) */
         .animated-bar {
             background: linear-gradient(90deg, #007bff, #00c6ff, #007bff);
             background-size: 200% auto;
-            padding: 8px;
+            padding: 8px 0;
             border-radius: 4px;
             font-weight: bold;
             margin-bottom: 15px;
-            animation: barMove 3s linear infinite;
+            overflow: hidden; /* Esconde o texto que sai da barra */
+            white-space: nowrap;
+            position: relative;
         }
 
-        @keyframes barMove {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
+        .animated-bar span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 12s linear infinite; /* 12s para não ser muito rápido */
         }
 
         /* --- ESTRUTURA DE TELAS --- */
@@ -165,7 +173,6 @@
 
         #gallery-screen.active { display: block; opacity: 1; }
 
-        /* MOLDURA PERFIL FLUTUANTE */
         .profile-frame {
             width: 200px;
             height: 200px;
@@ -174,7 +181,7 @@
             margin: 10px auto;
             overflow: hidden;
             box-shadow: 0 0 20px rgba(255,255,255,0.5);
-            animation: floating 4s ease-in-out infinite; /* Animação flutuar */
+            animation: floating 4s ease-in-out infinite;
         }
         .profile-frame img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -237,7 +244,7 @@
         </div>
 
         <div id="section-gifs" class="content-section">
-            <div class="animated-bar">Modelo Afterefects</div>
+            <div class="animated-bar"><span>Modelo Afterefects</span></div>
             <div class="gif-grid grid-compact">
                 <div class="gif-item"><img src="https://imgur.com/5HxfNaB.gif"><span>After 1</span></div>
                 <div class="gif-item"><img src="https://imgur.com/FILAVQP.gif"><span>After 2</span></div>
@@ -245,7 +252,7 @@
                 <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>After 4</span></div>
                 <div class="gif-item"><img src="https://imgur.com/ZuaO9n5.gif"><span>After 5</span></div>
             </div>
-            <div class="animated-bar">Modelo Blufftitler</div>
+            <div class="animated-bar"><span>Modelo Blufftitler</span></div>
             <div class="gif-grid grid-compact">
                 <div class="gif-item"><img src="https://imgur.com/65bzz5V.gif"><span>Bluff 1</span></div>
                 <div class="gif-item"><img src="https://imgur.com/ZetkVFF.gif"><span>Bluff 2</span></div>
@@ -256,7 +263,7 @@
         </div>
 
         <div id="section-pcback" class="content-section">
-            <div class="animated-bar">Pcback GIFs</div>
+            <div class="animated-bar"><span>Pcback GIFs</span></div>
             <div class="gif-grid grid-normal">
                 <div class="gif-item"><img src="https://i.imgur.com/SFnk7A6.gif"><span>Pcback 1</span></div>
                 <div class="gif-item"><img src="https://i.imgur.com/KKY2zqU.gif"><span>Pcback 2</span></div>
@@ -265,7 +272,7 @@
         </div>
 
         <div id="section-pstyle" class="content-section">
-            <div class="animated-bar">Pstyle GIFs</div>
+            <div class="animated-bar"><span>Pstyle GIFs</span></div>
             <div class="gif-grid grid-normal">
                 <div class="gif-item"><img src="https://imgur.com/rUIzfWU.gif"><span>Pstyle 1</span></div>
                 <div class="gif-item"><img src="https://imgur.com/dGfJDfh.gif"><span>Pstyle 2</span></div>
