@@ -13,29 +13,98 @@
             height: 100%;
             overflow: hidden;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #000033;
+            background-color: #00001a; /* Fundo base ultra escuro */
         }
 
-        /* --- Fundo Animado --- */
+        /* --- NOVO FUNDO ANIMADO VISUALMENTE LEGAL --- */
         .background-animation {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, #001f4d 0%, #00001a 100%);
+            /* Gradiente radial profundo */
+            background: radial-gradient(circle at center, #001f4d 0%, #000005 100%);
             z-index: -2;
+            overflow: hidden;
         }
 
-        .lights { position: absolute; width: 100%; height: 100%; z-index: -1; }
-        .light { position: absolute; background: white; border-radius: 50%; opacity: 0.5; animation: fly 10s infinite linear; }
-        @keyframes fly {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        /* Camada de Nebulosa sutil */
+        .background-animation::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(rgba(0, 123, 255, 0.1) 0%, rgba(0,0,0,0) 70%);
+            background-size: 200px 200px, 300px 300px, 100% 100%;
+            background-position: 0 0, 0 0, center;
+            opacity: 0.4;
+            animation: nebulosaMove 60s linear infinite;
         }
-        .light:nth-child(1) { width: 10px; height: 10px; left: 10%; animation-duration: 8s; }
-        .light:nth-child(2) { width: 15px; height: 15px; left: 30%; animation-duration: 12s; }
-        .light:nth-child(3) { width: 8px; height: 8px; left: 50%; animation-duration: 10s; }
+
+        @keyframes nebulosaMove {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-5%, -5%) rotate(5deg); }
+        }
+
+        /* Estrelas e Luzes Neon */
+        .lights {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Estrelas fixas e piscantes */
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: flicker infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        /* Luzes flutuantes (antigas "light") com efeito neon */
+        .floating-light {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatAndGlow infinite linear;
+            filter: blur(2px); /* Efeito de brilho */
+        }
+
+        @keyframes floatAndGlow {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 0; box-shadow: 0 0 5px currentColor; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; box-shadow: 0 0 20px currentColor; }
+        }
+
+        /* --- Geração Dinâmica de Estrelas e Luzes --- */
+        /* (Seria ideal com JS para aleatoriedade, mas vamos usar muitos seletores CSS) */
+        /* Estrelas */
+        .star:nth-child(1) { width: 1px; height: 1px; top: 10%; left: 15%; animation-duration: 2s; }
+        .star:nth-child(2) { width: 2px; height: 2px; top: 25%; left: 80%; animation-duration: 3s; animation-delay: 1s;}
+        .star:nth-child(3) { width: 1px; height: 1px; top: 40%; left: 5%; animation-duration: 1.5s; }
+        .star:nth-child(4) { width: 1.5px; height: 1.5px; top: 60%; left: 90%; animation-duration: 4s; animation-delay: 2s;}
+        .star:nth-child(5) { width: 1px; height: 1px; top: 75%; left: 30%; animation-duration: 2.5s; }
+        .star:nth-child(6) { width: 2px; height: 2px; top: 85%; left: 60%; animation-duration: 3.5s; animation-delay: 0.5s;}
+        .star:nth-child(7) { width: 1px; height: 1px; top: 5%; left: 50%; animation-duration: 2.2s; }
+        .star:nth-child(8) { width: 1px; height: 1px; top: 95%; left: 10%; animation-duration: 2.8s; }
+
+        /* Luzes Flutuantes Neon (azuis e brancas) */
+        .floating-light:nth-child(9) { width: 15px; height: 15px; left: 10%; color: #007bff; background-color: #007bff; animation-duration: 15s; }
+        .floating-light:nth-child(10) { width: 8px; height: 8px; left: 30%; color: #ffffff; background-color: #ffffff; animation-duration: 10s; animation-delay: 2s; }
+        .floating-light:nth-child(11) { width: 20px; height: 20px; left: 50%; color: #00c6ff; background-color: #00c6ff; animation-duration: 18s; animation-delay: 5s; }
+        .floating-light:nth-child(12) { width: 12px; height: 12px; left: 70%; color: #ffffff; background-color: #ffffff; animation-duration: 12s; animation-delay: 1s; }
+        .floating-light:nth-child(13) { width: 18px; height: 18px; left: 90%; color: #007bff; background-color: #007bff; animation-duration: 20s; animation-delay: 8s; }
+
 
         /* --- Efeitos Gradiente --- */
         .gradient-text-anim {
@@ -59,12 +128,18 @@
             border-radius: 5px;
             animation: gradientAnimation 5s ease infinite;
             text-decoration: none;
+            transition: box-shadow 0.3s ease; /* Transição suave para o efeito neon */
         }
 
         @keyframes gradientAnimation {
             0%{background-position:0% 50%}
             50%{background-position:100% 50%}
             100%{background-position:0% 50%}
+        }
+
+        /* --- Efeito Neon no Hover dos Botões --- */
+        .gradient-btn-anim:hover {
+            box-shadow: 0 0 10px #007bff, 0 0 20px #007bff, 0 0 30px #007bff, 0 0 40px #007bff;
         }
 
         /* --- Estrutura de Telas --- */
@@ -84,8 +159,11 @@
         #gallery-screen.active { display: block; opacity: 1; }
 
         /* --- Galeria Estilo WRS --- */
+        /* Moldura Aumentada */
         .profile-frame {
-            width: 100px; height: 100px; border-radius: 50%; border: 3px solid #fff;
+            width: 150px; /* Tamanho original aumentado */
+            height: 150px; /* Tamanho original aumentado */
+            border-radius: 50%; border: 3px solid #fff;
             margin: 10px auto; overflow: hidden;
         }
         .profile-frame img { width: 100%; height: 100%; object-fit: cover; }
@@ -111,9 +189,15 @@
         /* Estilo Normal (Para Pcback e Pstyle) */
         .grid-normal { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
 
-        .gif-item { background: rgba(255, 255, 255, 0.1); padding: 8px; border-radius: 5px; }
+        .gif-item { background: rgba(255, 255, 255, 0.1); padding: 8px; border-radius: 5px; transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave */ }
         .gif-item img { width: 100%; border-radius: 3px; }
         .gif-item span { font-size: 0.8em; display: block; margin-top: 5px; }
+
+        /* --- Efeito Neon no Hover dos GIFs --- */
+        .gif-item:hover {
+            transform: translateY(-5px); /* Pequeno levante */
+            box-shadow: 0 0 10px #00c6ff, 0 0 20px #00c6ff, 0 0 30px #00c6ff;
+        }
 
         /* Seção Home (Sobre mim, etc) */
         .home-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; text-align: left; }
@@ -125,7 +209,13 @@
 <body>
 
     <div class="background-animation">
-        <div class="lights"><div class="light"></div><div class="light"></div><div class="light"></div></div>
+        <div class="lights">
+            <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+            <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+            <div class="floating-light"></div><div class="floating-light"></div>
+            <div class="floating-light"></div><div class="floating-light"></div>
+            <div class="floating-light"></div>
+        </div>
     </div>
 
     <div id="intro-screen">
