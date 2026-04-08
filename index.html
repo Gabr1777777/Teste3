@@ -396,19 +396,10 @@
             </div>
         </div>
 
-        <div id="section-pcback" class="content-section">
-            <div class="animated-bar"><span>Pcback Gifs 450 XATS </span></div>
-            <div class="gif-grid grid-normal">
-                <div class="gif-item"><img src="https://i.imgur.com/SFnk7A6.gif"><span>Pcback 1</span></div>
-                <div class="gif-item"><img src="https://i.imgur.com/KKY2zqU.gif"><span>Pcback 2</span></div>
-                <div class="gif-item"><img src="https://i.imgur.com/fmhynyY.gif"><span>Pcback 3</span></div>
-            </div>
-        </div>
-
         <footer>
             <div class="neon-footer-text">Galeria exclusiva 2026</div>
             <div style="margin-top: 15px; font-family: monospace; color: #007bff; font-size: 0.8rem; filter: drop-shadow(0 0 3px #007bff);">
-                VISITAS: <span id="v-count">01234</span>
+                VISITAS: <span id="v-count">00000</span>
             </div>
         </footer>
     </div>
@@ -469,14 +460,22 @@
                 document.getElementById('intro-screen').style.display = 'none'; 
                 document.getElementById('gallery-screen').classList.add('active');
                 updateMarqueeProperties();
-                setStaticCounter(); 
+                updateDynamicCounter(); 
             }, 1000);
         };
 
-        // CONTADOR FIXO IGUAL PARA TODOS
-        function setStaticCounter() {
-            const staticValue = "01548"; // Defina aqui o número fixo desejado
-            document.getElementById('v-count').innerText = staticValue;
+        // CONTADOR DINÂMICO GLOBAL (Igual para todos, cresce com o tempo)
+        function updateDynamicCounter() {
+            // Data de referência (hoje às 00:00:00)
+            const referenceDate = new Date();
+            referenceDate.setHours(0, 0, 0, 0);
+            
+            setInterval(() => {
+                const now = new Date();
+                // Calcula a diferença em segundos para criar um número que sobe
+                let diff = Math.floor((now - referenceDate) / 1000);
+                document.getElementById('v-count').innerText = diff.toString().padStart(5, '0');
+            }, 1000);
         }
 
         function showAlert(e) { if(e) e.preventDefault(); document.getElementById('custom-alert').style.display='block'; setTimeout(()=>{document.getElementById('custom-alert').style.display='none'},2000); return false; }
