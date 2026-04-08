@@ -381,18 +381,18 @@
 
         <footer>
             <div class="neon-footer-text">Galeria exclusiva 2026</div>
-            <div style="margin-top: 15px; font-family: monospace; color: #ff007f; font-size: 0.8rem;">
+            <div style="margin-top: 15px; font-family: monospace; color: #007bff; font-size: 0.8rem; filter: drop-shadow(0 0 3px #007bff);">
                 VISITAS: <span id="v-count">00000</span>
             </div>
         </footer>
     </div>
 
     <script>
-        // FUNÇÃO DO CONTADOR
+        // CONTADOR COM CHAVE PRÓPRIA
         function updateCounter() {
-            let c = localStorage.getItem('Name_v') || 0;
+            let c = localStorage.getItem('Galeria_Privada_v') || 0;
             c++;
-            localStorage.setItem('Name_v', c);
+            localStorage.setItem('Galeria_Privada_v', c);
             const vCountEl = document.getElementById('v-count');
             if (vCountEl) vCountEl.innerText = c.toString().padStart(5, '0');
         }
@@ -424,7 +424,7 @@
                 intro.style.display = 'none'; 
                 gallery.classList.add('active');
                 updateMarqueeProperties();
-                updateCounter(); // CHAMANDO O CONTADOR AO ENTRAR
+                updateCounter(); 
             }, 1000);
         };
 
