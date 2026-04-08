@@ -98,7 +98,7 @@
             100% { transform: translateX(var(--marquee-end)); }
         }
 
-        /* --- PLAYER DE MÚSICA (ACIMA DO LETREIRO) --- */
+        /* --- PLAYER DE MÚSICA --- */
         .music-player-home {
             width: 100%;
             max-width: 960px;
@@ -424,13 +424,8 @@
         }
 
         function togglePlay() {
-            if (audio.paused) {
-                audio.play();
-                playBtn.innerText = "⏸";
-            } else {
-                audio.pause();
-                playBtn.innerText = "▶";
-            }
+            if (audio.paused) { audio.play(); playBtn.innerText = "⏸"; } 
+            else { audio.pause(); playBtn.innerText = "▶"; }
         }
 
         function nextTrack() {
@@ -452,31 +447,30 @@
         loadTrack(currentTrack);
         audio.volume = 0.5;
 
+        // --- CONTADOR GLOBAL (COUNTAPI) ---
+        // Troque 'minha_galeria_exclusiva_2026' por um nome único seu se quiser resetar
+        async function updateGlobalCounter() {
+            try {
+                const response = await fetch('https://api.countapi.xyz/hit/minha_galeria_exclusiva_2026/visitas');
+                const data = await response.json();
+                document.getElementById('v-count').innerText = data.value.toString().padStart(5, '0');
+            } catch (err) {
+                // Caso a API falhe, mostra um número amigável
+                document.getElementById('v-count').innerText = "00001";
+            }
+        }
+
         document.getElementById('btn-entrar').onclick = () => {
             document.getElementById('intro-screen').style.opacity = '0';
-            audio.play().catch(e => console.log("Erro ao tocar"));
+            audio.play().catch(e => console.log("Som ativado"));
             playBtn.innerText = "⏸";
             setTimeout(() => { 
                 document.getElementById('intro-screen').style.display = 'none'; 
                 document.getElementById('gallery-screen').classList.add('active');
                 updateMarqueeProperties();
-                updateDynamicCounter(); 
+                updateGlobalCounter(); 
             }, 1000);
         };
-
-        // CONTADOR DINÂMICO GLOBAL (Igual para todos, cresce com o tempo)
-        function updateDynamicCounter() {
-            // Data de referência (hoje às 00:00:00)
-            const referenceDate = new Date();
-            referenceDate.setHours(0, 0, 0, 0);
-            
-            setInterval(() => {
-                const now = new Date();
-                // Calcula a diferença em segundos para criar um número que sobe
-                let diff = Math.floor((now - referenceDate) / 1000);
-                document.getElementById('v-count').innerText = diff.toString().padStart(5, '0');
-            }, 1000);
-        }
 
         function showAlert(e) { if(e) e.preventDefault(); document.getElementById('custom-alert').style.display='block'; setTimeout(()=>{document.getElementById('custom-alert').style.display='none'},2000); return false; }
 
