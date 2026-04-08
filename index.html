@@ -40,7 +40,7 @@
             pointer-events: none;
         }
 
-        /* --- FUNDO ANIMADO (ADICIONADO) --- */
+        /* --- FUNDO ANIMADO --- */
         .background-animation {
             position: fixed;
             top: 0;
@@ -98,7 +98,7 @@
             100% { transform: translateX(var(--marquee-end)); }
         }
 
-        /* --- ESTILO DO LETREIRO (ADICIONADO) --- */
+        /* --- ESTILO DO LETREIRO --- */
         .container-letreiro-wrs {
             width: 100%;
             max-width: 960px;
@@ -190,6 +190,28 @@
             will-change: transform;
         }
 
+        /* --- RODAPÉ NEON GRADIENTE (ADICIONADO) --- */
+        footer {
+            margin-top: 50px;
+            padding: 30px 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .neon-footer-text {
+            font-size: 1.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(270deg, #007bff, #ffffff, #00c6ff, #ffffff);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientMove 5s ease infinite;
+            filter: drop-shadow(0 0 8px #007bff);
+        }
+
         /* --- ESTRUTURA DE TELAS --- */
         #intro-screen {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -264,7 +286,7 @@
         <div class="nav-buttons">
             <button class="gradient-btn-anim" id="btn-home">Home</button>
             <button class="gradient-btn-anim" id="btn-gifs">Gifs</button>
-            <button class="gradient-btn-anim" id="btn-Pcback">Pcback gif</button>
+            <button class="gradient-btn-anim" id="btn-pcback">pcback gif</button>
             <button class="gradient-btn-anim" id="btn-pstyle">Pstyle Gif</button>
             <button class="gradient-btn-anim" id="btn-pcback-est">Pcback Estático</button>
             <button class="gradient-btn-anim" id="btn-pstyle-est">Pstyle Estático</button>
@@ -355,6 +377,10 @@
                 <div class="gif-item"><img src="https://imgur.com/6PUSQBo.png"><span>Pstyle 3</span></div>
             </div>
         </div>
+
+        <footer>
+            <div class="neon-footer-text">Galeria exclusiva 2026</div>
+        </footer>
     </div>
 
     <script>
