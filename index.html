@@ -93,9 +93,10 @@
             100% { background-position: 0% 50%; }
         }
 
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+        /* Nova animação marquee baseada em pixels, controlada por JS */
+        @keyframes marquee-dynamic {
+            0% { transform: translateX(var(--marquee-start)); }
+            100% { transform: translateX(var(--marquee-end)); }
         }
 
         .gradient-text-anim {
@@ -138,7 +139,7 @@
             transform: scale(1.05);
         }
 
-        /* BARRA COM EFEITO LETREIRO (MARQUEE) */
+        /* BARRA COM EFEITO LETREIRO (MARQUEE) MELHORADO */
         .animated-bar {
             background: linear-gradient(90deg, #007bff, #00c6ff, #007bff);
             background-size: 200% auto;
@@ -146,15 +147,17 @@
             border-radius: 4px;
             font-weight: bold;
             margin-bottom: 15px;
-            overflow: hidden; /* Esconde o texto que sai da barra */
+            overflow: hidden; 
             white-space: nowrap;
             position: relative;
+            display: flex; /* Ajuda no alinhamento */
         }
 
         .animated-bar span {
             display: inline-block;
-            padding-left: 100%;
-            animation: marquee 12s linear infinite; /* 12s para não ser muito rápido */
+            /* Inicia a animação controlada por JS */
+            animation: marquee-dynamic 12s linear infinite; 
+            will-change: transform; /* Otimização */
         }
 
         /* --- ESTRUTURA DE TELAS --- */
@@ -283,6 +286,7 @@
     </div>
 
     <script>
+        // Função de Alerta
         function showAlert(e) {
             if (e) e.preventDefault();
             const alertBox = document.getElementById('custom-alert');
@@ -291,6 +295,7 @@
             return false;
         }
 
+        // Bloqueio de Teclas
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 65)) {
                 showAlert(e);
@@ -300,24 +305,53 @@
             }
         });
 
+        // Transição de Telas
         const intro = document.getElementById('intro-screen');
         const gallery = document.getElementById('gallery-screen');
         const sections = document.querySelectorAll('.content-section');
 
         document.getElementById('btn-entrar').onclick = () => {
             intro.style.opacity = '0';
-            setTimeout(() => { intro.style.display = 'none'; gallery.classList.add('active'); }, 1000);
+            setTimeout(() => { 
+                intro.style.display = 'none'; 
+                gallery.classList.add('active');
+                // Recalcula o marquee quando a galeria aparece
+                updateMarqueeProperties();
+            }, 1000);
         };
 
         function show(id) {
             sections.forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
+            // Recalcula o marquee quando muda de aba
+            updateMarqueeProperties();
         }
 
         document.getElementById('btn-home').onclick = () => show('section-home');
         document.getElementById('btn-gifs').onclick = () => show('section-gifs');
         document.getElementById('btn-pcback').onclick = () => show('section-pcback');
         document.getElementById('btn-pstyle').onclick = () => show('section-pstyle');
+
+        // --- AJUSTE DINÂMICO DO LETREIRO (MARQUEE) ---
+        // Esta função calcula o tamanho exato da barra e do texto
+        // para eliminar o tempo de espera no reaparecimento.
+        function updateMarqueeProperties() {
+            const spans = document.querySelectorAll('.animated-bar span');
+            
+            spans.forEach(span => {
+                const parentBar = span.parentElement;
+                const barWidth = parentBar.offsetWidth;
+                const textWidth = span.offsetWidth;
+
+                // Define onde a animação começa (todo fora à direita da barra)
+                // e onde termina (todo fora à esquerda da barra)
+                span.style.setProperty('--marquee-start', barWidth + 'px');
+                span.style.setProperty('--marquee-end', '-' + textWidth + 'px');
+            });
+        }
+
+        // Ajusta se a janela for redimensionada
+        window.addEventListener('resize', updateMarqueeProperties);
     </script>
 </body>
 </html>
