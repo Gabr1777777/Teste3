@@ -267,6 +267,11 @@
 
     <div id="custom-alert">Copyright - Acesso Proibido</div>
 
+    <div id="visit-counter" style="position: fixed; bottom: 20px; left: 20px; z-index: 1000001; background: rgba(0, 5, 20, 0.9); border: 1px solid #007bff; padding: 6px 12px; border-radius: 4px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);">
+        <span style="color: #007bff; font-size: 8px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Visitas</span>
+        <span id="count-number" style="color: #fff; font-size: 18px; font-family: monospace; text-shadow: 0 0 5px #007bff;">...</span>
+    </div>
+
     <div class="background-animation">
         <div class="big-star" style="width: 6px; height: 6px; top: 10%; left: 15%;"></div>
         <div class="big-star" style="width: 8px; height: 8px; top: 40%; left: 85%; animation-delay: 1s;"></div>
@@ -324,22 +329,6 @@
                 <div class="gif-item"><img src="https://imgur.com/NK9Z8rU.gif"><span>Bluff 4</span></div>
                 <div class="gif-item"><img src="https://imgur.com/RNIlFI3.gif"><span>Bluff 5</span></div>
             </div>
-            <div class="animated-bar"><span>Modelo Canva 300 XATS </span></div>
-            <div class="gif-grid grid-compact">
-                <div class="gif-item"><img src="https://imgur.com/5HxfNaB.gif"><span>Gifs 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/FILAVQP.gif"><span>Gifs 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/5IoR515.gif"><span>Gifs 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>Gifs 4</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZuaO9n5.gif"><span>Gifs 5</span></div>
-            </div>
-            <div class="animated-bar"><span>Modelo Photoscape 250 XATS</span></div>
-            <div class="gif-grid grid-compact">
-                <div class="gif-item"><img src="https://imgur.com/65bzz5V.gif"><span>Scape 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZetkVFF.gif"><span>Scape 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/JqzxOwt.gif"><span>Scape 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/NK9Z8rU.gif"><span>Scape 4</span></div>
-                <div class="gif-item"><img src="https://imgur.com/RNIlFI3.gif"><span>Scape 5</span></div>
-            </div>
         </div>
 
         <div id="section-pcback" class="content-section">
@@ -381,20 +370,22 @@
 
         <footer>
             <div class="neon-footer-text">Galeria exclusiva 2026</div>
-            <div style="margin-top: 15px; font-family: monospace; color: #007bff; font-size: 0.8rem; filter: drop-shadow(0 0 5px #007bff); text-shadow: 0 0 8px #007bff;">
-                VISITAS: <span id="v-count">00000</span>
-            </div>
         </footer>
     </div>
 
     <script>
-        // CONTADOR COM CHAVE DE RESET (Zera a contagem ao mudar o nome da chave)
-        function updateCounter() {
-            let c = localStorage.getItem('Galeria_Reset_2026') || 0;
-            c++;
-            localStorage.setItem('Galeria_Reset_2026', c);
-            const vCountEl = document.getElementById('v-count');
-            if (vCountEl) vCountEl.innerText = c.toString().padStart(5, '0');
+        // CONFIGURAÇÃO DO CONTADOR (NOVA CHAVE PARA ZERAR)
+        const ID_VISITAS = "wrs_galeria_v1_2026"; 
+
+        async function carregarContadores() {
+            try {
+                const resV = await fetch(`https://api.counterapi.dev/v1/wrs-galeria/${ID_VISITAS}/up`);
+                const dataV = await resV.json();
+                document.getElementById('count-number').innerText = (dataV.count || dataV.value).toString().padStart(5, '0');
+            } catch(e) {
+                console.error("Erro ao carregar contador:", e);
+                document.getElementById('count-number').innerText = "00001";
+            }
         }
 
         function showAlert(e) {
@@ -424,7 +415,7 @@
                 intro.style.display = 'none'; 
                 gallery.classList.add('active');
                 updateMarqueeProperties();
-                updateCounter(); 
+                carregarContadores(); 
             }, 1000);
         };
 
