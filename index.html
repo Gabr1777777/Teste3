@@ -190,7 +190,7 @@
             will-change: transform;
         }
 
-        /* --- RODAPÉ PEQUENO --- */
+        /* --- RODAPÉ PEQUENO (AJUSTADO) --- */
         footer {
             margin-top: 40px;
             padding: 15px 0;
@@ -211,31 +211,6 @@
             animation: gradientMove 5s ease infinite;
             filter: drop-shadow(0 0 5px #007bff);
             opacity: 0.8;
-        }
-
-        /* --- ESTILO DO CONTADOR (VINDO DA GALERIA VENON) --- */
-        #visit-counter { 
-            margin-top: 15px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-        }
-
-        #count-label { 
-            color: #007bff; 
-            font-size: 0.7rem; 
-            letter-spacing: 2px; 
-            font-family: monospace; 
-            filter: drop-shadow(0 0 3px #007bff);
-        }
-
-        #count-number { 
-            color: #fff; 
-            font-size: 1.2rem; 
-            font-family: monospace; 
-            font-weight: bold;
-            filter: drop-shadow(0 0 5px #007bff);
         }
 
         /* --- ESTRUTURA DE TELAS --- */
@@ -307,3 +282,184 @@
 
     <div id="gallery-screen">
         <div class="profile-frame"><img src="https://imgur.com/7rKeKT8.png"></div>
+        <h2 class="gradient-text-anim" style="font-size: 2.5em;">GALERIA</h2>
+
+        <div class="nav-buttons">
+            <button class="gradient-btn-anim" id="btn-home">Home</button>
+            <button class="gradient-btn-anim" id="btn-gifs">Gifs</button>
+            <button class="gradient-btn-anim" id="btn-pcback">Pcback Gif</button>
+            <button class="gradient-btn-anim" id="btn-pstyle">Pstyle Gif</button>
+            <button class="gradient-btn-anim" id="btn-pcback-est">Pcback Estático</button>
+            <button class="gradient-btn-anim" id="btn-pstyle-est">Pstyle Estático</button>
+        </div>
+
+        <div id="section-home" class="content-section active">
+            <div class="container-letreiro-wrs">
+                <div class="texto-letreiro-wrapper">
+                    <span>Gifs / Pcback Gif / Pstyle Gif / Estáticos / Design Personalizado</span>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div class="info-box"><h3>Sobre Mim</h3><p>Bem-vindo à minha galeria pessoal de efeitos e composições visuais.</p></div>
+                <div class="info-box"><h3>Dicas</h3><p>Use os GIFs como backgrounds ou elements de transição em seus projetos.</p></div>
+                <div class="info-box"><h3>Sell ID</h3><p>Para encomendas ou uso comercial, entre em contato via Discord ou direct.</p></div>
+            </div>
+        </div>
+
+        <div id="section-gifs" class="content-section">
+            <div class="animated-bar"><span>Modelo Afterefects 400 XATS </span></div>
+            <div class="gif-grid grid-compact">
+                <div class="gif-item"><img src="https://imgur.com/5HxfNaB.gif"><span>After 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/FILAVQP.gif"><span>After 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/5IoR515.gif"><span>After 3</span></div>
+                <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>After 4</span></div>
+                <div class="gif-item"><img src="https://imgur.com/ZuaO9n5.gif"><span>After 5</span></div>
+            </div>
+            <div class="animated-bar"><span>Modelo Blufftitler 350 XATS </span></div>
+            <div class="gif-grid grid-compact">
+                <div class="gif-item"><img src="https://imgur.com/65bzz5V.gif"><span>Bluff 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/ZetkVFF.gif"><span>Bluff 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/JqzxOwt.gif"><span>Bluff 3</span></div>
+                <div class="gif-item"><img src="https://imgur.com/NK9Z8rU.gif"><span>Bluff 4</span></div>
+                <div class="gif-item"><img src="https://imgur.com/RNIlFI3.gif"><span>Bluff 5</span></div>
+            </div>
+            <div class="animated-bar"><span>Modelo Canva 300 XATS </span></div>
+            <div class="gif-grid grid-compact">
+                <div class="gif-item"><img src="https://imgur.com/5HxfNaB.gif"><span>Gifs 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/FILAVQP.gif"><span>Gifs 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/5IoR515.gif"><span>Gifs 3</span></div>
+                <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>Gifs 4</span></div>
+                <div class="gif-item"><img src="https://imgur.com/ZuaO9n5.gif"><span>Gifs 5</span></div>
+            </div>
+            <div class="animated-bar"><span>Modelo Photoscape 250 XATS</span></div>
+            <div class="gif-grid grid-compact">
+                <div class="gif-item"><img src="https://imgur.com/65bzz5V.gif"><span>Scape 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/ZetkVFF.gif"><span>Scape 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/JqzxOwt.gif"><span>Scape 3</span></div>
+                <div class="gif-item"><img src="https://imgur.com/NK9Z8rU.gif"><span>Scape 4</span></div>
+                <div class="gif-item"><img src="https://imgur.com/RNIlFI3.gif"><span>Scape 5</span></div>
+            </div>
+        </div>
+
+        <div id="section-pcback" class="content-section">
+            <div class="animated-bar"><span>Pcback Gifs 450 XATS </span></div>
+            <div class="gif-grid grid-normal">
+                <div class="gif-item"><img src="https://i.imgur.com/SFnk7A6.gif"><span>Pcback 1</span></div>
+                <div class="gif-item"><img src="https://i.imgur.com/KKY2zqU.gif"><span>Pcback 2</span></div>
+                <div class="gif-item"><img src="https://i.imgur.com/fmhynyY.gif"><span>Pcback 3</span></div>
+            </div>
+        </div>
+
+        <div id="section-pstyle" class="content-section">
+            <div class="animated-bar"><span>Pstyle GIFs 350 XATS</span></div>
+            <div class="gif-grid grid-normal">
+                <div class="gif-item"><img src="https://imgur.com/rUIzfWU.gif"><span>Pstyle 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/dGfJDfh.gif"><span>Pstyle 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/ZXBA6F1.gif"><span>Pstyle 3</span></div>
+                <div class="gif-item"><img src="https://imgur.com/dImC226.gif"><span>Pstyle 4</span></div>
+            </div>
+        </div>
+
+        <div id="section-pcback-est" class="content-section">
+            <div class="animated-bar"><span>Pcback Estático 300 XATS </span></div>
+            <div class="gif-grid grid-normal">
+                <div class="gif-item"><img src="https://imgur.com/OyX4Jwt.png"><span>Pcback 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/tcGR4ey.png"><span>Pcback 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/dbSy2Rf.png"><span>Pcback 3</span></div>
+            </div>
+        </div>
+
+        <div id="section-pstyle-est" class="content-section">
+            <div class="animated-bar"><span>Pstyle Estático 250 XATS </span></div>
+            <div class="gif-grid grid-normal">
+                <div class="gif-item"><img src="https://imgur.com/zlcL7Dh.png"><span>Pstyle 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/m2Ew85b.png"><span>Pstyle 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/6PUSQBo.png"><span>Pstyle 3</span></div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="neon-footer-text">Galeria exclusiva 2026</div>
+            <div style="margin-top: 15px; font-family: monospace; color: #007bff; font-size: 0.8rem; filter: drop-shadow(0 0 3px #007bff);">
+                VISITAS: <span id="v-count">...</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // --- NOVO CONTADOR INTEGRADO DA GALERIA VENON ---
+        const ID_VISITAS = "galeria_wrs_2026_main"; [cite: 62]
+
+        async function carregarContadores() { [cite: 72]
+            try {
+                const resV = await fetch(`https://api.counterapi.dev/v1/wrs-galeria/${ID_VISITAS}/up`); [cite: 72]
+                const dataV = await resV.json(); [cite: 73]
+                const vCountEl = document.getElementById('v-count');
+                if (vCountEl) {
+                    vCountEl.innerText = (dataV.count || dataV.value).toString().padStart(5, '0'); [cite: 73]
+                }
+            } catch(e) {
+                document.getElementById('v-count').innerText = "00001"; [cite: 73]
+            }
+        }
+
+        function showAlert(e) {
+            if (e) e.preventDefault();
+            const alertBox = document.getElementById('custom-alert');
+            alertBox.style.display = 'block';
+            setTimeout(() => { alertBox.style.display = 'none'; }, 2000);
+            return false;
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 65)) {
+                showAlert(e);
+            }
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
+                showAlert(e);
+            }
+        });
+
+        const intro = document.getElementById('intro-screen');
+        const gallery = document.getElementById('gallery-screen');
+        const sections = document.querySelectorAll('.content-section');
+
+        document.getElementById('btn-entrar').onclick = () => {
+            intro.style.opacity = '0';
+            setTimeout(() => { 
+                intro.style.display = 'none'; 
+                gallery.classList.add('active');
+                updateMarqueeProperties();
+                carregarContadores(); // Chama o novo contador ao entrar [cite: 72]
+            }, 1000);
+        };
+
+        function show(id) {
+            sections.forEach(s => s.classList.remove('active'));
+            const target = document.getElementById(id);
+            if(target) target.classList.add('active');
+            updateMarqueeProperties();
+        }
+
+        document.getElementById('btn-home').onclick = () => show('section-home');
+        document.getElementById('btn-gifs').onclick = () => show('section-gifs');
+        document.getElementById('btn-pcback').onclick = () => show('section-pcback');
+        document.getElementById('btn-pstyle').onclick = () => show('section-pstyle');
+        document.getElementById('btn-pcback-est').onclick = () => show('section-pcback-est');
+        document.getElementById('btn-pstyle-est').onclick = () => show('section-pstyle-est');
+
+        function updateMarqueeProperties() {
+            const spans = document.querySelectorAll('.animated-bar span, .texto-letreiro-wrapper span');
+            spans.forEach(span => {
+                const parentBar = span.parentElement;
+                const barWidth = parentBar.offsetWidth;
+                const textWidth = span.offsetWidth;
+                span.style.setProperty('--marquee-start', barWidth + 'px');
+                span.style.setProperty('--marquee-end', '-' + textWidth + 'px');
+            });
+        }
+        window.addEventListener('resize', updateMarqueeProperties);
+    </script>
+</body>
+</html>
