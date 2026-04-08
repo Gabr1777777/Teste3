@@ -20,7 +20,6 @@
             -ms-user-select: none;
         }
 
-        /* --- MENSAGEM DE ALERTA --- */
         #custom-alert {
             display: none;
             position: fixed;
@@ -40,7 +39,6 @@
             pointer-events: none;
         }
 
-        /* --- FUNDO ANIMADO --- */
         .background-animation {
             position: fixed;
             top: 0;
@@ -81,7 +79,6 @@
             100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
 
-        /* --- ANIMAÇÕES --- */
         @keyframes floating {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-15px); }
@@ -98,7 +95,6 @@
             100% { transform: translateX(var(--marquee-end)); }
         }
 
-        /* --- PLAYER DE MÚSICA --- */
         .music-player-home {
             width: 100%;
             max-width: 960px;
@@ -171,7 +167,6 @@
             accent-color: #007bff;
         }
 
-        /* --- ESTILO DO LETREIRO --- */
         .container-letreiro-wrs {
             width: 100%;
             max-width: 960px;
@@ -277,7 +272,6 @@
             filter: drop-shadow(0 0 5px #007bff);
         }
 
-        /* --- ESTRUTURA DE TELAS --- */
         #intro-screen {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             width: 100%; height: 100%; position: absolute; z-index: 10;
@@ -371,13 +365,11 @@
                 </div>
                 <audio id="main-audio" src=""></audio>
             </div>
-
             <div class="container-letreiro-wrs">
                 <div class="texto-letreiro-wrapper">
                     <span>Gifs / Pcback Gif / Pstyle Gif / Estáticos / Design Personalizado</span>
                 </div>
             </div>
-
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
                 <div class="info-box"><h3>Sobre Mim</h3><p>Bem-vindo à minha galeria pessoal de efeitos e composições visuais.</p></div>
                 <div class="info-box"><h3>Dicas</h3><p>Use os GIFs como backgrounds ou elements de transição em seus projetos.</p></div>
@@ -388,7 +380,7 @@
         <div id="section-gifs" class="content-section">
             <div class="animated-bar"><span>Modelo Afterefects 400 XATS </span></div>
             <div class="gif-grid grid-compact">
-                <div class="gif-item"><img src="https://imgur.com/5HxfNaB.gif"><span>After 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/5HxfBaB.gif"><span>After 1</span></div>
                 <div class="gif-item"><img src="https://imgur.com/FILAVQP.gif"><span>After 2</span></div>
                 <div class="gif-item"><img src="https://imgur.com/5IoR515.gif"><span>After 3</span></div>
                 <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>After 4</span></div>
@@ -484,22 +476,13 @@
         loadTrack(currentTrack);
         audio.volume = 0.5;
 
-        // --- CONTADOR GLOBAL (Usando Hycnt - Servidor Estável) ---
-        function updateGlobalCounter() {
-            const countDisplay = document.getElementById('v-count');
-            // Chave única para sua galeria
-            const key = "galeria_exclusiva_v1_2026";
-            
-            fetch(`https://api.hycnt.com/hit/${key}`)
-                .then(res => res.json())
-                .then(data => {
-                    if(data.value) {
-                        countDisplay.innerText = data.value.toString().padStart(5, '0');
-                    }
-                })
-                .catch(() => {
-                    countDisplay.innerText = "00001";
-                });
+        // --- NOVO CONTADOR SOLICITADO ---
+        function updateCounter() {
+            let c = localStorage.getItem('Contagem_Unica_Global') || 0;
+            c++;
+            localStorage.setItem('Contagem_Unica_Global', c);
+            const vCountEl = document.getElementById('v-count');
+            if (vCountEl) vCountEl.innerText = c.toString().padStart(5, '0');
         }
 
         document.getElementById('btn-entrar').onclick = () => {
@@ -510,7 +493,7 @@
                 document.getElementById('intro-screen').style.display = 'none'; 
                 document.getElementById('gallery-screen').classList.add('active');
                 updateMarqueeProperties();
-                updateGlobalCounter(); 
+                updateCounter(); 
             }, 1000);
         };
 
