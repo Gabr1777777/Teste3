@@ -157,6 +157,42 @@
             will-change: transform;
         }
 
+        /* --- NOVO LETREIRO ESTILO WRS --- */
+        .wrs-marquee-container {
+            width: 100%;
+            max-width: 1000px;
+            height: 100px;
+            background: #000;
+            border: 2px solid #333;
+            border-radius: 10px;
+            margin: 0 auto 20px auto;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 0 0 15px rgba(0, 123, 255, 0.3), 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .wrs-bg-effect {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 100%;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .wrs-text {
+            position: relative;
+            z-index: 2;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: white;
+            white-space: nowrap;
+            padding-left: 20px;
+        }
+
         /* --- ESTRUTURA DE TELAS --- */
         #intro-screen {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -238,6 +274,15 @@
         </div>
 
         <div id="section-home" class="content-section active">
+            <div class="wrs-marquee-container">
+                <img src="https://i.imgur.com/SFnk7A6.gif" class="wrs-bg-effect">
+                <div class="wrs-text">
+                    <div class="animated-bar" style="background: transparent; margin-bottom: 0;">
+                        <span>Gifs / Pstyle / Pcback / Estáticos</span>
+                    </div>
+                </div>
+            </div>
+
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
                 <div class="info-box"><h3>Sobre Mim</h3><p>Bem-vindo à minha galeria pessoal de efeitos e composições visuais.</p></div>
                 <div class="info-box"><h3>Dicas</h3><p>Use os GIFs como backgrounds ou elementos de transição em seus projetos.</p></div>
