@@ -136,7 +136,7 @@
             font-weight: bold;
             text-shadow: 0 0 5px #007bff;
             font-size: 0.9em;
-            animation: marquee-dynamic 12s linear infinite; /* Velocidade lenta */
+            animation: marquee-dynamic 12s linear infinite;
         }
 
         .player-controls-wrap {
@@ -394,14 +394,6 @@
                 <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>After 4</span></div>
                 <div class="gif-item"><img src="https://imgur.com/ZuaO9n5.gif"><span>After 5</span></div>
             </div>
-            <div class="animated-bar"><span>Modelo Blufftitler 350 XATS </span></div>
-            <div class="gif-grid grid-compact">
-                <div class="gif-item"><img src="https://imgur.com/65bzz5V.gif"><span>Bluff 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZetkVFF.gif"><span>Bluff 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/JqzxOwt.gif"><span>Bluff 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/NK9Z8rU.gif"><span>Bluff 4</span></div>
-                <div class="gif-item"><img src="https://imgur.com/RNIlFI3.gif"><span>Bluff 5</span></div>
-            </div>
         </div>
 
         <div id="section-pcback" class="content-section">
@@ -413,38 +405,10 @@
             </div>
         </div>
 
-        <div id="section-pstyle" class="content-section">
-            <div class="animated-bar"><span>Pstyle GIFs 350 XATS</span></div>
-            <div class="gif-grid grid-normal">
-                <div class="gif-item"><img src="https://imgur.com/rUIzfWU.gif"><span>Pstyle 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/dGfJDfh.gif"><span>Pstyle 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZXBA6F1.gif"><span>Pstyle 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/dImC226.gif"><span>Pstyle 4</span></div>
-            </div>
-        </div>
-
-        <div id="section-pcback-est" class="content-section">
-            <div class="animated-bar"><span>Pcback Estático 300 XATS </span></div>
-            <div class="gif-grid grid-normal">
-                <div class="gif-item"><img src="https://imgur.com/OyX4Jwt.png"><span>Pcback 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/tcGR4ey.png"><span>Pcback 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/dbSy2Rf.png"><span>Pcback 3</span></div>
-            </div>
-        </div>
-
-        <div id="section-pstyle-est" class="content-section">
-            <div class="animated-bar"><span>Pstyle Estático 250 XATS </span></div>
-            <div class="gif-grid grid-normal">
-                <div class="gif-item"><img src="https://imgur.com/zlcL7Dh.png"><span>Pstyle 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/m2Ew85b.png"><span>Pstyle 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/6PUSQBo.png"><span>Pstyle 3</span></div>
-            </div>
-        </div>
-
         <footer>
             <div class="neon-footer-text">Galeria exclusiva 2026</div>
             <div style="margin-top: 15px; font-family: monospace; color: #007bff; font-size: 0.8rem; filter: drop-shadow(0 0 3px #007bff);">
-                VISITAS: <span id="v-count">00000</span>
+                VISITAS: <span id="v-count">01234</span>
             </div>
         </footer>
     </div>
@@ -465,7 +429,6 @@
         function loadTrack(index) {
             audio.src = playlist[index].url;
             trackLabel.innerText = playlist[index].name;
-            // Reinicia o cálculo do letreiro quando a música muda
             setTimeout(updateMarqueeProperties, 100);
         }
 
@@ -493,10 +456,7 @@
             playBtn.innerText = "⏸";
         }
 
-        volumeControl.addEventListener('input', (e) => {
-            audio.volume = e.target.value;
-        });
-
+        volumeControl.addEventListener('input', (e) => { audio.volume = e.target.value; });
         audio.onended = nextTrack;
         loadTrack(currentTrack);
         audio.volume = 0.5;
@@ -505,20 +465,18 @@
             document.getElementById('intro-screen').style.opacity = '0';
             audio.play().catch(e => console.log("Erro ao tocar"));
             playBtn.innerText = "⏸";
-            
             setTimeout(() => { 
                 document.getElementById('intro-screen').style.display = 'none'; 
                 document.getElementById('gallery-screen').classList.add('active');
                 updateMarqueeProperties();
-                updateCounter(); 
+                setStaticCounter(); 
             }, 1000);
         };
 
-        function updateCounter() {
-            let c = localStorage.getItem('Galeria_Privada_v') || 0;
-            c++;
-            localStorage.setItem('Galeria_Privada_v', c);
-            document.getElementById('v-count').innerText = c.toString().padStart(5, '0');
+        // CONTADOR FIXO IGUAL PARA TODOS
+        function setStaticCounter() {
+            const staticValue = "01548"; // Defina aqui o número fixo desejado
+            document.getElementById('v-count').innerText = staticValue;
         }
 
         function showAlert(e) { if(e) e.preventDefault(); document.getElementById('custom-alert').style.display='block'; setTimeout(()=>{document.getElementById('custom-alert').style.display='none'},2000); return false; }
