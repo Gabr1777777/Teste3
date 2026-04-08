@@ -14,14 +14,12 @@
             overflow: hidden;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #000022; 
-            /* Bloqueio de seleção de texto via CSS */
             user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
         }
 
-        /* --- MENSAGEM DE ALERTA CUSTOMIZADA --- */
         #custom-alert {
             display: none;
             position: fixed;
@@ -38,10 +36,10 @@
             text-align: center;
             font-weight: bold;
             font-size: 1.2em;
-            pointer-events: none; /* Não interfere no clique após sumir */
+            pointer-events: none;
         }
 
-        /* --- FUNDO ANIMADO (AZUL + ESTRELAS + LUZES) --- */
+        /* --- FUNDO ANIMADO MELHORADO (NEBULOSA E LUZES) --- */
         .background-animation {
             position: fixed;
             top: 0;
@@ -53,6 +51,24 @@
             overflow: hidden;
         }
 
+        /* Efeito de Névoa Luminosa Movimentando o fundo */
+        .background-animation::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 123, 255, 0.15), transparent 50%);
+            animation: nebulaMove 20s infinite alternate ease-in-out;
+        }
+
+        @keyframes nebulaMove {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(10%, 10%); }
+        }
+
+        /* Estrelas Grandes Piscando */
         .big-star {
             position: absolute;
             background: white;
@@ -61,6 +77,7 @@
             box-shadow: 0 0 10px white, 0 0 20px white;
             opacity: 0;
             animation: bigStarBlink 4s infinite ease-in-out;
+            z-index: 1;
         }
 
         @keyframes bigStarBlink {
@@ -68,18 +85,20 @@
             50% { opacity: 0.8; transform: scale(1.2); }
         }
 
+        /* Feixes de Luzes flutuantes neon */
         .floating-light {
             position: absolute;
             border-radius: 50%;
             opacity: 0;
             animation: floatGlow 12s infinite linear;
-            filter: blur(3px);
+            filter: blur(15px); /* Mais blur para parecer luz suave */
+            z-index: 0;
         }
 
         @keyframes floatGlow {
-            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
-            50% { opacity: 0.5; }
-            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+            0% { transform: translateY(110vh) scale(1); opacity: 0; }
+            50% { opacity: 0.4; }
+            100% { transform: translateY(-20vh) scale(1.5); opacity: 0; }
         }
 
         /* --- ANIMAÇÕES GRADIENTE E NEON --- */
@@ -186,11 +205,14 @@
     <div id="custom-alert">Copyright - Acesso Proibido</div>
 
     <div class="background-animation">
-        <div class="big-star" style="width: 6px; height: 6px; top: 10%; left: 15%;"></div>
-        <div class="big-star" style="width: 8px; height: 8px; top: 40%; left: 85%; animation-delay: 1s;"></div>
-        <div class="big-star" style="width: 10px; height: 10px; top: 80%; left: 50%; animation-delay: 0.5s;"></div>
-        <div class="floating-light" style="width: 50px; height: 50px; left: 10%; background: #007bff; animation-delay: 0s;"></div>
-        <div class="floating-light" style="width: 60px; height: 60px; left: 45%; background: #00c6ff; animation-delay: 8s;"></div>
+        <div class="big-star" style="width: 6px; height: 6px; top: 15%; left: 10%;"></div>
+        <div class="big-star" style="width: 8px; height: 8px; top: 45%; left: 80%; animation-delay: 1s;"></div>
+        <div class="big-star" style="width: 10px; height: 10px; top: 75%; left: 45%; animation-delay: 0.5s;"></div>
+        <div class="big-star" style="width: 7px; height: 7px; top: 20%; left: 60%; animation-delay: 2s;"></div>
+        
+        <div class="floating-light" style="width: 150px; height: 150px; left: 15%; background: radial-gradient(circle, #007bff, transparent 70%); animation-duration: 15s;"></div>
+        <div class="floating-light" style="width: 200px; height: 200px; left: 60%; background: radial-gradient(circle, #00c6ff, transparent 70%); animation-delay: 4s; animation-duration: 18s;"></div>
+        <div class="floating-light" style="width: 120px; height: 120px; left: 40%; background: radial-gradient(circle, #ffffff, transparent 70%); animation-delay: 7s; animation-duration: 12s;"></div>
     </div>
 
     <div id="intro-screen">
@@ -222,42 +244,11 @@
             <div class="gif-grid grid-compact">
                 <div class="gif-item"><img src="https://imgur.com/5HxfNaB.gif"><span>After 1</span></div>
                 <div class="gif-item"><img src="https://imgur.com/FILAVQP.gif"><span>After 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/5IoR515.gif"><span>After 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>After 4</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZuaO9n5.gif"><span>After 5</span></div>
-            </div>
-            <div class="animated-bar">Modelo Blufftitler</div>
-            <div class="gif-grid grid-compact">
-                <div class="gif-item"><img src="https://imgur.com/65bzz5V.gif"><span>Bluff 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZetkVFF.gif"><span>Bluff 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/JqzxOwt.gif"><span>Bluff 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/NK9Z8rU.gif"><span>Bluff 4</span></div>
-                <div class="gif-item"><img src="https://imgur.com/RNIlFI3.gif"><span>Bluff 5</span></div>
-            </div>
-        </div>
-
-        <div id="section-pcback" class="content-section">
-            <div class="animated-bar">Pcback GIFs</div>
-            <div class="gif-grid grid-normal">
-                <div class="gif-item"><img src="https://i.imgur.com/SFnk7A6.gif"><span>Pcback 1</span></div>
-                <div class="gif-item"><img src="https://i.imgur.com/KKY2zqU.gif"><span>Pcback 2</span></div>
-                <div class="gif-item"><img src="https://i.imgur.com/fmhynyY.gif"><span>Pcback 3</span></div>
-            </div>
-        </div>
-
-        <div id="section-pstyle" class="content-section">
-            <div class="animated-bar">Pstyle GIFs</div>
-            <div class="gif-grid grid-normal">
-                <div class="gif-item"><img src="https://imgur.com/rUIzfWU.gif"><span>Pstyle 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/dGfJDfh.gif"><span>Pstyle 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZXBA6F1.gif"><span>Pstyle 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/dImC226.gif"><span>Pstyle 4</span></div>
             </div>
         </div>
     </div>
 
     <script>
-        // Função de Alerta
         function showAlert(e) {
             if (e) e.preventDefault();
             const alertBox = document.getElementById('custom-alert');
@@ -266,17 +257,11 @@
             return false;
         }
 
-        // Bloqueio de Teclas (Ctrl+U, F12, Ctrl+Shift+I)
         document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 65)) {
-                showAlert(e);
-            }
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
-                showAlert(e);
-            }
+            if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 65)) showAlert(e);
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) showAlert(e);
         });
 
-        // Transição de Telas
         const intro = document.getElementById('intro-screen');
         const gallery = document.getElementById('gallery-screen');
         const sections = document.querySelectorAll('.content-section');
