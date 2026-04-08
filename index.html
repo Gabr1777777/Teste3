@@ -16,7 +16,6 @@
             background-color: #000022; 
             user-select: none;
             -webkit-user-select: none;
-            -moz-user-select: none;
         }
 
         /* --- MENSAGEM DE ALERTA --- */
@@ -54,7 +53,8 @@
             background: white;
             border-radius: 50%;
             filter: blur(1px);
-            box-shadow: 0 0 10px white;
+            box-shadow: 0 0 10px white, 0 0 20px white;
+            opacity: 0;
             animation: bigStarBlink 4s infinite ease-in-out;
         }
 
@@ -63,25 +63,7 @@
             50% { opacity: 0.8; transform: scale(1.2); }
         }
 
-        /* --- ESTILO DO CONTADOR --- */
-        .realtime-counter {
-            color: #007bff;
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: bold;
-            font-size: 1.3rem;
-            text-shadow: 0 0 10px #007bff;
-            margin-bottom: 5px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .v-number {
-            color: #fff;
-            text-shadow: 0 0 15px #007bff, 0 0 25px #007bff;
-        }
-
-        /* --- ANIMAÇÕES E COMPONENTES --- */
+        /* --- ANIMAÇÕES --- */
         @keyframes floating {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-15px); }
@@ -93,61 +75,103 @@
             100% { background-position: 0% 50%; }
         }
 
+        @keyframes marquee-dynamic {
+            0% { transform: translateX(var(--marquee-start)); }
+            100% { transform: translateX(var(--marquee-end)); }
+        }
+
+        /* --- ESTILO DO CONTADOR (VISITAS + NUMERO) --- */
+        .counter-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+
+        .v-label { color: #007bff; text-shadow: 0 0 5px #007bff; }
+        .v-number { color: #ffffff; text-shadow: 0 0 10px #007bff, 0 0 20px #007bff; }
+
+        /* --- ESTILOS DA GALERIA --- */
+        .container-letreiro-wrs {
+            width: 100%; max-width: 960px; height: 100px;
+            margin: 0 auto 20px auto; position: relative;
+            border-radius: 12px; border: 2px solid #007bff;
+            overflow: hidden; background: #001133; display: flex; align-items: center;
+        }
+
+        .texto-letreiro-wrapper span {
+            display: inline-block; font-size: 2.2em; font-weight: bold;
+            color: #fff; text-shadow: 0 0 10px #007bff;
+            animation: marquee-dynamic 15s linear infinite;
+        }
+
         .gradient-text-anim {
             background: linear-gradient(270deg, #ffffff, #007bff, #ffffff, #007bff);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: gradientMove 5s ease infinite;
+            background-size: 400% 400%; -webkit-background-clip: text;
+            background-clip: text; color: transparent; animation: gradientMove 5s ease infinite;
         }
 
         .gradient-btn-anim {
             background: linear-gradient(270deg, #007bff, #ffffff, #007bff, #ffffff);
-            background-size: 400% 400%;
-            color: #000033;
-            border: none;
-            padding: 10px 20px;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 5px;
-            animation: gradientMove 5s ease infinite;
+            background-size: 400% 400%; color: #000033; border: none;
+            padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 5px;
+            animation: gradientMove 5s ease infinite; transition: 0.3s;
         }
 
         #btn-entrar {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
+            width: 130px; height: 130px; border-radius: 50%;
             animation: gradientMove 5s ease infinite, floating 3s ease-in-out infinite;
         }
 
-        /* --- TELAS --- */
+        .animated-bar {
+            background: linear-gradient(90deg, #007bff, #00c6ff, #007bff);
+            background-size: 200% auto; padding: 8px 0; border-radius: 4px;
+            font-weight: bold; margin-bottom: 15px; overflow: hidden; display: flex;
+        }
+
+        .animated-bar span { display: inline-block; animation: marquee-dynamic 12s linear infinite; }
+
+        /* --- ESTRUTURA DE TELAS --- */
         #intro-screen {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            width: 100%; height: 100%; position: absolute; z-index: 10;
+            width: 100%; height: 100%; position: absolute; z-index: 10; transition: 0.5s;
         }
 
         #gallery-screen {
             display: none; opacity: 0; width: 100%; height: 100%;
             position: absolute; z-index: 5; transition: opacity 1s;
-            overflow-y: auto; padding: 20px; box-sizing: border-box;
-            color: white; text-align: center;
+            overflow-y: auto; padding: 20px; box-sizing: border-box; text-align: center;
         }
 
         #gallery-screen.active { display: block; opacity: 1; }
 
-        .neon-footer-text {
-            font-size: 0.9em;
-            letter-spacing: 1.5px;
-            background: linear-gradient(270deg, #007bff, #ffffff, #00c6ff, #ffffff);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: gradientMove 5s ease infinite;
+        .profile-frame {
+            width: 200px; height: 200px; border-radius: 50%; border: 3px solid #fff;
+            margin: 10px auto; overflow: hidden; box-shadow: 0 0 20px rgba(255,255,255,0.5);
+            animation: floating 4s ease-in-out infinite;
         }
+        .profile-frame img { width: 100%; height: 100%; object-fit: cover; }
 
-        footer { margin-top: 40px; padding: 15px 0; }
+        .nav-buttons { margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .content-section { display: none; margin-top: 20px; max-width: 1000px; margin: 20px auto; }
+        .content-section.active { display: block; }
+
+        .gif-grid { display: grid; gap: 15px; margin-bottom: 30px; }
+        .grid-compact { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+        .grid-normal { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+        .gif-item { background: rgba(255, 255, 255, 0.1); padding: 8px; border-radius: 5px; color: white; }
+        .gif-item img { width: 100%; border-radius: 3px; }
+
+        .neon-footer-text {
+            font-size: 0.9em; text-transform: uppercase;
+            background: linear-gradient(270deg, #007bff, #ffffff, #00c6ff, #ffffff);
+            background-size: 400% 400%; -webkit-background-clip: text;
+            background-clip: text; color: transparent; animation: gradientMove 5s ease infinite;
+        }
     </style>
 </head>
 <body oncontextmenu="return showAlert(event)">
@@ -165,42 +189,102 @@
     </div>
 
     <div id="gallery-screen">
+        <div class="profile-frame"><img src="https://imgur.com/7rKeKT8.png"></div>
         <h2 class="gradient-text-anim" style="font-size: 2.5em;">GALERIA</h2>
-        
-        <footer>
-            <div class="realtime-counter">
-                VISITAS <span class="v-number" id="v-count">00000</span>
+
+        <div class="nav-buttons">
+            <button class="gradient-btn-anim" onclick="show('section-home')">Home</button>
+            <button class="gradient-btn-anim" onclick="show('section-gifs')">Gifs</button>
+            <button class="gradient-btn-anim" onclick="show('section-pcback')">Pcback</button>
+            <button class="gradient-btn-anim" onclick="show('section-pstyle')">Pstyle</button>
+        </div>
+
+        <div id="section-home" class="content-section active">
+            <div class="container-letreiro-wrs">
+                <div class="texto-letreiro-wrapper">
+                    <span>Gifs / Pcback Gif / Pstyle Gif / Estáticos / Design Personalizado</span>
+                </div>
+            </div>
+            <p style="color: white;">Bem-vindo à minha galeria pessoal.</p>
+        </div>
+
+        <div id="section-gifs" class="content-section">
+            <div class="animated-bar"><span>Modelos Especiais 400 XATS</span></div>
+            <div class="gif-grid grid-compact">
+                <div class="gif-item"><img src="https://imgur.com/5HxfNaB.gif"><span>After 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/FILAVQP.gif"><span>After 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/5IoR515.gif"><span>After 3</span></div>
+                <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>After 4</span></div>
+            </div>
+        </div>
+
+        <div id="section-pcback" class="content-section">
+            <div class="animated-bar"><span>Pcback Gifs 450 XATS</span></div>
+            <div class="gif-grid grid-normal">
+                <div class="gif-item"><img src="https://i.imgur.com/SFnk7A6.gif"><span>Pcback 1</span></div>
+                <div class="gif-item"><img src="https://i.imgur.com/KKY2zqU.gif"><span>Pcback 2</span></div>
+            </div>
+        </div>
+
+        <div id="section-pstyle" class="content-section">
+            <div class="animated-bar"><span>Pstyle GIFs 350 XATS</span></div>
+            <div class="gif-grid grid-normal">
+                <div class="gif-item"><img src="https://imgur.com/rUIzfWU.gif"><span>Pstyle 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/dGfJDfh.gif"><span>Pstyle 2</span></div>
+            </div>
+        </div>
+
+        <footer style="margin-top: 50px;">
+            <div class="counter-container">
+                <span class="v-label">VISITAS</span>
+                <span class="v-number" id="v-count">00000</span>
             </div>
             <div class="neon-footer-text">Galeria exclusiva 2026</div>
         </footer>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
     <script>
-        // CONFIGURAÇÃO DO CONTADOR REALTIME
-        // Nota: Utilizando uma estrutura de contador público para demonstração
-        const firebaseConfig = {
-            databaseURL: "https://contador-wrs-default-rtdb.firebaseio.com/"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database().ref('visitas_globais');
+        // --- CONTADOR GLOBAL E EM TEMPO REAL ---
+        const namespace = "minha_galeria_exclusiva_2026";
+        const key = "visitas";
 
-        function initRealtimeCounter() {
-            // Escuta mudanças em tempo real
-            db.on('value', (snapshot) => {
-                const count = snapshot.val() || 0;
-                document.getElementById('v-count').innerText = count.toString().padStart(5, '0');
-            });
-
-            // Incrementa apenas uma vez por sessão ao entrar
-            db.transaction((currentValue) => {
-                return (currentValue || 0) + 1;
-            });
+        async function updateCounter() {
+            try {
+                // Aumenta a contagem e pega o valor
+                const response = await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`);
+                const data = await response.json();
+                if(data.value) {
+                    document.getElementById('v-count').innerText = data.value.toString().padStart(5, '0');
+                }
+            } catch(e) { console.log("Erro contador"); }
         }
 
-        // Funções de Alerta e Navegação
+        // Atualiza a cada 10 segundos para parecer "Tempo Real" se houver muitos acessos
+        setInterval(async () => {
+            try {
+                const response = await fetch(`https://api.countapi.xyz/get/${namespace}/${key}`);
+                const data = await response.json();
+                if(data.value) document.getElementById('v-count').innerText = data.value.toString().padStart(5, '0');
+            } catch(e) {}
+        }, 10000);
+
+        // --- FUNÇÕES DE NAVEGAÇÃO ---
+        function show(id) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            updateMarqueeProperties();
+        }
+
+        document.getElementById('btn-entrar').onclick = () => {
+            document.getElementById('intro-screen').style.opacity = '0';
+            setTimeout(() => { 
+                document.getElementById('intro-screen').style.display = 'none'; 
+                document.getElementById('gallery-screen').classList.add('active');
+                updateMarqueeProperties();
+                updateCounter(); 
+            }, 500);
+        };
+
         function showAlert(e) {
             if (e) e.preventDefault();
             const alertBox = document.getElementById('custom-alert');
@@ -209,14 +293,15 @@
             return false;
         }
 
-        document.getElementById('btn-entrar').onclick = () => {
-            document.getElementById('intro-screen').style.opacity = '0';
-            setTimeout(() => { 
-                document.getElementById('intro-screen').style.display = 'none'; 
-                document.getElementById('gallery-screen').classList.add('active');
-                initRealtimeCounter(); // Ativa o tempo real
-            }, 1000);
-        };
+        function updateMarqueeProperties() {
+            const spans = document.querySelectorAll('.animated-bar span, .texto-letreiro-wrapper span');
+            spans.forEach(span => {
+                const parentBar = span.parentElement;
+                span.style.setProperty('--marquee-start', parentBar.offsetWidth + 'px');
+                span.style.setProperty('--marquee-end', '-' + span.offsetWidth + 'px');
+            });
+        }
+        window.addEventListener('resize', updateMarqueeProperties);
     </script>
 </body>
 </html>
