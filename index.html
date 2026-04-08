@@ -3,88 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Galeria de GIFs</title>
+    <title>WRS - Galeria de Gifs</title>
     <style>
-        /* --- Reset e Estilos Básicos --- */
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
+            margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #000022; 
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
+            background-color: #000022; color: white;
+            user-select: none; -webkit-user-select: none;
         }
 
-        /* --- MENSAGEM DE ALERTA --- */
         #custom-alert {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 31, 77, 0.95);
-            border: 2px solid #007bff;
-            color: white;
-            padding: 20px 40px;
-            border-radius: 10px;
-            z-index: 9999;
-            box-shadow: 0 0 30px rgba(0, 123, 255, 0.5);
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.2em;
-            pointer-events: none;
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: rgba(0, 31, 77, 0.95); border: 2px solid #007bff; color: white;
+            padding: 20px 40px; border-radius: 10px; z-index: 9999; text-align: center;
+            font-weight: bold; box-shadow: 0 0 30px rgba(0, 123, 255, 0.5);
         }
 
-        /* --- FUNDO ANIMADO --- */
         .background-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at center, #001f4d 0%, #00001a 100%);
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .big-star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            filter: blur(1px);
-            box-shadow: 0 0 10px white, 0 0 20px white;
-            opacity: 0;
-            animation: bigStarBlink 4s infinite ease-in-out;
-        }
-
-        @keyframes bigStarBlink {
-            0%, 100% { opacity: 0; transform: scale(0.5); }
-            50% { opacity: 0.8; transform: scale(1.2); }
-        }
-
-        .floating-light {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0;
-            animation: floatGlow 12s infinite linear;
-            filter: blur(3px);
-        }
-
-        @keyframes floatGlow {
-            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
-            50% { opacity: 0.5; }
-            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
-        }
-
-        /* --- ANIMAÇÕES --- */
-        @keyframes floating {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            z-index: -1; overflow: hidden;
         }
 
         @keyframes gradientMove {
@@ -93,149 +31,60 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* --- ESTILOS GERAIS --- */
         .gradient-text-anim {
             background: linear-gradient(270deg, #ffffff, #007bff, #ffffff, #007bff);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: gradientMove 5s ease infinite;
+            background-size: 400% 400%; -webkit-background-clip: text; background-clip: text;
+            color: transparent; animation: gradientMove 5s ease infinite;
         }
 
         .gradient-btn-anim {
             background: linear-gradient(270deg, #007bff, #ffffff, #007bff, #ffffff);
-            background-size: 400% 400%;
-            color: #000033;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 5px;
-            animation: gradientMove 5s ease infinite;
-            transition: box-shadow 0.3s ease, transform 0.2s;
+            background-size: 400% 400%; color: #000033; border: none;
+            padding: 10px 20px; font-size: 1em; font-weight: bold; cursor: pointer;
+            border-radius: 5px; animation: gradientMove 5s ease infinite; transition: 0.3s;
         }
 
-        .gradient-btn-anim:hover {
-            box-shadow: 0 0 20px #007bff, 0 0 40px #007bff;
-            transform: scale(1.05);
-        }
-
-        /* --- PLAYER DE MÚSICA --- */
         .wrs-music-player {
-            max-width: 600px;
-            margin: 0 auto 25px auto;
+            max-width: 600px; margin: 0 auto 25px auto;
             background: linear-gradient(270deg, #007bff, #ffffff, #007bff);
-            background-size: 400% 400%;
-            animation: gradientMove 8s ease infinite;
-            padding: 10px 15px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 0 20px rgba(0, 123, 255, 0.4);
-            border: 2px solid #fff;
+            background-size: 400% 400%; animation: gradientMove 8s ease infinite;
+            padding: 10px 15px; border-radius: 50px; display: flex; align-items: center; gap: 15px;
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.4); border: 2px solid #fff;
         }
 
-        .player-controls { display: flex; align-items: center; gap: 8px; }
         .play-btn {
-            background: #001133;
-            color: white;
-            border: none;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-        }
-        .play-btn:hover { background: #007bff; transform: scale(1.1); }
-        
-        .track-info {
-            flex-grow: 1;
-            color: #001133;
-            font-size: 0.85em;
-            font-weight: bold;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-align: left;
+            background: #001133; color: white; border: none; width: 35px; height: 35px;
+            border-radius: 50%; cursor: pointer; font-weight: bold; display: flex;
+            align-items: center; justify-content: center;
         }
 
-        .volume-container { display: flex; align-items: center; gap: 5px; }
-        .volume-slider { cursor: pointer; accent-color: #001133; width: 70px; }
+        .track-info { flex-grow: 1; color: #001133; font-size: 0.85em; font-weight: bold; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-        /* --- ESTRUTURA DE TELAS --- */
-        #intro-screen {
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            width: 100%; height: 100%; position: absolute; z-index: 10;
-            transition: opacity 1s;
-        }
-
-        #gallery-screen {
-            display: none; opacity: 0; width: 100%; height: 100%;
-            position: absolute; z-index: 5; transition: opacity 1s;
-            overflow-y: auto; padding: 20px; box-sizing: border-box;
-            color: white; text-align: center;
-        }
-
-        #gallery-screen.active { display: block; opacity: 1; }
-
-        .profile-frame {
-            width: 200px; height: 200px; border-radius: 50%; border: 3px solid #fff;
-            margin: 10px auto; overflow: hidden; box-shadow: 0 0 20px rgba(255,255,255,0.5);
-            animation: floating 4s ease-in-out infinite;
-        }
-        .profile-frame img { width: 100%; height: 100%; object-fit: cover; }
+        #intro-screen { display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; height: 100%; position: absolute; z-index: 10; }
+        #gallery-screen { display: none; width: 100%; height: 100%; position: absolute; z-index: 5; overflow-y: auto; padding: 20px; box-sizing: border-box; text-align: center; }
+        #gallery-screen.active { display: block; }
 
         .nav-buttons { margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-
-        .content-section { display: none; margin-top: 20px; max-width: 1000px; margin-left: auto; margin-right: auto; }
+        .content-section { display: none; max-width: 1000px; margin: 20px auto; }
         .content-section.active { display: block; }
 
-        .info-box { 
-            background: rgba(0, 123, 255, 0.15); border: 1px solid rgba(255,255,255,0.2); 
-            padding: 15px; border-radius: 8px; transition: 0.3s ease; text-align: left;
-        }
-        .info-box:hover { box-shadow: 0 0 20px #00c6ff; transform: translateY(-5px); background: rgba(0, 123, 255, 0.25); }
-        .info-box h3 { border-bottom: 1px solid #007bff; color: #00c6ff; margin-top: 0; }
-
-        footer { margin-top: 40px; padding: 15px 0; text-align: center; width: 100%; }
-        .neon-footer-text {
-            font-size: 0.9em; text-transform: uppercase; letter-spacing: 1.5px;
-            background: linear-gradient(270deg, #007bff, #ffffff, #00c6ff, #ffffff);
-            background-size: 400% 400%; -webkit-background-clip: text; background-clip: text;
-            color: transparent; animation: gradientMove 5s ease infinite; opacity: 0.8;
-        }
+        .gif-grid { display: grid; gap: 15px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+        .info-box { background: rgba(0, 123, 255, 0.15); border: 1px solid rgba(255,255,255,0.2); padding: 15px; border-radius: 8px; text-align: left; }
     </style>
 </head>
 <body oncontextmenu="return showAlert(event)">
 
     <div id="custom-alert">Copyright - Acesso Proibido</div>
 
-    <div id="visit-counter" style="position: fixed; bottom: 20px; left: 20px; z-index: 1000001; background: rgba(0, 5, 20, 0.9); border: 1px solid #007bff; padding: 6px 12px; border-radius: 4px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);">
-        <span style="color: #007bff; font-size: 8px; font-weight: bold; text-transform: uppercase;">Visitas</span>
-        <span id="count-number" style="color: #fff; font-size: 18px; font-family: monospace;">...</span>
-    </div>
-
-    <div class="background-animation">
-        <div class="big-star" style="top: 10%; left: 15%;"></div>
-        <div class="big-star" style="top: 40%; left: 85%; animation-delay: 1s;"></div>
-        <div class="floating-light" style="width: 50px; height: 50px; left: 10%; background: #007bff;"></div>
-    </div>
+    <div class="background-animation"></div>
 
     <div id="intro-screen">
         <h1 class="gradient-text-anim" style="font-size: 4em;">Galeria de Gifs</h1>
-        <button class="gradient-btn-anim" id="btn-entrar" style="width: 130px; height: 130px; border-radius: 50%; font-size: 1.2em;">Entrar</button>
+        <button class="gradient-btn-anim" id="btn-entrar" style="width: 130px; height: 130px; border-radius: 50%;">Entrar</button>
     </div>
 
     <div id="gallery-screen">
-        <div class="profile-frame"><img src="https://imgur.com/7rKeKT8.png"></div>
-        <h2 class="gradient-text-anim" style="font-size: 2.5em;">GALERIA</h2>
+        <h2 class="gradient-text-anim" style="font-size: 2.5em;">WRS GALERIA</h2>
 
         <div class="nav-buttons">
             <button class="gradient-btn-anim" onclick="show('section-home')">Home</button>
@@ -248,53 +97,63 @@
 
         <div id="section-home" class="content-section active">
             <div class="wrs-music-player">
-                <div class="player-controls">
+                <div style="display: flex; gap: 5px;">
                     <button class="play-btn" id="music-prev">«</button>
                     <button class="play-btn" id="music-play-pause">▶</button>
                     <button class="play-btn" id="music-next">»</button>
                 </div>
-                <div class="track-info" id="music-track-name">Carregando...</div>
-                <div class="volume-container">
-                    <span style="color: #001133;">🔊</span>
-                    <input type="range" class="volume-slider" id="music-volume" min="0" max="1" step="0.1" value="0.5">
-                </div>
+                <div class="track-info" id="music-track-name">Aguardando...</div>
+                <input type="range" id="music-volume" min="0" max="1" step="0.1" value="0.5" style="width:60px; accent-color:#001133;">
                 <audio id="audio-element"></audio>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                <div class="info-box"><h3>Sobre Mim</h3><p>Bem-vindo à minha galeria pessoal de efeitos e composições visuais.</p></div>
-                <div class="info-box"><h3>Dicas</h3><p>Use os GIFs como backgrounds ou elementos em seus projetos.</p></div>
-                <div class="info-box"><h3>Sell ID</h3><p>Para encomendas ou uso comercial, entre em contato via Discord ou direct.</p></div>
+                <div class="info-box"><h3>Sobre Mim</h3><p>Design de layouts e GIFs personalizados para xat.com e web.</p></div>
+                <div class="info-box"><h3>Dicas</h3><p>Mantenha seus GIFs otimizados para melhor carregamento no perfil.</p></div>
+                <div class="info-box"><h3>Sell ID</h3><p>Contatos para vendas exclusivos via Discord WRS.</p></div>
             </div>
         </div>
 
-        <div id="section-gifs" class="content-section">...</div>
-        <div id="section-pcback" class="content-section">...</div>
-        <div id="section-pstyle" class="content-section">...</div>
-        <div id="section-pcback-est" class="content-section">...</div>
-        <div id="section-pstyle-est" class="content-section">...</div>
+        <div id="section-gifs" class="content-section">
+            <div class="gif-grid">
+                <div class="info-box"><img src="https://imgur.com/7rKeKT8.png" width="100%"><p>Gif Exemplo 1</p></div>
+                <div class="info-box"><img src="https://imgur.com/7rKeKT8.png" width="100%"><p>Gif Exemplo 2</p></div>
+            </div>
+        </div>
 
-        <footer>
-            <div class="neon-footer-text">Galeria exclusiva 2026</div>
-        </footer>
+        <div id="section-pcback" class="content-section">
+            <div class="gif-grid"><div class="info-box"><p>Conteúdo Pcback Gif em breve...</p></div></div>
+        </div>
+
+        <div id="section-pstyle" class="content-section">
+            <div class="gif-grid"><div class="info-box"><p>Conteúdo Pstyle Gif em breve...</p></div></div>
+        </div>
+
+        <div id="section-pcback-est" class="content-section">
+            <div class="info-box"><p>Fundos Estáticos em alta resolução.</p></div>
+        </div>
+
+        <div id="section-pstyle-est" class="content-section">
+            <div class="info-box"><p>Estilos de perfil fixos personalizados.</p></div>
+        </div>
+
+        <footer style="margin-top: 50px; opacity: 0.6;">WRS GALERIA 2026</footer>
     </div>
 
     <script>
-        const ID_VISITAS = "wrs_galeria_v1_2026_final"; 
         const playlist = [
             { name: "Eminem - You dont know", url: "https://cdn.discordapp.com/attachments/1489682267264520284/1489684282887639140/Eminem-you-dont-know.mp3.mp3?ex=69d73eda&is=69d5ed5a&hm=ed020c05ff12ac429b5329d8d76a87dfb4cb913bb84c1c63e95a55601888e9c2&" },
-            { name: "The Sound of Silence – Rising to the Night", url: "https://cdn.discordapp.com/attachments/1489682267264520284/1489684333672403135/sound-of-silence.mp3.mp3?ex=69d73ee6&is=69d5ed66&hm=3aacc36f062b5a9d803e187d8905efa1fdc3f8f0566bf5a5e6fb542e26dd5076&" },
+            { name: "The Sound of Silence – Night", url: "https://cdn.discordapp.com/attachments/1489682267264520284/1489684333672403135/sound-of-silence.mp3.mp3?ex=69d73ee6&is=69d5ed66&hm=3aacc36f062b5a9d803e187d8905efa1fdc3f8f0566bf5a5e6fb542e26dd5076&" },
             { name: "Desireless - Voyage Voyage", url: "https://cdn.discordapp.com/attachments/1489682267264520284/1489684260460822640/Desireless-voyage-voyage.mp3.mp3?ex=69d73ed4&is=69d5ed54&hm=c0cf049750dc9464d0e86caa7a9042a01f9bce3be05117c7b956c8934302dde3&" }
         ];
 
         let currentTrack = 0;
         const audio = document.getElementById('audio-element');
         const playPauseBtn = document.getElementById('music-play-pause');
-        const trackName = document.getElementById('music-track-name');
 
-        function loadTrack(index) {
-            audio.src = playlist[index].url;
-            trackName.innerText = playlist[index].name;
+        function loadTrack(idx) {
+            audio.src = playlist[idx].url;
+            document.getElementById('music-track-name').innerText = playlist[idx].name;
         }
 
         playPauseBtn.onclick = () => {
@@ -302,47 +161,23 @@
             else { audio.pause(); playPauseBtn.innerText = "▶"; }
         };
 
-        document.getElementById('music-next').onclick = () => {
-            currentTrack = (currentTrack + 1) % playlist.length;
-            loadTrack(currentTrack); audio.play(); playPauseBtn.innerText = "||";
-        };
-
-        document.getElementById('music-prev').onclick = () => {
-            currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
-            loadTrack(currentTrack); audio.play(); playPauseBtn.innerText = "||";
-        };
-
+        document.getElementById('music-next').onclick = () => { currentTrack = (currentTrack + 1) % playlist.length; loadTrack(currentTrack); audio.play(); playPauseBtn.innerText = "||"; };
+        document.getElementById('music-prev').onclick = () => { currentTrack = (currentTrack - 1 + playlist.length) % playlist.length; loadTrack(currentTrack); audio.play(); playPauseBtn.innerText = "||"; };
         document.getElementById('music-volume').oninput = (e) => audio.volume = e.target.value;
 
         loadTrack(currentTrack);
 
-        function showAlert(e) {
-            if (e) e.preventDefault();
-            const alertBox = document.getElementById('custom-alert');
-            alertBox.style.display = 'block';
-            setTimeout(() => { alertBox.style.display = 'none'; }, 2000);
-            return false;
-        }
+        function showAlert(e) { e.preventDefault(); document.getElementById('custom-alert').style.display='block'; setTimeout(()=>document.getElementById('custom-alert').style.display='none', 2000); return false; }
 
         document.getElementById('btn-entrar').onclick = () => {
-            document.getElementById('intro-screen').style.display = 'none'; 
+            document.getElementById('intro-screen').style.display = 'none';
             document.getElementById('gallery-screen').classList.add('active');
-            audio.play().then(() => { playPauseBtn.innerText = "||"; }).catch(e => console.log(e));
-            carregarContadores();
+            audio.play().then(() => playPauseBtn.innerText = "||");
         };
 
         function show(id) {
             document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-            const target = document.getElementById(id);
-            if(target) target.classList.add('active');
-        }
-
-        async function carregarContadores() {
-            try {
-                const res = await fetch(`https://api.counterapi.dev/v1/wrs-galeria/${ID_VISITAS}/up`);
-                const data = await res.json();
-                document.getElementById('count-number').innerText = (data.count || data.value).toString().padStart(5, '0');
-            } catch(e) { document.getElementById('count-number').innerText = "00001"; }
+            document.getElementById(id).classList.add('active');
         }
     </script>
 </body>
