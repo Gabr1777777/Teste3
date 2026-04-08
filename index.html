@@ -166,6 +166,11 @@
             animation: gradientMove 5s ease infinite, floating 3s ease-in-out infinite;
         }
 
+        .gradient-btn-anim:hover {
+            box-shadow: 0 0 20px #007bff, 0 0 40px #007bff;
+            transform: scale(1.05);
+        }
+
         .animated-bar {
             background: linear-gradient(90deg, #007bff, #00c6ff, #007bff);
             background-size: 200% auto;
@@ -206,6 +211,16 @@
             animation: gradientMove 5s ease infinite;
             filter: drop-shadow(0 0 5px #007bff);
             opacity: 0.8;
+        }
+
+        /* ESTILO DO CONTADOR AZUL */
+        .v-counter-box {
+            margin-bottom: 10px;
+            font-family: monospace;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 1.1rem;
+            filter: drop-shadow(0 0 5px #007bff);
         }
 
         /* --- ESTRUTURA DE TELAS --- */
@@ -256,13 +271,6 @@
         }
         .info-box:hover { box-shadow: 0 0 20px #00c6ff; transform: translateY(-5px); background: rgba(0, 123, 255, 0.25); }
         .info-box h3 { border-bottom: 1px solid #007bff; color: #00c6ff; margin-top: 0; }
-
-        /* Estilo do Contador Apenas Números */
-        #count-img {
-            filter: hue-rotate(190deg) brightness(1.5) drop-shadow(0 0 8px #007bff);
-            vertical-align: middle;
-            height: 35px; /* Tamanho dos números */
-        }
     </style>
 </head>
 <body oncontextmenu="return showAlert(event)">
@@ -318,17 +326,86 @@
                 <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>After 4</span></div>
                 <div class="gif-item"><img src="https://imgur.com/ZuaO9n5.gif"><span>After 5</span></div>
             </div>
+            <div class="animated-bar"><span>Modelo Blufftitler 350 XATS </span></div>
+            <div class="gif-grid grid-compact">
+                <div class="gif-item"><img src="https://imgur.com/65bzz5V.gif"><span>Bluff 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/ZetkVFF.gif"><span>Bluff 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/JqzxOwt.gif"><span>Bluff 3</span></div>
+                <div class="gif-item"><img src="https://imgur.com/NK9Z8rU.gif"><span>Bluff 4</span></div>
+                <div class="gif-item"><img src="https://imgur.com/RNIlFI3.gif"><span>Bluff 5</span></div>
+            </div>
+        </div>
+
+        <div id="section-pcback" class="content-section">
+            <div class="animated-bar"><span>Pcback Gifs 450 XATS </span></div>
+            <div class="gif-grid grid-normal">
+                <div class="gif-item"><img src="https://i.imgur.com/SFnk7A6.gif"><span>Pcback 1</span></div>
+                <div class="gif-item"><img src="https://i.imgur.com/KKY2zqU.gif"><span>Pcback 2</span></div>
+                <div class="gif-item"><img src="https://i.imgur.com/fmhynyY.gif"><span>Pcback 3</span></div>
+            </div>
+        </div>
+
+        <div id="section-pstyle" class="content-section">
+            <div class="animated-bar"><span>Pstyle GIFs 350 XATS</span></div>
+            <div class="gif-grid grid-normal">
+                <div class="gif-item"><img src="https://imgur.com/rUIzfWU.gif"><span>Pstyle 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/dGfJDfh.gif"><span>Pstyle 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/ZXBA6F1.gif"><span>Pstyle 3</span></div>
+                <div class="gif-item"><img src="https://imgur.com/dImC226.gif"><span>Pstyle 4</span></div>
+            </div>
+        </div>
+
+        <div id="section-pcback-est" class="content-section">
+            <div class="animated-bar"><span>Pcback Estático 300 XATS </span></div>
+            <div class="gif-grid grid-normal">
+                <div class="gif-item"><img src="https://imgur.com/OyX4Jwt.png"><span>Pcback 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/tcGR4ey.png"><span>Pcback 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/dbSy2Rf.png"><span>Pcback 3</span></div>
+            </div>
+        </div>
+
+        <div id="section-pstyle-est" class="content-section">
+            <div class="animated-bar"><span>Pstyle Estático 250 XATS </span></div>
+            <div class="gif-grid grid-normal">
+                <div class="gif-item"><img src="https://imgur.com/zlcL7Dh.png"><span>Pstyle 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/m2Ew85b.png"><span>Pstyle 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/6PUSQBo.png"><span>Pstyle 3</span></div>
+            </div>
         </div>
 
         <footer>
-            <div class="neon-footer-text">Galeria exclusiva 2026</div>
-            <div style="margin-top: 15px; font-family: monospace; color: #007bff; font-size: 0.9rem; letter-spacing: 2px;">
-                VISITAS: <img id="count-img" src="https://count.getloli.com/get/@galeria_wrs_2026?theme=gelbooru" alt="Visitas">
+            <div class="v-counter-box">
+                VISITAS: <span id="v-count">carregando...</span>
             </div>
+            <div class="neon-footer-text">Galeria exclusiva 2026</div>
         </footer>
     </div>
 
     <script>
+        // CONTADOR GLOBAL REAL (API EXTERNA)
+        // Isso garante que todos vejam o mesmo número crescendo
+        async function updateCounter() {
+            const vCountEl = document.getElementById('v-count');
+            const namespace = "galeria_exclusiva_2026_wrs"; // Chave única da sua galeria
+            const key = "visitas_totais";
+
+            try {
+                // Aumenta o contador e recebe o novo valor
+                const response = await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`);
+                const data = await response.json();
+                
+                if (data && data.value) {
+                    vCountEl.innerText = data.value.toString().padStart(5, '0');
+                }
+            } catch (error) {
+                // Caso a API falhe, usa um contador local de segurança
+                let fallback = localStorage.getItem('Galeria_Privada_v') || 0;
+                fallback++;
+                localStorage.setItem('Galeria_Privada_v', fallback);
+                vCountEl.innerText = fallback.toString().padStart(5, '0');
+            }
+        }
+
         function showAlert(e) {
             if (e) e.preventDefault();
             const alertBox = document.getElementById('custom-alert');
@@ -338,8 +415,12 @@
         }
 
         document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 65)) showAlert(e);
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) showAlert(e);
+            if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 65)) {
+                showAlert(e);
+            }
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
+                showAlert(e);
+            }
         });
 
         const intro = document.getElementById('intro-screen');
@@ -352,6 +433,7 @@
                 intro.style.display = 'none'; 
                 gallery.classList.add('active');
                 updateMarqueeProperties();
+                updateCounter(); // Chama o contador global ao entrar
             }, 1000);
         };
 
@@ -373,8 +455,10 @@
             const spans = document.querySelectorAll('.animated-bar span, .texto-letreiro-wrapper span');
             spans.forEach(span => {
                 const parentBar = span.parentElement;
-                span.style.setProperty('--marquee-start', parentBar.offsetWidth + 'px');
-                span.style.setProperty('--marquee-end', '-' + span.offsetWidth + 'px');
+                const barWidth = parentBar.offsetWidth;
+                const textWidth = span.offsetWidth;
+                span.style.setProperty('--marquee-start', barWidth + 'px');
+                span.style.setProperty('--marquee-end', '-' + textWidth + 'px');
             });
         }
         window.addEventListener('resize', updateMarqueeProperties);
