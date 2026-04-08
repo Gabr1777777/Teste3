@@ -108,7 +108,7 @@
             padding: 10px 20px;
             border: 2px solid transparent;
             background-image: linear-gradient(rgba(0, 17, 51, 0.9), rgba(0, 17, 51, 0.9)), 
-                              linear-gradient(270deg, #007bff, #ffffff, #00c6ff, #ffffff);
+                              linear-gradient(270deg, #007bff, #ffffff, #007bff, #ffffff);
             background-origin: border-box;
             background-clip: content-box, border-box;
             background-size: 400% 400%;
@@ -121,15 +121,22 @@
             gap: 10px;
         }
 
+        .track-container-marquee {
+            width: 250px;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        }
+
         .track-info {
-            color: #00c6ff;
+            display: inline-block;
+            color: #ffffff;
             font-weight: bold;
             text-shadow: 0 0 5px #007bff;
             font-size: 0.9em;
-            max-width: 250px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
+            animation: marquee-dynamic 12s linear infinite; /* Velocidade lenta */
         }
 
         .player-controls-wrap {
@@ -153,8 +160,9 @@
         }
 
         .btn-audio:hover {
-            color: #00c6ff;
+            color: #ffffff;
             transform: scale(1.2);
+            filter: drop-shadow(0 0 5px #007bff);
         }
 
         .volume-slider {
@@ -232,7 +240,7 @@
         }
 
         .animated-bar {
-            background: linear-gradient(90deg, #007bff, #00c6ff, #007bff);
+            background: linear-gradient(90deg, #007bff, #ffffff, #007bff);
             background-size: 200% auto;
             padding: 8px 0;
             border-radius: 4px;
@@ -248,6 +256,7 @@
             display: inline-block;
             animation: marquee-dynamic 12s linear infinite; 
             will-change: transform;
+            color: #000033;
         }
 
         footer {
@@ -259,7 +268,7 @@
 
         .neon-footer-text {
             font-size: 0.9em; 
-            background: linear-gradient(270deg, #007bff, #ffffff, #00c6ff, #ffffff);
+            background: linear-gradient(270deg, #007bff, #ffffff, #007bff, #ffffff);
             background-size: 400% 400%;
             -webkit-background-clip: text;
             background-clip: text;
@@ -299,10 +308,22 @@
         .nav-buttons { margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
         .content-section { display: none; margin-top: 20px; max-width: 1000px; margin-left: auto; margin-right: auto; }
         .content-section.active { display: block; }
+        
         .gif-grid { display: grid; gap: 15px; margin-bottom: 30px; }
         .grid-compact { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+        .grid-normal { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+
         .gif-item { background: rgba(255, 255, 255, 0.1); padding: 8px; border-radius: 5px; transition: 0.3s; }
+        .gif-item:hover { box-shadow: 0 0 20px #007bff; transform: translateY(-5px); }
         .gif-item img { width: 100%; border-radius: 3px; }
+
+        .info-box { 
+            background: rgba(0, 123, 255, 0.15); 
+            border: 1px solid rgba(255,255,255,0.2); 
+            padding: 15px; border-radius: 8px; transition: 0.3s ease; text-align: left;
+        }
+        .info-box:hover { box-shadow: 0 0 20px #007bff; transform: translateY(-5px); background: rgba(0, 123, 255, 0.25); }
+        .info-box h3 { border-bottom: 1px solid #007bff; color: #ffffff; margin-top: 0; }
     </style>
 </head>
 <body oncontextmenu="return showAlert(event)">
@@ -313,6 +334,8 @@
         <div class="big-star" style="width: 6px; height: 6px; top: 10%; left: 15%;"></div>
         <div class="big-star" style="width: 8px; height: 8px; top: 40%; left: 85%;"></div>
         <div class="big-star" style="width: 10px; height: 10px; top: 80%; left: 50%;"></div>
+        <div class="floating-light" style="left: 10%; background: #007bff; animation-delay: 0s; width: 50px; height: 50px; "></div>
+        <div class="floating-light" style="left: 45%; background: #007bff; animation-delay: 8s; width: 60px; height: 60px; "></div>
     </div>
 
     <div id="intro-screen">
@@ -328,11 +351,16 @@
             <button class="gradient-btn-anim" id="btn-home">Home</button>
             <button class="gradient-btn-anim" id="btn-gifs">Gifs</button>
             <button class="gradient-btn-anim" id="btn-pcback">Pcback Gif</button>
+            <button class="gradient-btn-anim" id="btn-pstyle">Pstyle Gif</button>
+            <button class="gradient-btn-anim" id="btn-pcback-est">Pcback Estático</button>
+            <button class="gradient-btn-anim" id="btn-pstyle-est">Pstyle Estático</button>
         </div>
 
         <div id="section-home" class="content-section active">
             <div class="music-player-home">
-                <div id="track-name" class="track-info">Playlist</div>
+                <div class="track-container-marquee">
+                    <div id="track-name" class="track-info">Carregando Playlist...</div>
+                </div>
                 <div class="player-controls-wrap">
                     <div class="player-btns">
                         <button class="btn-audio" onclick="prevTrack()">⏮</button>
@@ -349,11 +377,73 @@
                     <span>Gifs / Pcback Gif / Pstyle Gif / Estáticos / Design Personalizado</span>
                 </div>
             </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div class="info-box"><h3>Sobre Mim</h3><p>Bem-vindo à minha galeria pessoal de efeitos e composições visuais.</p></div>
+                <div class="info-box"><h3>Dicas</h3><p>Use os GIFs como backgrounds ou elements de transição em seus projetos.</p></div>
+                <div class="info-box"><h3>Sell ID</h3><p>Para encomendas ou uso comercial, entre em contato via Discord ou direct.</p></div>
+            </div>
+        </div>
+
+        <div id="section-gifs" class="content-section">
+            <div class="animated-bar"><span>Modelo Afterefects 400 XATS </span></div>
+            <div class="gif-grid grid-compact">
+                <div class="gif-item"><img src="https://imgur.com/5HxfNaB.gif"><span>After 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/FILAVQP.gif"><span>After 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/5IoR515.gif"><span>After 3</span></div>
+                <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>After 4</span></div>
+                <div class="gif-item"><img src="https://imgur.com/ZuaO9n5.gif"><span>After 5</span></div>
+            </div>
+            <div class="animated-bar"><span>Modelo Blufftitler 350 XATS </span></div>
+            <div class="gif-grid grid-compact">
+                <div class="gif-item"><img src="https://imgur.com/65bzz5V.gif"><span>Bluff 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/ZetkVFF.gif"><span>Bluff 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/JqzxOwt.gif"><span>Bluff 3</span></div>
+                <div class="gif-item"><img src="https://imgur.com/NK9Z8rU.gif"><span>Bluff 4</span></div>
+                <div class="gif-item"><img src="https://imgur.com/RNIlFI3.gif"><span>Bluff 5</span></div>
+            </div>
+        </div>
+
+        <div id="section-pcback" class="content-section">
+            <div class="animated-bar"><span>Pcback Gifs 450 XATS </span></div>
+            <div class="gif-grid grid-normal">
+                <div class="gif-item"><img src="https://i.imgur.com/SFnk7A6.gif"><span>Pcback 1</span></div>
+                <div class="gif-item"><img src="https://i.imgur.com/KKY2zqU.gif"><span>Pcback 2</span></div>
+                <div class="gif-item"><img src="https://i.imgur.com/fmhynyY.gif"><span>Pcback 3</span></div>
+            </div>
+        </div>
+
+        <div id="section-pstyle" class="content-section">
+            <div class="animated-bar"><span>Pstyle GIFs 350 XATS</span></div>
+            <div class="gif-grid grid-normal">
+                <div class="gif-item"><img src="https://imgur.com/rUIzfWU.gif"><span>Pstyle 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/dGfJDfh.gif"><span>Pstyle 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/ZXBA6F1.gif"><span>Pstyle 3</span></div>
+                <div class="gif-item"><img src="https://imgur.com/dImC226.gif"><span>Pstyle 4</span></div>
+            </div>
+        </div>
+
+        <div id="section-pcback-est" class="content-section">
+            <div class="animated-bar"><span>Pcback Estático 300 XATS </span></div>
+            <div class="gif-grid grid-normal">
+                <div class="gif-item"><img src="https://imgur.com/OyX4Jwt.png"><span>Pcback 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/tcGR4ey.png"><span>Pcback 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/dbSy2Rf.png"><span>Pcback 3</span></div>
+            </div>
+        </div>
+
+        <div id="section-pstyle-est" class="content-section">
+            <div class="animated-bar"><span>Pstyle Estático 250 XATS </span></div>
+            <div class="gif-grid grid-normal">
+                <div class="gif-item"><img src="https://imgur.com/zlcL7Dh.png"><span>Pstyle 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/m2Ew85b.png"><span>Pstyle 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/6PUSQBo.png"><span>Pstyle 3</span></div>
+            </div>
         </div>
 
         <footer>
             <div class="neon-footer-text">Galeria exclusiva 2026</div>
-            <div style="margin-top: 15px; font-family: monospace; color: #007bff; font-size: 0.8rem;">
+            <div style="margin-top: 15px; font-family: monospace; color: #007bff; font-size: 0.8rem; filter: drop-shadow(0 0 3px #007bff);">
                 VISITAS: <span id="v-count">00000</span>
             </div>
         </footer>
@@ -375,6 +465,8 @@
         function loadTrack(index) {
             audio.src = playlist[index].url;
             trackLabel.innerText = playlist[index].name;
+            // Reinicia o cálculo do letreiro quando a música muda
+            setTimeout(updateMarqueeProperties, 100);
         }
 
         function togglePlay() {
@@ -409,11 +501,9 @@
         loadTrack(currentTrack);
         audio.volume = 0.5;
 
-        // BOTÃO ENTRAR: Inicia o som e muda a tela
         document.getElementById('btn-entrar').onclick = () => {
             document.getElementById('intro-screen').style.opacity = '0';
-            // Inicia o áudio aqui
-            audio.play().catch(e => console.log("Erro ao tocar áudio automaticamente"));
+            audio.play().catch(e => console.log("Erro ao tocar"));
             playBtn.innerText = "⏸";
             
             setTimeout(() => { 
@@ -441,9 +531,13 @@
 
         document.getElementById('btn-home').onclick = () => show('section-home');
         document.getElementById('btn-gifs').onclick = () => show('section-gifs');
+        document.getElementById('btn-pcback').onclick = () => show('section-pcback');
+        document.getElementById('btn-pstyle').onclick = () => show('section-pstyle');
+        document.getElementById('btn-pcback-est').onclick = () => show('section-pcback-est');
+        document.getElementById('btn-pstyle-est').onclick = () => show('section-pstyle-est');
 
         function updateMarqueeProperties() {
-            const spans = document.querySelectorAll('.animated-bar span, .texto-letreiro-wrapper span');
+            const spans = document.querySelectorAll('.animated-bar span, .texto-letreiro-wrapper span, .track-info');
             spans.forEach(span => {
                 span.style.setProperty('--marquee-start', span.parentElement.offsetWidth + 'px');
                 span.style.setProperty('--marquee-end', '-' + span.offsetWidth + 'px');
