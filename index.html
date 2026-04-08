@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minha Galeria de GIFs</title>
     <style>
-        /* --- Reset e Estilos Básicos (ORIGINAIS MANTIDOS) --- */
+        /* --- Reset e Estilos Básicos --- */
         body, html {
             margin: 0;
             padding: 0;
@@ -20,7 +20,7 @@
             -ms-user-select: none;
         }
 
-        /* --- MENSAGEM DE ALERTA (ORIGINAL) --- */
+        /* --- MENSAGEM DE ALERTA CUSTOMIZADA --- */
         #custom-alert {
             display: none;
             position: fixed;
@@ -40,7 +40,7 @@
             pointer-events: none;
         }
 
-        /* --- FUNDO BASE (AZUL ESCURO ORIGINAL) --- */
+        /* --- FUNDO ANIMADO --- */
         .background-animation {
             position: fixed;
             top: 0;
@@ -52,54 +52,27 @@
             overflow: hidden;
         }
 
-        /* --- NOVO EFEITO: CHUVA DE ESTRELAS FLUTUANTES (ESTILO REFERÊNCIA) --- */
-        #stars-particle-container {
+        .big-star {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            overflow: hidden;
-            z-index: 0; /* Atrás do conteúdo, na frente do gradiente base */
-        }
-
-        .star-particle {
-            position: absolute;
-            background-color: #fff;
+            background: white;
             border-radius: 50%;
-            /* Brilho da estrela (Glow) */
-            box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #007bff;
-            /* Animação: Subir e piscar */
-            animation: riseAndTwinkle linear infinite;
+            filter: blur(1px);
+            box-shadow: 0 0 10px white, 0 0 20px white;
             opacity: 0;
-            bottom: -50px; /* Começa logo abaixo da tela */
+            animation: bigStarBlink 4s infinite ease-in-out;
         }
 
-        @keyframes riseAndTwinkle {
-            0% {
-                transform: translateY(0) scale(0.5);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.8; /* Aparece rápido */
-            }
-            80% {
-                opacity: 0.8; /* Mantém visível */
-            }
-            100% {
-                transform: translateY(-110vh) scale(1.2); /* Sobe além do topo */
-                opacity: 0; /* Desaparece no topo */
-            }
+        @keyframes bigStarBlink {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 0.8; transform: scale(1.2); }
         }
 
-        /* Mantendo suas luzes flutuantes originais */
         .floating-light {
             position: absolute;
             border-radius: 50%;
             opacity: 0;
             animation: floatGlow 12s infinite linear;
             filter: blur(3px);
-            z-index: 1;
         }
 
         @keyframes floatGlow {
@@ -108,7 +81,18 @@
             100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
 
-        /* --- ESTILOS DE CONTEÚDO (ORIGINAIS MANTIDOS) --- */
+        /* --- ANIMAÇÕES --- */
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         .gradient-text-anim {
             background: linear-gradient(270deg, #ffffff, #007bff, #ffffff, #007bff);
             background-size: 400% 400%;
@@ -130,19 +114,24 @@
             border-radius: 5px;
             animation: gradientMove 5s ease infinite;
             transition: box-shadow 0.3s ease, transform 0.2s;
-            position: relative;
-            z-index: 20; /* Garante que o botão fique clicável sobre as partículas */
+        }
+
+        /* ESTILO ESPECÍFICO BOTÃO ENTRAR (REDONDO E FLUTUANTE) */
+        #btn-entrar {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            animation: gradientMove 5s ease infinite, floating 3s ease-in-out infinite;
         }
 
         .gradient-btn-anim:hover {
             box-shadow: 0 0 20px #007bff, 0 0 40px #007bff;
             transform: scale(1.05);
-        }
-
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         .animated-bar {
@@ -160,6 +149,7 @@
             100% { background-position: 200% 50%; }
         }
 
+        /* --- ESTRUTURA DE TELAS --- */
         #intro-screen {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             width: 100%; height: 100%; position: absolute; z-index: 10;
@@ -175,15 +165,22 @@
 
         #gallery-screen.active { display: block; opacity: 1; }
 
+        /* MOLDURA PERFIL FLUTUANTE */
         .profile-frame {
-            width: 200px; height: 200px; border-radius: 50%; border: 3px solid #fff;
-            margin: 10px auto; overflow: hidden; box-shadow: 0 0 20px rgba(255,255,255,0.5);
-            position: relative; z-index: 10;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            margin: 10px auto;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+            animation: floating 4s ease-in-out infinite; /* Animação flutuar */
         }
         .profile-frame img { width: 100%; height: 100%; object-fit: cover; }
 
-        .nav-buttons { margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; position: relative; z-index: 10;}
-        .content-section { display: none; margin-top: 20px; max-width: 1000px; margin-left: auto; margin-right: auto; position: relative; z-index: 10;}
+        .nav-buttons { margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+
+        .content-section { display: none; margin-top: 20px; max-width: 1000px; margin-left: auto; margin-right: auto; }
         .content-section.active { display: block; }
 
         .gif-grid { display: grid; gap: 15px; margin-bottom: 30px; }
@@ -199,6 +196,7 @@
             border: 1px solid rgba(255,255,255,0.2); 
             padding: 15px; border-radius: 8px; transition: 0.3s ease; text-align: left;
         }
+        .info-box:hover { box-shadow: 0 0 20px #00c6ff; transform: translateY(-5px); background: rgba(0, 123, 255, 0.25); }
         .info-box h3 { border-bottom: 1px solid #007bff; color: #00c6ff; margin-top: 0; }
     </style>
 </head>
@@ -207,15 +205,16 @@
     <div id="custom-alert">Copyright - Acesso Proibido</div>
 
     <div class="background-animation">
-        <div id="stars-particle-container"></div>
-
+        <div class="big-star" style="width: 6px; height: 6px; top: 10%; left: 15%;"></div>
+        <div class="big-star" style="width: 8px; height: 8px; top: 40%; left: 85%; animation-delay: 1s;"></div>
+        <div class="big-star" style="width: 10px; height: 10px; top: 80%; left: 50%; animation-delay: 0.5s;"></div>
         <div class="floating-light" style="width: 50px; height: 50px; left: 10%; background: #007bff; animation-delay: 0s;"></div>
         <div class="floating-light" style="width: 60px; height: 60px; left: 45%; background: #00c6ff; animation-delay: 8s;"></div>
     </div>
 
     <div id="intro-screen">
         <h1 class="gradient-text-anim" style="font-size: 4em;">Galeria de Gifs</h1>
-        <button class="gradient-btn-anim" id="btn-entrar" style="padding: 15px 40px; font-size: 1.2em;">Entrar</button>
+        <button class="gradient-btn-anim" id="btn-entrar">Entrar</button>
     </div>
 
     <div id="gallery-screen">
@@ -277,7 +276,6 @@
     </div>
 
     <script>
-        // --- FUNÇÕES DE SEGURANÇA (ORIGINAIS) ---
         function showAlert(e) {
             if (e) e.preventDefault();
             const alertBox = document.getElementById('custom-alert');
@@ -287,63 +285,23 @@
         }
 
         document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 65)) showAlert(e);
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) showAlert(e);
+            if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 65)) {
+                showAlert(e);
+            }
+            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
+                showAlert(e);
+            }
         });
 
-        // --- SISTEMA DE PARTÍCULAS DE ESTRELAS (NOVO) ---
-        function createStarParticle() {
-            const container = document.getElementById('stars-particle-container');
-            if (!container) return;
-
-            const star = document.createElement('div');
-            star.classList.add('star-particle');
-
-            // Configurações Aleatórias (Tamanho, Posição, Duração)
-            const size = Math.random() * 6 + 2; // Tamanho entre 2px e 8px
-            const posX = Math.random() * 100; // Posição horizontal aleatória (0-100%)
-            const duration = Math.random() * 10 + 5; // Duração entre 5s e 15s
-            const delay = Math.random() * 5; // Atraso inicial para não saírem todas juntas
-
-            // Aplicar estilos
-            star.style.width = `${size}px`;
-            star.style.height = `${size}px`;
-            star.style.left = `${posX}%`;
-            star.style.animationDuration = `${duration}s`;
-            star.style.animationDelay = `-${delay}s`; // Negativo para já começar em movimento
-
-            container.appendChild(star);
-
-            // Remover a partícula após a animação para não pesar o navegador
-            setTimeout(() => {
-                star.remove();
-            }, duration * 1000);
-        }
-
-        // --- TRANSIÇÃO DE TELAS E INÍCIO DO EFEITO ---
         const intro = document.getElementById('intro-screen');
         const gallery = document.getElementById('gallery-screen');
         const sections = document.querySelectorAll('.content-section');
-        let particleInterval; // Variável para controlar o gerador
 
         document.getElementById('btn-entrar').onclick = () => {
             intro.style.opacity = '0';
-            
-            // INICIAR O EFEITO DE ESTRELAS EXATAMENTE NO CLIQUE
-            // Cria 50 estrelas instantaneamente para preencher a tela
-            for(let i = 0; i < 50; i++) {
-                createStarParticle();
-            }
-            // Continua criando novas estrelas continuamente (estilo chuva)
-            particleInterval = setInterval(createStarParticle, 200); // Nova estrela a cada 200ms
-
-            setTimeout(() => { 
-                intro.style.display = 'none'; 
-                gallery.classList.add('active'); 
-            }, 1000);
+            setTimeout(() => { intro.style.display = 'none'; gallery.classList.add('active'); }, 1000);
         };
 
-        // --- NAVEGAÇÃO (ORIGINAL) ---
         function show(id) {
             sections.forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
