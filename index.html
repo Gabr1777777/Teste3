@@ -93,7 +93,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Nova animação marquee baseada em pixels, controlada por JS */
         @keyframes marquee-dynamic {
             0% { transform: translateX(var(--marquee-start)); }
             100% { transform: translateX(var(--marquee-end)); }
@@ -139,7 +138,6 @@
             transform: scale(1.05);
         }
 
-        /* BARRA COM EFEITO LETREIRO (MARQUEE) MELHORADO */
         .animated-bar {
             background: linear-gradient(90deg, #007bff, #00c6ff, #007bff);
             background-size: 200% auto;
@@ -150,14 +148,13 @@
             overflow: hidden; 
             white-space: nowrap;
             position: relative;
-            display: flex; /* Ajuda no alinhamento */
+            display: flex;
         }
 
         .animated-bar span {
             display: inline-block;
-            /* Inicia a animação controlada por JS */
             animation: marquee-dynamic 12s linear infinite; 
-            will-change: transform; /* Otimização */
+            will-change: transform;
         }
 
         /* --- ESTRUTURA DE TELAS --- */
@@ -255,6 +252,7 @@
                 <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>After 4</span></div>
                 <div class="gif-item"><img src="https://imgur.com/ZuaO9n5.gif"><span>After 5</span></div>
             </div>
+            
             <div class="animated-bar"><span>Modelo Blufftitler</span></div>
             <div class="gif-grid grid-compact">
                 <div class="gif-item"><img src="https://imgur.com/65bzz5V.gif"><span>Bluff 1</span></div>
@@ -262,6 +260,24 @@
                 <div class="gif-item"><img src="https://imgur.com/JqzxOwt.gif"><span>Bluff 3</span></div>
                 <div class="gif-item"><img src="https://imgur.com/NK9Z8rU.gif"><span>Bluff 4</span></div>
                 <div class="gif-item"><img src="https://imgur.com/RNIlFI3.gif"><span>Bluff 5</span></div>
+            </div>
+
+            <div class="animated-bar"><span>Modelo Canva</span></div>
+            <div class="gif-grid grid-compact">
+                <div class="gif-item"><img src="https://imgur.com/5HxfNaB.gif"><span>Gifs 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/FILAVQP.gif"><span>Gifs 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/5IoR515.gif"><span>Gifs 3</span></div>
+                <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>Gifs 4</span></div>
+                <div class="gif-item"><img src="https://imgur.com/ZuaO9n5.gif"><span>Gifs 5</span></div>
+            </div>
+
+            <div class="animated-bar"><span>Modelo Photoscape</span></div>
+            <div class="gif-grid grid-compact">
+                <div class="gif-item"><img src="https://imgur.com/65bzz5V.gif"><span>Scape 1</span></div>
+                <div class="gif-item"><img src="https://imgur.com/ZetkVFF.gif"><span>Scape 2</span></div>
+                <div class="gif-item"><img src="https://imgur.com/JqzxOwt.gif"><span>Scape 3</span></div>
+                <div class="gif-item"><img src="https://imgur.com/NK9Z8rU.gif"><span>Scape 4</span></div>
+                <div class="gif-item"><img src="https://imgur.com/RNIlFI3.gif"><span>Scape 5</span></div>
             </div>
         </div>
 
@@ -286,7 +302,6 @@
     </div>
 
     <script>
-        // Função de Alerta
         function showAlert(e) {
             if (e) e.preventDefault();
             const alertBox = document.getElementById('custom-alert');
@@ -295,7 +310,6 @@
             return false;
         }
 
-        // Bloqueio de Teclas
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 65)) {
                 showAlert(e);
@@ -305,7 +319,6 @@
             }
         });
 
-        // Transição de Telas
         const intro = document.getElementById('intro-screen');
         const gallery = document.getElementById('gallery-screen');
         const sections = document.querySelectorAll('.content-section');
@@ -315,7 +328,6 @@
             setTimeout(() => { 
                 intro.style.display = 'none'; 
                 gallery.classList.add('active');
-                // Recalcula o marquee quando a galeria aparece
                 updateMarqueeProperties();
             }, 1000);
         };
@@ -323,7 +335,6 @@
         function show(id) {
             sections.forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            // Recalcula o marquee quando muda de aba
             updateMarqueeProperties();
         }
 
@@ -332,25 +343,16 @@
         document.getElementById('btn-pcback').onclick = () => show('section-pcback');
         document.getElementById('btn-pstyle').onclick = () => show('section-pstyle');
 
-        // --- AJUSTE DINÂMICO DO LETREIRO (MARQUEE) ---
-        // Esta função calcula o tamanho exato da barra e do texto
-        // para eliminar o tempo de espera no reaparecimento.
         function updateMarqueeProperties() {
             const spans = document.querySelectorAll('.animated-bar span');
-            
             spans.forEach(span => {
                 const parentBar = span.parentElement;
                 const barWidth = parentBar.offsetWidth;
                 const textWidth = span.offsetWidth;
-
-                // Define onde a animação começa (todo fora à direita da barra)
-                // e onde termina (todo fora à esquerda da barra)
                 span.style.setProperty('--marquee-start', barWidth + 'px');
                 span.style.setProperty('--marquee-end', '-' + textWidth + 'px');
             });
         }
-
-        // Ajusta se a janela for redimensionada
         window.addEventListener('resize', updateMarqueeProperties);
     </script>
 </body>
