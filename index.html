@@ -291,15 +291,41 @@
 
         .nav-buttons { margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
 
-        .content-section { display: none; margin-top: 20px; max-width: 1000px; margin-left: auto; margin-right: auto; }
+        .content-section { display: none; margin-top: 20px; max-width: 1100px; margin-left: auto; margin-right: auto; }
         .content-section.active { display: block; }
 
-        .gif-grid { display: grid; gap: 15px; margin-bottom: 30px; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+        /* --- AJUSTE PARA 9 GIFS POR LINHA --- */
+        .gif-grid { 
+            display: grid; 
+            gap: 8px; 
+            margin-bottom: 30px; 
+            grid-template-columns: repeat(9, 1fr); 
+        }
 
-        .gif-item { background: rgba(255, 255, 255, 0.1); padding: 8px; border-radius: 5px; transition: 0.3s; }
-        .gif-item:hover { box-shadow: 0 0 20px #00c6ff; transform: translateY(-5px); }
-        .gif-item img { width: 100%; border-radius: 3px; display: block; }
-        .gif-item p { margin: 8px 0 0; font-size: 0.8em; color: #00c6ff; }
+        .gif-item { 
+            background: rgba(255, 255, 255, 0.1); 
+            padding: 4px; 
+            border-radius: 4px; 
+            transition: 0.3s; 
+            text-align: center;
+        }
+        .gif-item:hover { box-shadow: 0 0 15px #00c6ff; transform: translateY(-3px); }
+        .gif-item img { width: 100%; border-radius: 2px; display: block; }
+        .gif-item p { 
+            margin: 4px 0 0; 
+            font-size: 0.6em; 
+            color: #00c6ff; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+        }
+
+        @media (max-width: 900px) {
+            .gif-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .gif-grid { grid-template-columns: repeat(3, 1fr); }
+        }
 
         .info-box { 
             background: rgba(0, 123, 255, 0.15); 
@@ -345,7 +371,6 @@
             <button class="gradient-btn-anim" id="btn-pstyle-est">Pstyle Estático</button>
         </div>
 
-        <!-- Seção Home -->
         <div id="section-home" class="content-section active">
             <div class="wrs-music-player">
                 <div class="player-controls">
@@ -370,11 +395,11 @@
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
                 <div class="info-box"><h3>Sobre Mim</h3><p>Bem-vindo à minha galeria pessoal de efeitos e composições visuais.</p></div>
                 <div class="info-box"><h3>Dicas</h3><p>Use os GIFs como backgrounds ou elements de transição em seus projetos.</p></div>
-                <div class="info-box"><h3>Sell ID</h3><p>(SOLD 1553333003), 1553333005, 1553333013, 1553333024, 1553333040, 1553333505, 1553333903, 1553333027, 1553333484, 1553333494, 1553333579, 1549200800, 1549200900, (SOLD 1549203020), 1553350006, 1553342014, 1553350001, 1553349911, 1553350010, 1553350019, 1553350022, 1553350080, 1553358001, 1553358004, 1549200788, 1549200822, 1549200844, 1557799002, 1553366005, 1549200844, 1553347776, 1529199110, 1529199070, 1529199294, 1529199883, 1533393277, 1533393300, 1533393338, (SOLD 1533393573), 1533393580, 1529200133, 1529202490, (SOLD 1529202505), 1529202530, 1529204010, 1533394241, 1533393639, 1529202425, 1529202400, 1533394373, 1533394323, 1533394241, 1529199885, 1533393635, 1533393595, 1533393141, 1533393400, 1533393344, 1533393318, 1547821112, 1547821110, 1552015343, 1552015251, 1547820900, 1552015200, 1552015147, 1552015145, 1557799021, 1557799033, 1557788921, 1557776683, 155773321, 1557771518, 1549303238, 1553473771, 1553382335, 1553379909, 1553377996, 1553368939, 1553367700, 1553366020, 1549171706, 1553361002, 1549208099, 1549202628, 1549202625, 1553396919, 1549202188, 1549202166, 1549201767, 1549201765, 1549201363, 1549201355, 1549201141, 1549201138, 1549201022, 1549200949, 1549200870, 1549200822, 1553358009, 1553358007, 1553356878, 1549155545, 1553350025, 1553349904, 1549155586, 1549155570, 1549155560, 1553347799, 1553347788, 1553347779, 1553345350, 1553345344, 1553345337, 1553345060, 1553344044, 1553343736, 1553343733, 1553343723, 1553343013, 1553343001, 1553342448, 1553339348, 1553339563, 1553339558, 1553339371, 1553339387, 1553339366, 1553338668, 1553338633, 1553339355, 1553338688, 1553338090, 1553337479, 1553335233, 1553335220, 1553333908, 1553333491, 1553333464, 1553332927, 1553327338, 1553327323, 1553322031, 1553329282, </p></div>
+                <div class="info-box"><h3>Sell ID</h3><p>Para encomendas ou uso comercial, entre em contato via Discord ou direct.</p></div>
             </div>
         </div>
 
-        <!-- Seções Dinâmicas (Serão preenchidas pelo JS) -->
+        <!-- Containers para os GIFs -->
         <div id="section-gifs" class="content-section"></div>
         <div id="section-pcback" class="content-section"></div>
         <div id="section-pstyle" class="content-section"></div>
@@ -387,7 +412,6 @@
     </div>
 
     <script>
-        // DATA DOS GIFS
         const dataGifs = [
             { marquee: "✧ BLUFFTITLER - ONLY NAME - 250 XATS ✧", prefix: "Name - ", ids: ["bidwh1D", "wR2NpTV", "IMrOUcP", "Hdi04Sg", "OcGaTXA", "wJZiwkG", "jDgxhBQ", "USQgVk8", "4bhAWa5", "0LL3muu"] },
             { marquee: "✧ BLUFFTITLER - NAME + PHOTO - 350 XATS ✧", prefix: "Bluff - ", ids: ["F0b4mnJ", "65bzz5V", "ZetkVFF", "JqzxOwt", "NK9Z8rU", "RNIlFI3", "bSmUjsQ", "R6klF5K", "cgyGLHQ", "ctF1vyH", "Ge90Xy7", "7Z8xEC8", "G8HFkiG", "sh7u3UM", "y0WgmxJ", "Vvw2SMU", "uoNJlEe"] },
@@ -400,7 +424,6 @@
             { marquee: "✧ PHOTOSCAPE - (1) PHOTO - 100 XATS (2) PHOTOS - 200 XATS (3) PHOTOS - 300 XATS ✧", prefix: "Parpadeo - ", ids: ["bXTTG5V", "MdemxH0", "VpU6eOY", "NUIGQ3f", "NP25oCb", "mXHqKwc", "bKcj9xf"] }
         ];
 
-        // CONFIGURAÇÃO DO PLAYER E PLAYLIST
         const playlist = [
             { name: "Eminem - You dont know", url: "https://www.dropbox.com/scl/fi/4y0lc0fi24e9yavn17psv/Eminem-you-dont-know.mp3.mp3?rlkey=zicb6spgqe3pv0gqnz3xc24zo&st=wy1w0icm&raw=1" },
             { name: "The Sound of Silence – Rising to the Night", url: "https://www.dropbox.com/scl/fi/2y9zhx5zjsdxg3zljc2f9/sound-of-silence.mp3.mp3?rlkey=88zg0td3loy40uxmcm9rnk1jt&st=qty8093e&raw=1" },
@@ -435,9 +458,9 @@
         document.getElementById('music-volume').oninput = (e) => audio.volume = e.target.value;
         loadTrack(currentTrack);
 
-        // FUNÇÃO PARA GERAR GRIDS DE GIFS
         function renderGifs() {
             const section = document.getElementById('section-gifs');
+            section.innerHTML = ''; 
             dataGifs.forEach(group => {
                 const bar = document.createElement('div');
                 bar.className = 'animated-bar';
@@ -457,7 +480,6 @@
             });
         }
 
-        // CONTADOR
         const ID_VISITAS = "wrs_galeria_v1_2026_final"; 
         async function carregarContadores() {
             try {
@@ -469,7 +491,6 @@
             }
         }
 
-        // ALERTAS E SEGURANÇA
         function showAlert(e) {
             if (e) e.preventDefault();
             const alertBox = document.getElementById('custom-alert');
@@ -484,7 +505,6 @@
             }
         });
 
-        // NAVEGAÇÃO
         const intro = document.getElementById('intro-screen');
         const gallery = document.getElementById('gallery-screen');
         const sections = document.querySelectorAll('.content-section');
