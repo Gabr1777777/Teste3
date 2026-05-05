@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Galeria Profissional WRS</title>
+    <title>Gabr | Galeria Oficial WRS</title>
     
-    <!-- 1. Otimização de Rede: Abre as portas para o servidor de arquivos imediatamente[cite: 2] -->
     <script>
-        const preconnects = ['https://dl.dropboxusercontent.com', 'https://www.dropbox.com', 'https://i.imgur.com'];
-        preconnects.forEach(url => {
+        // Otimização de Pré-conexão para carregamento ultrarrápido
+        ['https://i.imgur.com', 'https://dl.dropboxusercontent.com'].forEach(url => {
             const link = document.createElement('link');
             link.rel = 'preconnect';
             link.href = url;
@@ -21,221 +20,194 @@
         :root {
             --neon-blue: #0048FF;
             --bg-dark: #050505;
-            --card-bg: rgba(17, 17, 17, 0.5);
-            --deep-blue-bar: rgba(0, 10, 31, 0.5); 
+            --card-bg: rgba(17, 17, 17, 0.7);
+            --deep-blue-bar: rgba(0, 10, 31, 0.8); 
         }
 
-        /* Otimização de Renderização Prioritária[cite: 2] */
-        img {
-            content-visibility: auto;
-            contain-intrinsic-size: 300px 300px;
-            image-rendering: -webkit-optimize-contrast;
-            backface-visibility: hidden;
-            transform: translateZ(0); /* Aceleração por hardware[cite: 2] */
+        /* Reset e Performance */
+        * { box-sizing: border-box; }
+        body { 
+            background: var(--bg-dark) url('https://i.imgur.com/f1Lt3R2.jpeg') fixed center/cover;
+            color: white; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; 
+            height: 100vh; display: flex; flex-direction: column; overflow: hidden;
         }
+
+        /* Scrollbar Estilizada */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: var(--neon-blue); border-radius: 10px; }
+
+        /* Header e Botão XatSpace */
+        .header { 
+            padding: 15px; text-align: center; border-bottom: 2px solid var(--neon-blue);
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(10px);
+        }
+        .header h1 { margin: 0; font-size: 22px; letter-spacing: 2px; color: #fff; text-shadow: 0 0 10px var(--neon-blue); }
         
-        .gallery-container, section, div {
-            will-change: transform; /* Evita travamentos no scroll[cite: 2] */
+        .btn-xatspace {
+            display: inline-block; margin-top: 10px; padding: 8px 20px;
+            background: linear-gradient(45deg, #0048FF, #001a5e);
+            color: white; text-decoration: none; border-radius: 20px;
+            font-weight: bold; font-size: 12px; transition: 0.3s;
+            border: 1px solid #fff; box-shadow: 0 0 15px rgba(0,72,255,0.5);
+        }
+        .btn-xatspace:hover { transform: scale(1.1); box-shadow: 0 0 25px var(--neon-blue); }
+
+        /* Layout Principal */
+        .main-container { display: flex; flex: 1; overflow: hidden; }
+
+        /* Menu Lateral */
+        .sidebar { 
+            width: 220px; background: rgba(0,0,0,0.8); border-right: 1px solid var(--neon-blue);
+            padding: 15px; overflow-y: auto;
+        }
+        .nav-item {
+            width: 100%; padding: 12px; margin-bottom: 10px;
+            background: var(--deep-blue-bar); border: 1px solid #00268a;
+            color: white; cursor: pointer; text-align: left; transition: 0.3s;
+        }
+        .nav-item:hover, .nav-item.active { 
+            background: var(--neon-blue); border-color: #fff; transform: translateX(5px);
         }
 
-        html, body {
-            height: 100%;
-            overflow: hidden;
-            overscroll-behavior-y: contain; 
-            background-color: var(--bg-dark);
+        /* Área de Conteúdo */
+        .content { flex: 1; padding: 20px; overflow-y: auto; position: relative; }
+
+        /* Grid de Itens */
+        .grid { 
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
+            gap: 15px; margin-top: 20px;
         }
-
-        /* Scrollbar Personalizada */
-        ::-webkit-scrollbar { width: 8px; height: 0px; }
-        ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.5); }
-        ::-webkit-scrollbar-thumb { background: var(--neon-blue); border-radius: 10px; box-shadow: 0 0 10px var(--neon-blue); }
-
-        /* Estilos de Interface */
-        body {
-            background-image: url('https://i.imgur.com/f1Lt3R2.jpeg'); background-attachment: fixed; background-size: cover; background-position: center;
-            color: white; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; height: 100vh;
-            user-select: none; -webkit-user-select: none; overflow-x: hidden;
+        .item-card { 
+            background: var(--card-bg); border: 1px solid #333; border-radius: 5px;
+            overflow: hidden; transition: 0.3s; cursor: pointer; text-align: center;
         }
+        .item-card:hover { border-color: var(--neon-blue); transform: translateY(-5px); }
+        .item-card img { width: 100%; height: auto; display: block; content-visibility: auto; } /*[cite: 2] */
+        .item-info { padding: 8px; font-size: 11px; color: #aaa; border-top: 1px solid #222; }
 
-        .cursor-star { position: absolute; background: #fff; width: 4px; height: 4px; border-radius: 50%; pointer-events: none; z-index: 1000002; box-shadow: 0 0 5px #fff, 0 0 20px var(--neon-blue); animation: trailFade 0.7s linear forwards; }
-        @keyframes trailFade { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(0.2); opacity: 0; } }
+        /* Marquee */
+        .marquee {
+            background: rgba(0, 72, 255, 0.2); padding: 10px;
+            border: 1px solid var(--neon-blue); margin-bottom: 20px;
+            overflow: hidden; white-space: nowrap;
+        }
+        .marquee span { 
+            display: inline-block; animation: scroll 15s linear infinite; 
+            font-weight: bold; color: #fff;
+        }
+        @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        .copy-alert { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(5, 5, 5, 0.95); border: 2px solid var(--neon-blue); padding: 30px; z-index: 10000; text-align: center; box-shadow: 0 0 50px var(--neon-blue); border-radius: 10px; }
+        /* Modal de Zoom */
+        .modal { 
+            display: none; position: fixed; top:0; left:0; width:100%; height:100%; 
+            background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center;
+        }
+        .modal img { max-width: 90%; max-height: 90%; border: 2px solid var(--neon-blue); }
 
-        #intro-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('https://i.imgur.com/B6cG2f7.jpeg') center/cover no-repeat; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 1s ease, transform 1s ease; }
-        .moldura-flutuante { width: 280px; height: 280px; border: 3px solid var(--neon-blue); border-radius: 15px; overflow: hidden; box-shadow: 0 0 30px var(--neon-blue); animation: float 3s ease-in-out infinite; margin-bottom: 40px; background: rgba(0,0,0,0.5); position: relative; }
-        .moldura-flutuante img { width: 100%; height: 100%; object-fit: contain; }
-        
-        #status-dot { position: absolute; bottom: 10px; right: 10px; width: 20px; height: 20px; border-radius: 50%; border: 3px solid white; background-color: #9e9e9e; }
-
-        .btn-entrar, .btn-xat { font-weight: bold; color: white; text-transform: uppercase; border: none; border-radius: 50px; cursor: pointer; background: linear-gradient(-45deg, #0048FF, #ffffff, #0048FF, #ffffff); background-size: 300%; animation: moveGradient 4s linear infinite; box-shadow: 0 0 20px rgba(0, 72, 255, 0.6); transition: 0.3s; margin: 5px; padding: 15px 60px; }
-        .btn-xat { padding: 8px 30px; font-size: 14px; }
-
-        .perfil-header { text-align: center; padding: 20px; border-bottom: 2px solid var(--neon-blue); background: rgba(5, 5, 5, 0.5); z-index: 10; }
-        .perfil-header h1 { font-size: 2.5rem; margin: 0; background: linear-gradient(-45deg, #0048FF, #ffffff, #0048FF, #ffffff); background-size: 300%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: moveGradient 4s linear infinite; }
-
-        .main-wrapper { display: flex; flex: 1; overflow: hidden; }
-        .nav-container { width: 250px; padding: 15px; background: rgba(0, 0, 0, 0.4); border-right: 1px solid var(--neon-blue); overflow-y: auto; transition: transform 0.5s; }
-        .content-area { flex: 1; padding: 30px; overflow-y: auto; position: relative; }
-
-        .nav-btn { background: var(--deep-blue-bar); border: 1px solid rgba(0, 38, 138, 0.5); padding: 12px; cursor: pointer; font-weight: bold; color: white; width: 100%; text-align: left; margin-bottom: 8px; transition: 0.3s; }
-        .nav-btn:hover, .nav-btn.active { border-color: var(--neon-blue); box-shadow: 0 0 20px var(--neon-blue); background: rgba(0, 72, 255, 0.3); transform: translateX(8px); }
-
-        .marquee-container { background: var(--deep-blue-bar); border: 1px solid rgba(0, 38, 138, 0.5); width: 100%; overflow: hidden; margin-bottom: 20px; padding: 15px 0; position: relative; height: 30px; }
-        .marquee-content { white-space: nowrap; position: absolute; animation: linear-scroll-inside 15s linear infinite; }
-        .texto-animado { font-weight: bold; font-size: 20px; background: linear-gradient(to right, #0048FF, #ffffff, #0048FF, #ffffff); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: moveGradient 3s linear infinite; }
-
-        .grid-container, .grid-gifs { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
-        .grid-gifs { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
-
-        .card { background: var(--card-bg); border: 1px solid rgba(34, 34, 34, 0.5); border-radius: 4px; overflow: hidden; text-align: center; transition: 0.3s; cursor: zoom-in; }
-        .card:hover { border-color: var(--neon-blue); box-shadow: 0 0 25px var(--neon-blue); transform: scale(1.05); }
-        .card img { width: 100%; display: block; }
-
-        .info-card { background: var(--card-bg); border: 1px solid rgba(34, 34, 34, 0.5); padding: 20px; border-radius: 4px; margin-bottom: 20px; }
-
-        @keyframes linear-scroll-inside { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-        @keyframes moveGradient { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-
-        /* Modal */
-        .modal { display: none; position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
-        .modal-content { max-width: 85%; max-height: 85%; border: 2px solid var(--neon-blue); }
-
-        .section { display: none; }
-        .section.active { display: block; }
+        /* Intro */
+        #intro {
+            position: fixed; top:0; left:0; width:100%; height:100%;
+            background: #000 url('https://i.imgur.com/B6cG2f7.jpeg') center/cover;
+            z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .btn-enter {
+            padding: 20px 60px; font-size: 20px; background: var(--neon-blue);
+            color: #fff; border: none; border-radius: 50px; cursor: pointer;
+            box-shadow: 0 0 30px var(--neon-blue); transition: 0.5s;
+        }
+        .btn-enter:hover { letter-spacing: 5px; background: #fff; color: #000; }
     </style>
 </head>
-<body oncontextmenu="showAlert(); return false;">
+<body>
 
-    <div id="copyright-alert" class="copy-alert">
-        <h3 style="color: var(--neon-blue);">COPYRIGHT - ACESSO PROIBIDO</h3>
-        <p>Propriedade de Gabr (1777777)</p>
-    </div>
-
-    <div id="intro-screen">
-        <div class="moldura-flutuante">
-            <img src="https://i.imgur.com/pKuY3f8.gif">
-            <div id="status-dot"></div>
+    <div id="intro">
+        <div style="width:250px; height:250px; border:2px solid var(--neon-blue); border-radius:15px; overflow:hidden; margin-bottom:30px; box-shadow: 0 0 20px var(--neon-blue);">
+            <img src="https://i.imgur.com/pKuY3f8.gif" style="width:100%; height:100%; object-fit: cover;">
         </div>
-        <button class="btn-entrar" onclick="entrarGaleria()">Entrar</button>
+        <button class="btn-enter" onclick="iniciar()">ENTRAR</button>
     </div>
 
-    <div class="perfil-header">
-        <h1>GALERIA DE GIFS</h1>
-        <p>Gabr (1777777)</p>
+    <div class="header">
+        <h1>GABR | STORE 2026</h1>
+        <!-- Botão XatSpace solicitado -->
+        <a href="https://xat.me/Gabr" target="_blank" class="btn-xatspace">VISITAR XATSPACE</a>
     </div>
 
-    <div class="main-wrapper">
-        <div class="nav-container">
-            <button class="nav-btn active" onclick="showTab('inicio')">Início</button>
-            <button class="nav-btn" onclick="showTab('gifs')">GIFS</button>
-            <button class="nav-btn" onclick="showTab('pcback-gif')">PCBACK GIFS</button>
-            <button class="nav-btn" onclick="showTab('pstyle-gif')">PSTYLE GIFS</button>
-            <button class="nav-btn" onclick="showTab('pcback-est')">PCBACK ESTÁTICO</button>
-            <button class="nav-btn" onclick="showTab('pstyle-est')">PSTYLE ESTÁTICO</button>
-            <button class="nav-btn" onclick="showTab('fundos')">FUNDOS</button>
+    <div class="main-container">
+        <div class="sidebar">
+            <button class="nav-item active" onclick="tab('home')">INÍCIO / IDs</button>
+            <button class="nav-item" onclick="tab('gifs')">GIFS EXCLUSIVOS</button>
+            <button class="nav-item" onclick="tab('pcback')">PCBACK GIFS</button>
+            <button class="nav-item" onclick="tab('pstyle')">PSTYLE GIFS</button>
+            <button class="nav-item" onclick="tab('estaticos')">ESTÁTICOS</button>
+            <button class="nav-item" onclick="tab('fundos')">FUNDOS HD</button>
         </div>
 
-        <div class="content-area">
-            <div id="inicio" class="section active">
-                <div class="info-card"><h3>Sobre</h3><p>Vendo Gifs, Pcback, Pstyle e Fundos para XAT - Married Mnna (1013) ❤️</p></div>
-                <div class="info-card"><h3>IDs à Venda</h3><p>1553333005, 1553333013, 1553333024, 1553333040, 1553333505...</p></div>
-            </div>
-            <div id="gifs" class="section"></div>
-            <div id="pcback-gif" class="section"></div>
-            <div id="pstyle-gif" class="section"></div>
-            <div id="pcback-est" class="section"></div>
-            <div id="pstyle-est" class="section"></div>
-            <div id="fundos" class="section"></div>
+        <div class="content" id="content-area">
+            <!-- As seções são geradas via JavaScript abaixo -->
         </div>
     </div>
 
-    <div id="modalZoom" class="modal" onclick="this.style.display='none'"><img id="imgZoom" class="modal-content"></div>
+    <div class="modal" id="modal" onclick="this.style.display='none'"><img id="modal-img"></div>
 
     <script>
-        // 2. Script de Renderização Prioritária (Intersection Observer)[cite: 2]
-        const observerOptions = { root: null, rootMargin: '200px 0px', threshold: 0.01 };
-
-        const optimizeImage = (img) => {
-            img.loading = "lazy";
-            img.decoding = "async";
-            img.setAttribute("fetchpriority", "low");
+        // BANCO DE DADOS DA GALERIA (Adicione os IDs do Imgur aqui)
+        const DATABASE = {
+            ids: ["1553333005", "1553333013", "1553333024", "1553333040", "1553333505", "1553333000"],
+            gifs: ["5HxfNaB", "FILAVQP", "5IoR515", "KUQ1WsX", "ZuaO9n5", "v9I3Osh", "8X6xI9W"],
+            pcback: ["SFnk7A6", "KKY2zqU", "fmhynyY", "6Wf8K0s"],
+            pstyle: ["5HxfNaB", "FILAVQP"],
+            estaticos: ["f1Lt3R2", "B6cG2f7"],
+            fundos: ["f1Lt3R2", "B6cG2f7"]
         };
 
-        const imageObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    optimizeImage(img);
-                    imageObserver.unobserve(img);
-                }
-            });
-        }, observerOptions);
-
-        function entraGaleria() {
-            document.getElementById('intro-screen').style.opacity = '0';
-            setTimeout(() => document.getElementById('intro-screen').style.display = 'none', 1000);
+        function iniciar() {
+            document.getElementById('intro').style.display = 'none';
+            tab('home');
         }
 
-        function entrarGaleria() { entraGaleria(); }
-
-        function showAlert() {
-            const alertBox = document.getElementById('copyright-alert');
-            alertBox.style.display = 'block';
-            setTimeout(() => alertBox.style.display = 'none', 2500);
+        function openZoom(url) {
+            document.getElementById('modal-img').src = url;
+            document.getElementById('modal').style.display = 'flex';
         }
 
-        function showTab(id) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
+        function tab(name) {
+            const area = document.getElementById('content-area');
+            let html = "";
 
-        function openZoom(src) {
-            document.getElementById('imgZoom').src = src;
-            document.getElementById('modalZoom').style.display = 'flex';
-        }
-
-        function render() {
-            const sections = [
-                { id: 'gifs', marquee: "✧ AFTEREFECTS - 400 XATS ✧", prefix: "After", urls: ['5HxfNaB', 'FILAVQP', '5IoR515', 'KUQ1WsX', 'ZuaO9n5'] },
-                { id: 'pcback-gif', marquee: "✧ PCBACK GIF - 450 XATS ✧", prefix: "PCBack", urls: ['SFnk7A6', 'KKY2zqU', 'fmhynyY'] }
-            ];
-
-            sections.forEach(sec => {
-                const target = document.getElementById(sec.id);
-                let html = `<div class="marquee-container"><div class="marquee-content"><span class="texto-animado">${sec.marquee}</span></div></div><div class="grid-gifs">`;
-                
-                sec.urls.forEach((id, index) => {
-                    // Aplica prioridade para os primeiros itens da galeria[cite: 2]
-                    const priority = index < 4 ? 'fetchpriority="high" decoding="sync"' : 'loading="lazy"';
+            // Lógica de abas
+            if(name === 'home') {
+                html = `
+                    <div class="marquee"><span>VENDA DE IDs - GIFS - PCBACKS - QUALIDADE WRS 2026</span></div>
+                    <h3>IDs DISPONÍVEIS</h3>
+                    <div class="grid">
+                        ${DATABASE.ids.map(id => `<div class="item-card" style="padding:20px; font-weight:bold; color:var(--neon-blue); font-size:18px;">${id}</div>`).join('')}
+                    </div>
+                `;
+            } else {
+                const list = DATABASE[name] || [];
+                const prefix = name.toUpperCase();
+                html = `<h3>${prefix}</h3><div class="grid">`;
+                list.forEach((imgId, i) => {
+                    // Carregamento otimizado: os 4 primeiros carregam antes[cite: 2]
+                    const lazy = i > 4 ? 'loading="lazy"' : 'fetchpriority="high"';
                     html += `
-                        <div class="card" onclick="openZoom('https://i.imgur.com/${id}.gif')">
-                            <img src="https://i.imgur.com/${id}.gif" ${priority} alt="Galeria">
-                            <div style="padding:5px; font-size:10px;">${sec.prefix} ${index+1}</div>
+                        <div class="item-card" onclick="openZoom('https://i.imgur.com/${imgId}.gif')">
+                            <img src="https://i.imgur.com/${imgId}.gif" ${lazy}>
+                            <div class="item-info">${prefix} #${i+1}</div>
                         </div>`;
                 });
-                target.innerHTML = html + `</div>`;
-            });
+                html += `</div>`;
+            }
 
-            // Inicia observação de imagens após renderização[cite: 2]
-            document.querySelectorAll('.card img').forEach((img, idx) => {
-                if (idx >= 4) imageObserver.observe(img);
+            area.innerHTML = html;
+            
+            // Atualiza botões
+            document.querySelectorAll('.nav-item').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.innerText.toLowerCase().includes(name.substring(0,3))) btn.classList.add('active');
             });
         }
-
-        window.onload = render;
-
-        // Efeito de estrelas no mouse
-        document.addEventListener('mousemove', (e) => {
-            const star = document.createElement('div');
-            star.className = 'cursor-star';
-            star.style.left = e.pageX + 'px'; star.style.top = e.pageY + 'px';
-            document.body.appendChild(star);
-            setTimeout(() => star.remove(), 700);
-        });
     </script>
 </body>
 </html>
