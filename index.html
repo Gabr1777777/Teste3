@@ -294,13 +294,12 @@
         .content-section { display: none; margin-top: 20px; max-width: 1000px; margin-left: auto; margin-right: auto; }
         .content-section.active { display: block; }
 
-        .gif-grid { display: grid; gap: 15px; margin-bottom: 30px; }
-        .grid-compact { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
-        .grid-normal { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+        .gif-grid { display: grid; gap: 15px; margin-bottom: 30px; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
 
         .gif-item { background: rgba(255, 255, 255, 0.1); padding: 8px; border-radius: 5px; transition: 0.3s; }
         .gif-item:hover { box-shadow: 0 0 20px #00c6ff; transform: translateY(-5px); }
-        .gif-item img { width: 100%; border-radius: 3px; }
+        .gif-item img { width: 100%; border-radius: 3px; display: block; }
+        .gif-item p { margin: 8px 0 0; font-size: 0.8em; color: #00c6ff; }
 
         .info-box { 
             background: rgba(0, 123, 255, 0.15); 
@@ -346,8 +345,8 @@
             <button class="gradient-btn-anim" id="btn-pstyle-est">Pstyle Estático</button>
         </div>
 
+        <!-- Seção Home -->
         <div id="section-home" class="content-section active">
-            
             <div class="wrs-music-player">
                 <div class="player-controls">
                     <button class="play-btn" id="music-prev">«</button>
@@ -371,93 +370,16 @@
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
                 <div class="info-box"><h3>Sobre Mim</h3><p>Bem-vindo à minha galeria pessoal de efeitos e composições visuais.</p></div>
                 <div class="info-box"><h3>Dicas</h3><p>Use os GIFs como backgrounds ou elements de transição em seus projetos.</p></div>
-                <div class="info-box"><h3>Sell ID</h3><p>Para encomendas ou uso comercial, entre em contato via Discord ou direct.</p></div>
+                <div class="info-box"><h3>Sell ID</h3><p>(SOLD 1553333003), 1553333005, 1553333013, 1553333024, 1553333040, 1553333505, 1553333903, 1553333027, 1553333484, 1553333494, 1553333579, 1549200800, 1549200900, (SOLD 1549203020), 1553350006, 1553342014, 1553350001, 1553349911, 1553350010, 1553350019, 1553350022, 1553350080, 1553358001, 1553358004, 1549200788, 1549200822, 1549200844, 1557799002, 1553366005, 1549200844, 1553347776, 1529199110, 1529199070, 1529199294, 1529199883, 1533393277, 1533393300, 1533393338, (SOLD 1533393573), 1533393580, 1529200133, 1529202490, (SOLD 1529202505), 1529202530, 1529204010, 1533394241, 1533393639, 1529202425, 1529202400, 1533394373, 1533394323, 1533394241, 1529199885, 1533393635, 1533393595, 1533393141, 1533393400, 1533393344, 1533393318, 1547821112, 1547821110, 1552015343, 1552015251, 1547820900, 1552015200, 1552015147, 1552015145, 1557799021, 1557799033, 1557788921, 1557776683, 155773321, 1557771518, 1549303238, 1553473771, 1553382335, 1553379909, 1553377996, 1553368939, 1553367700, 1553366020, 1549171706, 1553361002, 1549208099, 1549202628, 1549202625, 1553396919, 1549202188, 1549202166, 1549201767, 1549201765, 1549201363, 1549201355, 1549201141, 1549201138, 1549201022, 1549200949, 1549200870, 1549200822, 1553358009, 1553358007, 1553356878, 1549155545, 1553350025, 1553349904, 1549155586, 1549155570, 1549155560, 1553347799, 1553347788, 1553347779, 1553345350, 1553345344, 1553345337, 1553345060, 1553344044, 1553343736, 1553343733, 1553343723, 1553343013, 1553343001, 1553342448, 1553339348, 1553339563, 1553339558, 1553339371, 1553339387, 1553339366, 1553338668, 1553338633, 1553339355, 1553338688, 1553338090, 1553337479, 1553335233, 1553335220, 1553333908, 1553333491, 1553333464, 1553332927, 1553327338, 1553327323, 1553322031, 1553329282, </p></div>
             </div>
         </div>
 
-        <div id="section-gifs" class="content-section">
-            <div class="animated-bar"><span>Modelo Afterefects 400 XATS </span></div>
-            <div class="gif-grid grid-compact">
-                <div class="gif-item"><img src="https://imgur.com/5HxfNaB.gif"><span>After 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/FILAVQP.gif"><span>After 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/5IoR515.gif"><span>After 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>After 4</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZuaO9n5.gif"><span>After 5</span></div>
-            </div>
-
-            <div class="animated-bar"><span>Modelo Blufftitler 350 XATS </span></div>
-            <div class="gif-grid grid-compact">
-                <div class="gif-item"><img src="https://imgur.com/65bzz5V.gif"><span>Bluff 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZetkVFF.gif"><span>Bluff 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/JqzxOwt.gif"><span>Bluff 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/NK9Z8rU.gif"><span>Bluff 4</span></div>
-                <div class="gif-item"><img src="https://imgur.com/RNIlFI3.gif"><span>Bluff 5</span></div>
-            </div>
-
-            <div class="animated-bar"><span>Modelo Canva 350 XATS </span></div>
-            <div class="gif-grid grid-compact">
-                <div class="gif-item"><img src="https://imgur.com/5HxfNaB.gif"><span>Can 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/FILAVQP.gif"><span>Can 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/5IoR515.gif"><span>Can 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>Can 4</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZuaO9n5.gif"><span>Can 5</span></div>
-            </div>
-
-            <div class="animated-bar"><span>Modelo Photoscape - 300 XATS </span></div>
-            <div class="gif-grid grid-compact">
-                <div class="gif-item"><img src="https://imgur.com/65bzz5V.gif"><span>Space 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZetkVFF.gif"><span>Space 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/JqzxOwt.gif"><span>Space 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/NK9Z8rU.gif"><span>Space 4</span></div>
-                <div class="gif-item"><img src="https://imgur.com/RNIlFI3.gif"><span>Space 5</span></div>
-            </div>
-
-            <div class="animated-bar"><span>Modelo Santa - 300 XATS </span></div>
-            <div class="gif-grid grid-compact">
-                <div class="gif-item"><img src="https://imgur.com/5HxfNaB.gif"><span>Santa 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/FILAVQP.gif"><span>Santa 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/5IoR515.gif"><span>Santa 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/KUQ1WsX.gif"><span>Santa 4</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZuaO9n5.gif"><span>Santa 5</span></div>
-            </div>
-        </div>
-
-        <div id="section-pcback" class="content-section">
-            <div class="animated-bar"><span>Pcback Gifs 450 XATS </span></div>
-            <div class="gif-grid grid-normal">
-                <div class="gif-item"><img src="https://i.imgur.com/SFnk7A6.gif"><span>Pcback 1</span></div>
-                <div class="gif-item"><img src="https://i.imgur.com/KKY2zqU.gif"><span>Pcback 2</span></div>
-                <div class="gif-item"><img src="https://i.imgur.com/fmhynyY.gif"><span>Pcback 3</span></div>
-            </div>
-        </div>
-
-        <div id="section-pstyle" class="content-section">
-            <div class="animated-bar"><span>Pstyle GIFs 350 XATS</span></div>
-            <div class="gif-grid grid-normal">
-                <div class="gif-item"><img src="https://imgur.com/rUIzfWU.gif"><span>Pstyle 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/dGfJDfh.gif"><span>Pstyle 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/ZXBA6F1.gif"><span>Pstyle 3</span></div>
-                <div class="gif-item"><img src="https://imgur.com/dImC226.gif"><span>Pstyle 4</span></div>
-            </div>
-        </div>
-
-        <div id="section-pcback-est" class="content-section">
-            <div class="animated-bar"><span>Pcback Estático 300 XATS </span></div>
-            <div class="gif-grid grid-normal">
-                <div class="gif-item"><img src="https://imgur.com/OyX4Jwt.png"><span>Pcback 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/tcGR4ey.png"><span>Pcback 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/dbSy2Rf.png"><span>Pcback 3</span></div>
-            </div>
-        </div>
-
-        <div id="section-pstyle-est" class="content-section">
-            <div class="animated-bar"><span>Pstyle Estático 250 XATS </span></div>
-            <div class="gif-grid grid-normal">
-                <div class="gif-item"><img src="https://imgur.com/zlcL7Dh.png"><span>Pstyle 1</span></div>
-                <div class="gif-item"><img src="https://imgur.com/m2Ew85b.png"><span>Pstyle 2</span></div>
-                <div class="gif-item"><img src="https://imgur.com/6PUSQBo.png"><span>Pstyle 3</span></div>
-            </div>
-        </div>
+        <!-- Seções Dinâmicas (Serão preenchidas pelo JS) -->
+        <div id="section-gifs" class="content-section"></div>
+        <div id="section-pcback" class="content-section"></div>
+        <div id="section-pstyle" class="content-section"></div>
+        <div id="section-pcback-est" class="content-section"></div>
+        <div id="section-pstyle-est" class="content-section"></div>
 
         <footer>
             <div class="neon-footer-text">Galeria exclusiva 2026</div>
@@ -465,6 +387,19 @@
     </div>
 
     <script>
+        // DATA DOS GIFS
+        const dataGifs = [
+            { marquee: "✧ BLUFFTITLER - ONLY NAME - 250 XATS ✧", prefix: "Name - ", ids: ["bidwh1D", "wR2NpTV", "IMrOUcP", "Hdi04Sg", "OcGaTXA", "wJZiwkG", "jDgxhBQ", "USQgVk8", "4bhAWa5", "0LL3muu"] },
+            { marquee: "✧ BLUFFTITLER - NAME + PHOTO - 350 XATS ✧", prefix: "Bluff - ", ids: ["F0b4mnJ", "65bzz5V", "ZetkVFF", "JqzxOwt", "NK9Z8rU", "RNIlFI3", "bSmUjsQ", "R6klF5K", "cgyGLHQ", "ctF1vyH", "Ge90Xy7", "7Z8xEC8", "G8HFkiG", "sh7u3UM", "y0WgmxJ", "Vvw2SMU", "uoNJlEe"] },
+            { marquee: "✧ CANVA - NAME + PHOTO - 300 XATS ✧", prefix: "Canva - ", ids: ["hWVyLox", "Uxlzu5C", "Crt716T", "xo4npxf", "jUG54d4", "gMQ3Fo9", "xvM1ixb", "cwRIh51", "db8sdi9", "nRJQ0BB"] },
+            { marquee: "✧ AFTEREFECTS - NAME + PHOTO - 400 XATS ✧", prefix: "After - ", ids: ["S5pXaVI", "qQB5w4C", "QlniJvg", "shyBpPS", "LzTvWk4", "aLBEkKq", "kJmAoul", "uOwOmwM", "u0Cse5Q", "ioDaClP", "PD03EYd", "HVFwoO9", "ueBRxvV", "XkwoKCf", "ULcq67R", "afxBCK8", "NKjJIGs", "xDhKvCC", "vvcOaEK", "ups9FgX", "JeY6A7M", "zDyoEgZ", "0FklDw9", "FX6gdFw", "V3LO0YG", "r9yfJNZ", "R3sO6Dv", "P8DpN4L", "fRfZuO7", "BPgPihm", "5HxfNaB", "FILAVQP", "5IoR515", "KUQ1WsX", "ZuaO9n5", "eYUpRds", "EkhA4lw", "ufOP9QG", "w2URYst", "1uMiE0k", "JQaMJ7U", "JeVcLkk", "un368jG", "LaClQL2", "l3Az3Nz", "8ME12WB", "SWSOcvf", "HizA7mV", "HnIaNDX", "bStEaxn", "CgwrMHf", "MtDrchh", "P4UINMY", "F0ujERT", "lHdM40L", "vWKX5Fb", "UHq0679", "2tRaU1S", "XQJ8R9h", "n4sAIhn", "LaJAK5L", "RIDkkSc", "ogHzac1", "aV63fjn", "tSuJOKg", "MxeKAfQ", "A4chzU3", "bAXpFow", "d1wToYT", "IXCqwlR", "kv1EWDW", "FIulKIF", "qLhMZAE", "R9nl6Ch", "A7x7PhX", "XU4klcy", "DRUBV0y", "geacP52", "lNh2rdL", "rS3PItx", "AzuyKg4", "aT6Rk4H", "0uZHgJW", "cyLfXAp", "omfCtkk", "lbauLSs", "s1rQrgg", "WNwfYTh", "XO8NzcJ", "6orVlLG", "Ocbami8", "oiVshBX", "bIP35gN", "Lwk0DWm", "N0FdNiy", "R7sOEoQ", "jrQMS1Q", "DA0VYtJ", "k21g4fQ"] },
+            { marquee: "✧ AFTEREFECTS - NAME + (2) PHOTO - 500 XATS ✧", prefix: "Love - ", ids: ["NnEIlrv", "8hrgq1D", "MqnmO8R", "oRvL0X3", "luwMPoD"] },
+            { marquee: "✧ AFTEREFECTS - DJ - NAME + PHOTO 450 XATS ✧", prefix: "DJ - ", ids: ["Bj6WFKZ", "GGrjZnE", "jJefFUv", "tesP8Me", "VRBqDtS", "WnnPvsU"] },
+            { marquee: "✧ AFTEREFECTS - HALLOWEEN - NAME + PHOTO 450 XATS ✧", prefix: "Hallo - ", ids: ["tYerofL", "DhJDXHE", "w3rSXf6", "9nHfmtZ", "61Eafym", "4ON7Gu0"] },
+            { marquee: "✧ AFTEREFECTS - CHRISTMAS - NAME + PHOTO 450 XATS ✧", prefix: "Xmas - ", ids: ["79ymrS9", "FOyoZu1", "rIs0a2w", "4USFEwb", "5vvU8qn"] },
+            { marquee: "✧ PHOTOSCAPE - (1) PHOTO - 100 XATS (2) PHOTOS - 200 XATS (3) PHOTOS - 300 XATS ✧", prefix: "Parpadeo - ", ids: ["bXTTG5V", "MdemxH0", "VpU6eOY", "NUIGQ3f", "NP25oCb", "mXHqKwc", "bKcj9xf"] }
+        ];
+
         // CONFIGURAÇÃO DO PLAYER E PLAYLIST
         const playlist = [
             { name: "Eminem - You dont know", url: "https://www.dropbox.com/scl/fi/4y0lc0fi24e9yavn17psv/Eminem-you-dont-know.mp3.mp3?rlkey=zicb6spgqe3pv0gqnz3xc24zo&st=wy1w0icm&raw=1" },
@@ -498,23 +433,43 @@
         };
 
         document.getElementById('music-volume').oninput = (e) => audio.volume = e.target.value;
-
         loadTrack(currentTrack);
 
-        // CONFIGURAÇÃO DO CONTADOR (CHAVE ÚNICA)
-        const ID_VISITAS = "wrs_galeria_v1_2026_final"; 
+        // FUNÇÃO PARA GERAR GRIDS DE GIFS
+        function renderGifs() {
+            const section = document.getElementById('section-gifs');
+            dataGifs.forEach(group => {
+                const bar = document.createElement('div');
+                bar.className = 'animated-bar';
+                bar.innerHTML = `<span>${group.marquee}</span>`;
+                section.appendChild(bar);
 
+                const grid = document.createElement('div');
+                grid.className = 'gif-grid';
+                
+                group.ids.forEach(id => {
+                    const item = document.createElement('div');
+                    item.className = 'gif-item';
+                    item.innerHTML = `<img src="https://i.imgur.com/${id}.gif" loading="lazy"><p>${group.prefix}${id}</p>`;
+                    grid.appendChild(item);
+                });
+                section.appendChild(grid);
+            });
+        }
+
+        // CONTADOR
+        const ID_VISITAS = "wrs_galeria_v1_2026_final"; 
         async function carregarContadores() {
             try {
                 const resV = await fetch(`https://api.counterapi.dev/v1/wrs-galeria/${ID_VISITAS}/up`);
                 const dataV = await resV.json();
                 document.getElementById('count-number').innerText = (dataV.count || dataV.value).toString().padStart(5, '0');
             } catch(e) {
-                console.error("Erro ao carregar contador:", e);
                 document.getElementById('count-number').innerText = "00001";
             }
         }
 
+        // ALERTAS E SEGURANÇA
         function showAlert(e) {
             if (e) e.preventDefault();
             const alertBox = document.getElementById('custom-alert');
@@ -523,15 +478,13 @@
             return false;
         }
 
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 65)) {
-                showAlert(e);
-            }
-            if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
+        document.addEventListener('keydown', e => {
+            if ((e.ctrlKey && [85, 83, 65].includes(e.keyCode)) || e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73)) {
                 showAlert(e);
             }
         });
 
+        // NAVEGAÇÃO
         const intro = document.getElementById('intro-screen');
         const gallery = document.getElementById('gallery-screen');
         const sections = document.querySelectorAll('.content-section');
@@ -541,12 +494,10 @@
             setTimeout(() => { 
                 intro.style.display = 'none'; 
                 gallery.classList.add('active');
+                renderGifs();
                 updateMarqueeProperties();
                 carregarContadores();
-                
-                audio.play().then(() => {
-                    playPauseBtn.innerText = "||";
-                }).catch(err => console.log("Autoplay bloqueado pelo navegador, aguardando interação."));
+                audio.play().then(() => { playPauseBtn.innerText = "||"; }).catch(() => {});
             }, 1000);
         };
 
@@ -568,10 +519,8 @@
             const spans = document.querySelectorAll('.animated-bar span, .texto-letreiro-wrapper span');
             spans.forEach(span => {
                 const parentBar = span.parentElement;
-                const barWidth = parentBar.offsetWidth;
-                const textWidth = span.offsetWidth;
-                span.style.setProperty('--marquee-start', barWidth + 'px');
-                span.style.setProperty('--marquee-end', '-' + textWidth + 'px');
+                span.style.setProperty('--marquee-start', parentBar.offsetWidth + 'px');
+                span.style.setProperty('--marquee-end', '-' + span.offsetWidth + 'px');
             });
         }
         window.addEventListener('resize', updateMarqueeProperties);
